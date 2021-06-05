@@ -1,0 +1,5 @@
+.box {
+  width: 342px;
+  height: 100vh;
+  background-color: var(--sidebar);
+}
