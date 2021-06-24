@@ -1,19 +1,42 @@
-import React from 'react'
+import React from 'react';
+import { RecoilRoot } from 'recoil';
+import styled, { ThemeProvider } from 'styled-components';
 
-import Sidebar from './sidebar'
-import Canvas from './canvas'
-import Inspector from './inspector'
+import { useTheme, GlobalStyle } from './style';
 
-import { container } from './App.module.css'
+import Sidebar from './sidebar';
+import Canvas from './canvas';
+import Inspector from './inspector';
+
+const Box = styled.main`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Main = () => {
+  const { values, isReady } = useTheme('dark');
+  if (!isReady) {
+    return null;
+  }
+
+  return (
+    <ThemeProvider theme={values}>
+      <GlobalStyle />
+      <Box>
+        <Sidebar />
+        <Canvas />
+        <Inspector />
+      </Box>
+    </ThemeProvider>
+  );
+};
 
 const App = () => {
   return (
-    <div className={container}>
-      <Sidebar />
-      <Canvas />
-      <Inspector />
-    </div>
-  )
-}
+    <RecoilRoot>
+      <Main />
+    </RecoilRoot>
+  );
+};
 
-export default App
+export default App;

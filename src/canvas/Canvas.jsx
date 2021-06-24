@@ -1,26 +1,32 @@
-import React from 'react'
-import { useWindowSize } from '@react-hook/window-size'
+import React from 'react';
+import styled from 'styled-components';
+import { useWindowSize } from 'react-use';
 
-import Artboard from './artboard'
+import Artboard from './artboard';
 
-import { box } from './Canvas.module.css'
+const Box = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: ${(props) => props.theme.canvas.background};
+  color: ${(props) => props.theme.canvas.color};
+`;
 
 const Canvas = () => {
-  const [windowWidth, windowHeight] = useWindowSize({ wait: 50 })
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   // ToDo: do not hardcore sidebar values
   // ToDo: too big on big screens?
 
-  const width = windowWidth - 2 * 342 - 160
-  const height = windowHeight - 160
-  const artboardWidth = width < height ? width : height
-  const minSize = 300
+  const width = windowWidth - 2 * 342 - 160;
+  const height = windowHeight - 160;
+  const artboardWidth = width < height ? width : height;
+  const minSize = 300;
 
   return (
-    <div className={box}>
+    <Box>
       <Artboard width={artboardWidth >= minSize ? artboardWidth : minSize} />
-    </div>
-  )
-}
+    </Box>
+  );
+};
 
-export default Canvas
+export default Canvas;

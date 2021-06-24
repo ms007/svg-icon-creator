@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
 
-import { box } from './Sidebar.module.css'
+const Box = styled.div`
+  min-width: 342px;
+  height: 100vh;
+  background-color: ${(props) => props.theme.sidebar.background};
+  color: ${(props) => props.theme.sidebar.color};
+`;
 
 const Sidebar = () => {
-  return <div className={box}>Sidebar</div>
-}
+  return <Box>Sidebar</Box>;
+};
 
-export default Sidebar
+export default Sidebar;
