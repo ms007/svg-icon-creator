@@ -3,10 +3,7 @@ import { RecoilRoot } from 'recoil';
 import styled, { ThemeProvider } from 'styled-components';
 
 import { useTheme, GlobalStyle } from './style';
-
-import Sidebar from './sidebar';
-import Canvas from './canvas';
-import Inspector from './inspector';
+import { Sidebar, Canvas, Inspector } from './components';
 
 const Box = styled.main`
   display: flex;

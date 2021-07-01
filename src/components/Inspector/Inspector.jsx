@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ThemeSwitch } from './components';
+import ThemeSwitch from './ThemeSwitch';
 
 const Box = styled.div`
   min-width: 342px;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useTheme } from '../../style';
+import { useTheme } from '../../../style';
 
 const Button = styled.button`
   width: 24px;
