@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Box = styled.div`
-  margin: 80px;
+  margin: ${(props) => `${props.margin}px`};
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
   background-color: ${(props) => props.theme.artboard.background};
@@ -11,8 +11,12 @@ const Box = styled.div`
   color: ${(props) => props.theme.artboard.color};
 `;
 
-const Artboard = ({ width }) => {
-  return <Box width={width}>Artboard</Box>;
+const Artboard = ({ width, margin }) => {
+  return (
+    <Box width={width} margin={margin}>
+      Artboard
+    </Box>
+  );
 };
 
 export default Artboard;
