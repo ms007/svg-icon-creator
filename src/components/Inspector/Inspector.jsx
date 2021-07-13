@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-import { sideBarState } from '../../state/size.state';
+import { inspectorState } from 'state/size.state';
 import ThemeSwitch from './ThemeSwitch';
 
 const Box = styled.div`
@@ -19,7 +19,7 @@ const Switch = styled.div`
 `;
 
 const Inspector = () => {
-  const [width] = useRecoilState(sideBarState);
+  const width = useRecoilValue(inspectorState);
 
   return (
     <Box width={width}>

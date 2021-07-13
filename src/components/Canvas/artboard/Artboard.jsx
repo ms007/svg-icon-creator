@@ -12,9 +12,13 @@ const Box = styled.div`
 `;
 
 const Artboard = ({ width, margin }) => {
+  // ToDo: do not hardcode viewBox values - make them editable
+
   return (
     <Box width={width} margin={margin}>
-      Artboard
+      <svg width={width} height={width} viewBox={`0 0 24 24`}>
+        <rect x="0" y="2" width="4" height="6" />
+      </svg>
     </Box>
   );
 };

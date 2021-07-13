@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useWindowSize } from 'react-use';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-import { sideBarState, inspectorState } from '../../state/size.state';
-import Artboard from './artboard';
+import { artboardState } from 'state/size.state';
+import Artboard from './Artboard';
 
 const Box = styled.div`
   width: 100%;
@@ -14,24 +13,11 @@ const Box = styled.div`
 `;
 
 const Canvas = () => {
-  const [sidebarWidth] = useRecoilState(sideBarState);
-  const [inspectorWidth] = useRecoilState(inspectorState);
-  const { width: windowWidth, height: windowHeight } = useWindowSize();
-  const margin = 80;
-
-  // ToDo: too big on big screens?
-
-  const width = windowWidth - sidebarWidth - inspectorWidth - margin * 2;
-  const height = windowHeight - margin * 2;
-  const artboardWidth = width < height ? width : height;
-  const minSize = 300;
+  const { width, margin } = useRecoilValue(artboardState);
 
   return (
     <Box>
-      <Artboard
-        width={artboardWidth >= minSize ? artboardWidth : minSize}
-        margin={margin}
-      />
+      <Artboard width={width} margin={margin} />
     </Box>
   );
 };

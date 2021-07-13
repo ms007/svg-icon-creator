@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-import { sideBarState } from '../../state/size.state';
+import { sidebarState } from 'state/size.state';
 
 const Box = styled.div`
   min-width: ${(props) => `${props.width}px`};
@@ -12,7 +12,7 @@ const Box = styled.div`
 `;
 
 const Sidebar = () => {
-  const [width] = useRecoilState(sideBarState);
+  const width = useRecoilValue(sidebarState);
 
   return <Box width={width}>Sidebar</Box>;
 };

@@ -1,7 +1,9 @@
-import React from 'react';
-import { RecoilRoot } from 'recoil';
+import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { useWindowSize } from 'react-use';
 
+import { windowState } from './state/size.state';
 import { useTheme, GlobalStyle } from './style';
 import { Sidebar, Canvas, Inspector } from './components';
 
@@ -11,7 +13,14 @@ const Box = styled.main`
 `;
 
 const Main = () => {
+  const { width, height } = useWindowSize();
   const { values, isReady } = useTheme('dark');
+  const setDimensions = useSetRecoilState(windowState);
+
+  useEffect(() => {
+    setDimensions({ width, height });
+  }, [width, height, setDimensions]);
+
   if (!isReady) {
     return null;
   }
