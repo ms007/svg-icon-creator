@@ -14,7 +14,7 @@ const Box = styled.main`
 
 const Main = () => {
   const { width, height } = useWindowSize();
-  const { values, isReady } = useTheme('dark');
+  const { values, isReady } = useTheme('light');
   const setDimensions = useSetRecoilState(windowState);
 
   useEffect(() => {

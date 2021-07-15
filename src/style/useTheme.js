@@ -1,31 +1,30 @@
-import { useState, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
-import { atom } from 'recoil';
-
-import light from './light';
-import dark from './dark';
+import { atom, useRecoilState } from 'recoil';
 
 const themeValuesState = atom({
-  key: '[theme] theme values',
-  default: light,
+  key: 'themeValues',
+  default: null,
 });
 
 const useTheme = (theme = 'light') => {
-  const [isReady, setIsReady] = useState(false);
   const [name, setName] = useLocalStorage('theme', theme);
   const [values, setValues] = useRecoilState(themeValuesState);
 
   useEffect(() => {
-    setValues(name === 'dark' ? light : dark);
-    setIsReady(true);
+    const loadThemeValues = async () => {
+      const { default: themeValues } = await import(`./${name}`);
+      setValues(themeValues);
+    };
+
+    loadThemeValues();
   }, [name, setValues]);
 
   const toggleTheme = () => {
     setName(name === 'dark' ? 'light' : 'dark');
-    setValues(name === 'dark' ? light : dark);
   };
 
+  const isReady = values != null;
   return { name, values, isReady, toggleTheme };
 };
 

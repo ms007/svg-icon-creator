@@ -5,6 +5,8 @@ const GlobalStyle = createGlobalStyle`
   ${normalize}
 
   body {
+    overflow: hidden;
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
