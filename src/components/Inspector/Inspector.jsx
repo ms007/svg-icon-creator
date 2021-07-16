@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
-import { inspectorState } from 'state/size.state';
+import inspectorAtom from 'recoil/inspector';
 import ThemeSwitch from './ThemeSwitch';
 
 const Box = styled.div`
@@ -19,7 +19,7 @@ const Switch = styled.div`
 `;
 
 const Inspector = () => {
-  const width = useRecoilValue(inspectorState);
+  const { width } = useRecoilValue(inspectorAtom);
 
   return (
     <Box width={width}>

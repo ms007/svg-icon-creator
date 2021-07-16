@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
-import { artboardState } from 'state/size.state';
 import Artboard from './Artboard';
 
 const Box = styled.div`
@@ -13,11 +11,9 @@ const Box = styled.div`
 `;
 
 const Canvas = () => {
-  const { width, margin } = useRecoilValue(artboardState);
-
   return (
     <Box>
-      <Artboard width={width} margin={margin} />
+      <Artboard />
     </Box>
   );
 };

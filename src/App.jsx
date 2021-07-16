@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { useWindowSize } from 'react-use';
 
-import { windowState } from './state/size.state';
+import windowAtom from './recoil/window';
 import { useTheme, GlobalStyle } from './style';
 import { Sidebar, Canvas, Inspector } from './components';
 
@@ -14,8 +14,8 @@ const Box = styled.main`
 
 const Main = () => {
   const { width, height } = useWindowSize();
-  const { values, isReady } = useTheme('light');
-  const setDimensions = useSetRecoilState(windowState);
+  const { theme, isReady } = useTheme('light');
+  const setDimensions = useSetRecoilState(windowAtom);
 
   useEffect(() => {
     setDimensions({ width, height });
@@ -26,7 +26,7 @@ const Main = () => {
   }
 
   return (
-    <ThemeProvider theme={values}>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Box>
         <Sidebar />

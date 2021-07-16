@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+
+import artboardAtom, { withWidth } from 'recoil/artboard';
 
 const Box = styled.div`
   margin: ${(props) => `${props.margin}px`};
@@ -11,7 +14,12 @@ const Box = styled.div`
   color: ${(props) => props.theme.artboard.color};
 `;
 
-const Artboard = ({ width, margin }) => {
+const Artboard = () => {
+  const { margin } = useRecoilValue(artboardAtom);
+  const width = useRecoilValue(withWidth);
+
+  console.log({ width, margin });
+
   // ToDo: do not hardcode viewBox values - make them editable
 
   return (
