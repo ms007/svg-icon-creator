@@ -17,6 +17,7 @@ const theme = {
   },
   artboard: {
     background: '#ffffff',
+    boxShadow: '#1e2433',
     color: '#222222',
   },
 };

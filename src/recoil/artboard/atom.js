@@ -6,6 +6,7 @@ const artboardAtom = atom({
     margin: 80,
     minWidth: 300,
     maxWidth: 900,
+    size: 24,
   },
 });
 
