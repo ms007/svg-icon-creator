@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
 import artboardAtom, { withWidth } from 'recoil/artboard';
-import presetsAtom from 'recoil/artboard';
+import presetsAtom from 'recoil/presets';
+
+import Grid from './Grid';
 
 const Box = styled.div`
   margin: ${(props) => `${props.margin}px`};
@@ -25,7 +27,7 @@ const Artboard = () => {
   return (
     <Box width={width} margin={margin}>
       <svg width={width} height={width} viewBox={viewBox}>
-        <rect x="0" y="2" width="4" height="6" />
+        <Grid size={size} />
       </svg>
     </Box>
   );
