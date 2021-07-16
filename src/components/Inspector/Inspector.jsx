@@ -6,6 +6,7 @@ import inspectorAtom from 'recoil/inspector';
 import ThemeSwitch from './ThemeSwitch';
 
 const Box = styled.div`
+  position: relative;
   min-width: ${(props) => `${props.width}px`};
   height: 100vh;
   background-color: ${(props) => props.theme.inspector.background};
