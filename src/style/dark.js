@@ -2,14 +2,19 @@ const theme = {
   sidebar: {
     background: '#1e2433',
     color: '#f9fafb',
-    switch: {
-      fill: '#565a66',
+    tools: {
+      text: '#565a66',
+      stroke: '#565a66',
       hover: '#f9fafb',
     },
   },
   inspector: {
     background: '#1e2433',
     color: '#f9fafb',
+    switch: {
+      fill: '#565a66',
+      hover: '#f9fafb',
+    },
   },
   canvas: {
     background: '#2b313f',

@@ -19,15 +19,15 @@ const Box = styled.div`
 
 const Artboard = () => {
   const { margin } = useRecoilValue(artboardAtom);
-  const { size } = useRecoilValue(presetsAtom);
+  const { iconSize } = useRecoilValue(presetsAtom);
   const width = useRecoilValue(withWidth);
 
-  const viewBox = `0 0 ${size} ${size}`;
+  const viewBox = `0 0 ${iconSize} ${iconSize}`;
 
   return (
     <Box width={width} margin={margin}>
       <svg width={width} height={width} viewBox={viewBox}>
-        <Grid size={size} />
+        <Grid size={iconSize} />
       </svg>
     </Box>
   );
