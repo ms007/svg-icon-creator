@@ -17,7 +17,7 @@ const Box = styled.div`
   color: ${(props) => props.theme.artboard.color};
 `;
 
-const Artboard = () => {
+const Artboard = ({ children }) => {
   const { margin } = useRecoilValue(artboardAtom);
   const { iconSize } = useRecoilValue(presetsAtom);
   const width = useRecoilValue(withWidth);
@@ -28,6 +28,7 @@ const Artboard = () => {
     <Box width={width} margin={margin}>
       <svg width={width} height={width} viewBox={viewBox}>
         <Grid size={iconSize} />
+        {children}
       </svg>
     </Box>
   );

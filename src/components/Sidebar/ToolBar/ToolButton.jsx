@@ -19,8 +19,8 @@ const Button = styled.button`
   }
 `;
 
-const ToolButton = ({ children }) => {
-  return <Button>{children}</Button>;
+const ToolButton = ({ children, onClick }) => {
+  return <Button onClick={onClick}>{children}</Button>;
 };
 
 export default ToolButton;

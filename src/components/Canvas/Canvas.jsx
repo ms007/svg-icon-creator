@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import Artboard from './Artboard';
+import CanvasItem from './CanvasItem';
+
+import { canvasItemsAtom } from 'recoil/canvas';
 
 const Box = styled.div`
   width: 100%;
@@ -13,9 +17,15 @@ const Box = styled.div`
 `;
 
 const Canvas = () => {
+  const canvasItems = useRecoilValue(canvasItemsAtom);
+
   return (
     <Box>
-      <Artboard />
+      <Artboard>
+        {canvasItems.map((item) => {
+          return <CanvasItem id={item} />;
+        })}
+      </Artboard>
     </Box>
   );
 };
