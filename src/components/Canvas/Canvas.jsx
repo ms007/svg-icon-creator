@@ -23,7 +23,7 @@ const Canvas = () => {
     <Box>
       <Artboard>
         {canvasItems.map((item) => {
-          return <CanvasItem id={item} />;
+          return <CanvasItem key={item} id={item} />;
         })}
       </Artboard>
     </Box>

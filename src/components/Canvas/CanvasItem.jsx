@@ -1,13 +1,25 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
+import useCanvasItemMove from 'hooks/useCanvasItemMove';
 import { canvasItemsAtomFamily } from 'recoil/canvas';
 
 export default function CanvasItem({ id }) {
-  const state = useRecoilValue(canvasItemsAtomFamily(id));
-  console.log(state);
+  const [itemState, setItemState] = useRecoilState(canvasItemsAtomFamily(id));
 
-  const Shape = () => <rect x="2" y="2" width="2" height="2" />;
+  const { onMouseDown } = useCanvasItemMove(({ status, position }) => {
+    if (status === 'moving') {
+      const { x, y } = position;
+      setItemState({
+        ...itemState,
+        x,
+        y,
+      });
+    }
+  });
+
+  const { x, y } = itemState;
+  const Shape = () => <rect onMouseDown={onMouseDown} x={x} y={y} width="2" height="2" />;
 
   return <Shape />;
 }

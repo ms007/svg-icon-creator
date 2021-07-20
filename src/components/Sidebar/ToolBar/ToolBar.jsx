@@ -13,7 +13,7 @@ const Tools = () => {
   const addNewCanvasItem = useRecoilCallback(({ set }) => (type) => {
     const id = uuid();
     set(canvasItemsAtom, (canvasItems) => [...canvasItems, id]);
-    set(canvasItemsAtomFamily(id), { type });
+    set(canvasItemsAtomFamily(id), { type, x: 0, y: 0 });
   });
 
   return (

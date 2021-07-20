@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import artboardAtom, { withWidth } from 'recoil/artboard';
 import presetsAtom from 'recoil/presets';
+import useSvgRef from 'hooks/useSvgRef';
 
 import Grid from './Grid';
 
@@ -18,6 +19,7 @@ const Box = styled.div`
 `;
 
 const Artboard = ({ children }) => {
+  const svg = useSvgRef();
   const { margin } = useRecoilValue(artboardAtom);
   const { iconSize } = useRecoilValue(presetsAtom);
   const width = useRecoilValue(withWidth);
@@ -26,7 +28,7 @@ const Artboard = ({ children }) => {
 
   return (
     <Box width={width} margin={margin}>
-      <svg width={width} height={width} viewBox={viewBox}>
+      <svg ref={svg} width={width} height={width} viewBox={viewBox}>
         <Grid size={iconSize} />
         {children}
       </svg>
