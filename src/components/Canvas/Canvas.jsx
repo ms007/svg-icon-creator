@@ -4,8 +4,9 @@ import { useRecoilValue } from 'recoil';
 
 import Artboard from './Artboard';
 import CanvasItem from './CanvasItem';
+import NewCanvasItem from './NewCanvasItem';
 
-import { canvasItemsAtom } from 'recoil/canvas';
+import { newCanvasItemAtom, canvasItemsAtom } from 'recoil/canvas';
 
 const Box = styled.div`
   width: 100%;
@@ -17,11 +18,13 @@ const Box = styled.div`
 `;
 
 const Canvas = () => {
+  const { visible, type } = useRecoilValue(newCanvasItemAtom);
   const canvasItems = useRecoilValue(canvasItemsAtom);
 
   return (
     <Box>
       <Artboard>
+        {visible && <NewCanvasItem type={type} />}
         {canvasItems.map((item) => {
           return <CanvasItem key={item} id={item} />;
         })}

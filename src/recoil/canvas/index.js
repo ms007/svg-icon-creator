@@ -1,5 +1,5 @@
-import { canvasItemsAtom, canvasItemsAtomFamily } from './atom';
+import { newCanvasItemAtom, canvasItemsAtom, canvasItemsAtomFamily } from './atom';
 
-export { canvasItemsAtom, canvasItemsAtomFamily };
+export { newCanvasItemAtom, canvasItemsAtom, canvasItemsAtomFamily };
 
 export default canvasItemsAtom;

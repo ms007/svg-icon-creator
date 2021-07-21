@@ -1,24 +1,23 @@
 import React from 'react';
-import { useRecoilCallback } from 'recoil';
-import { v4 as uuid } from 'uuid';
+import { useSetRecoilState } from 'recoil';
 
 import ToolButton from './ToolButton';
 import ToolTitle from './ToolTitle';
 import ToolCaption from './ToolCaption';
 import Rectangle from './Rectangle';
 
-import { canvasItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
+import { newCanvasItemAtom } from 'recoil/canvas';
 
 const Tools = () => {
-  const addNewCanvasItem = useRecoilCallback(({ set }) => (type) => {
-    const id = uuid();
-    set(canvasItemsAtom, (canvasItems) => [...canvasItems, id]);
-    set(canvasItemsAtomFamily(id), { type, x: 0, y: 0 });
-  });
+  const addNewCanvasItem = useSetRecoilState(newCanvasItemAtom);
+
+  const onToolbarButtonClick = (type) => {
+    addNewCanvasItem({ visible: true, type });
+  };
 
   return (
     <>
-      <ToolButton onClick={() => addNewCanvasItem('rectangle')}>
+      <ToolButton onClick={() => onToolbarButtonClick('rectangle')}>
         <Rectangle />
         <ToolTitle title="Rectangle" />
         <ToolCaption caption="(R)" />

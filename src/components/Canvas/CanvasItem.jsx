@@ -10,16 +10,17 @@ export default function CanvasItem({ id }) {
   const { onMouseDown } = useCanvasItemMove(({ status, position }) => {
     if (status === 'moving') {
       const { x, y } = position;
+
       setItemState({
         ...itemState,
-        x,
-        y,
+        x: Math.round(x),
+        y: Math.round(y),
       });
     }
   });
 
-  const { x, y } = itemState;
-  const Shape = () => <rect onMouseDown={onMouseDown} x={x} y={y} width="2" height="2" />;
+  const { x, y, width, height } = itemState;
+  const Shape = () => <rect onMouseDown={onMouseDown} x={x} y={y} width={width} height={height} />;
 
   return <Shape />;
 }
