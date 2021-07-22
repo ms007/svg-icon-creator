@@ -2,14 +2,14 @@ import { useState, useCallback, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import svgAtom from 'recoil/svg';
-import { getMousePosition } from 'util/svg';
+import useSvgMousePosition from './useSvgMousePosition';
 
 export default function useCanvasItemCreate(func) {
   const svg = useRecoilValue(svgAtom);
   const [isCreating, setIsCreating] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
 
-  const getPosition = getMousePosition(svg);
+  const getMousePosition = useSvgMousePosition();
 
   const callback = useCallback(
     (status, position) => {
@@ -23,10 +23,10 @@ export default function useCanvasItemCreate(func) {
       setIsCreating(true);
       setIsMoving(true);
 
-      const position = getPosition(event);
+      const position = getMousePosition(event);
       callback('start', position);
     },
-    [callback, getPosition]
+    [callback, getMousePosition]
   );
 
   const handleMouseMove = useCallback(
@@ -35,10 +35,10 @@ export default function useCanvasItemCreate(func) {
         return;
       }
 
-      const position = getPosition(event);
+      const position = getMousePosition(event);
       callback('moving', position);
     },
-    [callback, getPosition, isMoving]
+    [callback, getMousePosition, isMoving]
   );
 
   const handleMouseUp = useCallback(
@@ -50,10 +50,10 @@ export default function useCanvasItemCreate(func) {
       setIsCreating(false);
       setIsMoving(false);
 
-      const position = getPosition(event);
+      const position = getMousePosition(event);
       callback('end', position);
     },
-    [callback, getPosition, isMoving]
+    [callback, getMousePosition, isMoving]
   );
 
   useEffect(() => {

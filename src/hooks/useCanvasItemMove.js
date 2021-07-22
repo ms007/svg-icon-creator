@@ -1,15 +1,11 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-
-import svgAtom from 'recoil/svg';
-import { getMousePosition } from 'util/svg';
+import useSvgMousePosition from './useSvgMousePosition';
 
 export default function useCanvasItemMove(func) {
-  const svg = useRecoilValue(svgAtom);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isMoving, setIsMoving] = useState(false);
 
-  const getPosition = getMousePosition(svg);
+  const getMousePosition = useSvgMousePosition();
 
   const callback = useCallback(
     (status, position) => {
@@ -20,7 +16,7 @@ export default function useCanvasItemMove(func) {
 
   const handleMouseDown = useCallback(
     (event) => {
-      const position = getPosition(event);
+      const position = getMousePosition(event);
       const selectedElement = event.target;
       position.x -= parseFloat(selectedElement.getAttributeNS(null, 'x'));
       position.y -= parseFloat(selectedElement.getAttributeNS(null, 'y'));
@@ -28,7 +24,7 @@ export default function useCanvasItemMove(func) {
       setOffset(position);
       callback('start', position);
     },
-    [callback, getPosition]
+    [callback, getMousePosition]
   );
 
   const handleMouseMove = useCallback(
@@ -37,12 +33,12 @@ export default function useCanvasItemMove(func) {
         return;
       }
 
-      const position = getPosition(event);
+      const position = getMousePosition(event);
       position.x = position.x - offset.x;
       position.y = position.y - offset.y;
       callback('moving', position);
     },
-    [callback, getPosition, isMoving, offset]
+    [callback, getMousePosition, isMoving, offset]
   );
 
   const handleMouseUp = useCallback(
@@ -53,12 +49,12 @@ export default function useCanvasItemMove(func) {
 
       setIsMoving(false);
 
-      const position = getPosition(event);
+      const position = getMousePosition(event);
       position.x = position.x - offset.x;
       position.y = position.y - offset.y;
       callback('end', position);
     },
-    [callback, getPosition, isMoving, offset]
+    [callback, getMousePosition, isMoving, offset]
   );
 
   useEffect(() => {
