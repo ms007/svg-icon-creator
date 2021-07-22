@@ -1,11 +1,12 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useCanvasItemMove from 'hooks/useCanvasItemMove';
-import { canvasItemsAtomFamily } from 'recoil/canvas';
+import { canvasIsCreatingNewItemAtom, canvasItemsAtomFamily } from 'recoil/canvas';
 
 export default function CanvasItem({ id }) {
   const [itemState, setItemState] = useRecoilState(canvasItemsAtomFamily(id));
+  const isCreatingNewCanvasItem = useRecoilValue(canvasIsCreatingNewItemAtom);
 
   const { onMouseDown } = useCanvasItemMove(({ status, position }) => {
     if (status === 'moving') {
@@ -19,8 +20,12 @@ export default function CanvasItem({ id }) {
     }
   });
 
+  const handleMouseDown = isCreatingNewCanvasItem ? () => {} : onMouseDown;
+
   const { x, y, width, height } = itemState;
-  const Shape = () => <rect onMouseDown={onMouseDown} x={x} y={y} width={width} height={height} />;
+  const Shape = () => (
+    <rect onMouseDown={handleMouseDown} x={x} y={y} width={width} height={height} />
+  );
 
   return <Shape />;
 }

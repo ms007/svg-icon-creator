@@ -2,22 +2,14 @@ import { useState, useCallback, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import svgAtom from 'recoil/svg';
+import { getMousePosition } from 'util/svg';
 
 export default function useCanvasItemMove(func) {
   const svg = useRecoilValue(svgAtom);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isMoving, setIsMoving] = useState(false);
 
-  const getMousePosition = useCallback(
-    (event) => {
-      const CTM = svg.getScreenCTM();
-      return {
-        x: (event.clientX - CTM.e) / CTM.a,
-        y: (event.clientY - CTM.f) / CTM.d,
-      };
-    },
-    [svg]
-  );
+  const getPosition = getMousePosition(svg);
 
   const callback = useCallback(
     (status, position) => {
@@ -28,15 +20,15 @@ export default function useCanvasItemMove(func) {
 
   const handleMouseDown = useCallback(
     (event) => {
+      const position = getPosition(event);
       const selectedElement = event.target;
-      const position = getMousePosition(event);
       position.x -= parseFloat(selectedElement.getAttributeNS(null, 'x'));
       position.y -= parseFloat(selectedElement.getAttributeNS(null, 'y'));
       setIsMoving(true);
       setOffset(position);
       callback('start', position);
     },
-    [callback, getMousePosition]
+    [callback, getPosition]
   );
 
   const handleMouseMove = useCallback(
@@ -45,12 +37,12 @@ export default function useCanvasItemMove(func) {
         return;
       }
 
-      const position = getMousePosition(event);
+      const position = getPosition(event);
       position.x = position.x - offset.x;
       position.y = position.y - offset.y;
       callback('moving', position);
     },
-    [callback, getMousePosition, isMoving, offset]
+    [callback, getPosition, isMoving, offset]
   );
 
   const handleMouseUp = useCallback(
@@ -61,12 +53,12 @@ export default function useCanvasItemMove(func) {
 
       setIsMoving(false);
 
-      const position = getMousePosition(event);
+      const position = getPosition(event);
       position.x = position.x - offset.x;
       position.y = position.y - offset.y;
       callback('end', position);
     },
-    [callback, getMousePosition, isMoving, offset]
+    [callback, getPosition, isMoving, offset]
   );
 
   useEffect(() => {
@@ -80,11 +72,7 @@ export default function useCanvasItemMove(func) {
       window.removeEventListener('mouseup', handleMouseUp);
     }
 
-    if (isMoving) {
-      addEventListeners();
-    } else {
-      removeEventListeners();
-    }
+    isMoving ? addEventListeners() : removeEventListeners();
 
     return removeEventListeners;
   }, [handleMouseMove, handleMouseUp, isMoving]);

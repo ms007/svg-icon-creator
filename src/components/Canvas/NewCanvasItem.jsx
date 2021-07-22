@@ -3,15 +3,22 @@ import { useRecoilCallback, useResetRecoilState } from 'recoil';
 import { v4 as uuid } from 'uuid';
 
 import useCanvasItemCreate from 'hooks/useCanvasItemCreate';
-import { newCanvasItemAtom, canvasItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
+import {
+  canvasIsCreatingNewItemAtom,
+  newCanvasItemTypeAtom,
+  canvasItemsAtom,
+  canvasItemsAtomFamily,
+} from 'recoil/canvas';
 
 const NewCanvasItem = ({ type }) => {
   const [newItem, setNewItem] = useState(null);
-  const reset = useResetRecoilState(newCanvasItemAtom);
+  const resetType = useResetRecoilState(newCanvasItemTypeAtom);
+  const resetIsCreatingNewItem = useResetRecoilState(canvasIsCreatingNewItemAtom);
 
   const addNewCanvasItem = useRecoilCallback(({ set }) => (canvasItem) => {
     const id = uuid();
-    reset();
+    resetType();
+    resetIsCreatingNewItem();
     set(canvasItemsAtom, (canvasItems) => [...canvasItems, id]);
     set(canvasItemsAtomFamily(id), canvasItem);
   });

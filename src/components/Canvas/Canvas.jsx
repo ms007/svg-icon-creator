@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, waitForAll } from 'recoil';
 
 import Artboard from './Artboard';
 import CanvasItem from './CanvasItem';
 import NewCanvasItem from './NewCanvasItem';
 
-import { newCanvasItemAtom, canvasItemsAtom } from 'recoil/canvas';
+import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom, canvasItemsAtom } from 'recoil/canvas';
 
 const Box = styled.div`
   width: 100%;
@@ -18,13 +18,17 @@ const Box = styled.div`
 `;
 
 const Canvas = () => {
-  const { visible, type } = useRecoilValue(newCanvasItemAtom);
+  const [isCreatingNewItem, type] = useRecoilValue(
+    waitForAll([canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom])
+  );
+
   const canvasItems = useRecoilValue(canvasItemsAtom);
 
   return (
     <Box>
       <Artboard>
-        {visible && <NewCanvasItem type={type} />}
+        {isCreatingNewItem && <NewCanvasItem type={type} />}
+
         {canvasItems.map((item) => {
           return <CanvasItem key={item} id={item} />;
         })}

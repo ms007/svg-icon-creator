@@ -6,13 +6,16 @@ import ToolTitle from './ToolTitle';
 import ToolCaption from './ToolCaption';
 import Rectangle from './Rectangle';
 
-import { newCanvasItemAtom } from 'recoil/canvas';
+import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom } from 'recoil/canvas';
+import {} from 'recoil/canvas/atom';
 
 const Tools = () => {
-  const addNewCanvasItem = useSetRecoilState(newCanvasItemAtom);
+  const setNewCanvasItemType = useSetRecoilState(newCanvasItemTypeAtom);
+  const setIsCreatingNewItem = useSetRecoilState(canvasIsCreatingNewItemAtom);
 
   const onToolbarButtonClick = (type) => {
-    addNewCanvasItem({ visible: true, type });
+    setNewCanvasItemType(type);
+    setIsCreatingNewItem(true);
   };
 
   return (

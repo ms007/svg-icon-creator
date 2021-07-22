@@ -2,22 +2,14 @@ import { useState, useCallback, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import svgAtom from 'recoil/svg';
+import { getMousePosition } from 'util/svg';
 
 export default function useCanvasItemCreate(func) {
   const svg = useRecoilValue(svgAtom);
   const [isCreating, setIsCreating] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
 
-  const getMousePosition = useCallback(
-    (event) => {
-      const CTM = svg.getScreenCTM();
-      return {
-        x: (event.clientX - CTM.e) / CTM.a,
-        y: (event.clientY - CTM.f) / CTM.d,
-      };
-    },
-    [svg]
-  );
+  const getPosition = getMousePosition(svg);
 
   const callback = useCallback(
     (status, position) => {
@@ -31,10 +23,10 @@ export default function useCanvasItemCreate(func) {
       setIsCreating(true);
       setIsMoving(true);
 
-      const position = getMousePosition(event);
+      const position = getPosition(event);
       callback('start', position);
     },
-    [callback, getMousePosition]
+    [callback, getPosition]
   );
 
   const handleMouseMove = useCallback(
@@ -43,10 +35,10 @@ export default function useCanvasItemCreate(func) {
         return;
       }
 
-      const position = getMousePosition(event);
+      const position = getPosition(event);
       callback('moving', position);
     },
-    [callback, getMousePosition, isMoving]
+    [callback, getPosition, isMoving]
   );
 
   const handleMouseUp = useCallback(
@@ -58,10 +50,10 @@ export default function useCanvasItemCreate(func) {
       setIsCreating(false);
       setIsMoving(false);
 
-      const position = getMousePosition(event);
+      const position = getPosition(event);
       callback('end', position);
     },
-    [callback, getMousePosition, isMoving]
+    [callback, getPosition, isMoving]
   );
 
   useEffect(() => {
@@ -83,11 +75,7 @@ export default function useCanvasItemCreate(func) {
       window.removeEventListener('mouseup', handleMouseUp);
     }
 
-    if (isMoving) {
-      addEventListeners();
-    } else {
-      removeEventListeners();
-    }
+    isMoving ? addEventListeners() : removeEventListeners();
 
     return removeEventListeners;
   }, [handleMouseMove, handleMouseUp, isMoving]);

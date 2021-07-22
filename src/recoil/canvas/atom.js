@@ -1,11 +1,13 @@
 import { atom, atomFamily } from 'recoil';
 
-export const newCanvasItemAtom = atom({
-  key: 'newCanvasItemAtom',
-  default: {
-    visible: false,
-    type: 'none',
-  },
+export const canvasIsCreatingNewItemAtom = atom({
+  key: 'canvasCreatingNewItemAtom',
+  default: false,
+});
+
+export const newCanvasItemTypeAtom = atom({
+  key: 'newCanvasItemTypeAtom',
+  default: null,
 });
 
 export const canvasItemsAtom = atom({
