@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useKey } from 'react-use';
 import { useRecoilCallback, useResetRecoilState } from 'recoil';
 import { v4 as uuid } from 'uuid';
 
@@ -15,10 +16,16 @@ const NewCanvasItem = ({ type }) => {
   const resetType = useResetRecoilState(newCanvasItemTypeAtom);
   const resetIsCreatingNewItem = useResetRecoilState(canvasIsCreatingNewItemAtom);
 
-  const addNewCanvasItem = useRecoilCallback(({ set }) => (canvasItem) => {
-    const id = uuid();
+  useKey('Escape', () => reset());
+
+  const reset = () => {
     resetType();
     resetIsCreatingNewItem();
+  };
+
+  const addNewCanvasItem = useRecoilCallback(({ set }) => (canvasItem) => {
+    const id = uuid();
+    reset();
     set(canvasItemsAtom, (canvasItems) => [...canvasItems, id]);
     set(canvasItemsAtomFamily(id), canvasItem);
   });

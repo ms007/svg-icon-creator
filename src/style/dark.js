@@ -3,8 +3,8 @@ const theme = {
     background: '#1e2433',
     color: '#f9fafb',
     tools: {
-      text: '#565a66',
-      stroke: '#565a66',
+      text: '#aaaeb9',
+      stroke: '#aaaeb9',
       hover: '#f9fafb',
     },
   },
