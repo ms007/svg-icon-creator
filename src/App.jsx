@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useWindowSize } from 'react-use';
 
 import windowAtom from './recoil/window';
@@ -12,7 +12,7 @@ const Box = styled.main`
   flex-direction: row;
 `;
 
-const Main = () => {
+const App = () => {
   const { width, height } = useWindowSize();
   const { theme, isReady } = useTheme('light');
   const setDimensions = useSetRecoilState(windowAtom);
@@ -34,14 +34,6 @@ const Main = () => {
         <Inspector />
       </Box>
     </ThemeProvider>
-  );
-};
-
-const App = () => {
-  return (
-    <RecoilRoot>
-      <Main />
-    </RecoilRoot>
   );
 };
 

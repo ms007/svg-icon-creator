@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { createShape } from './Shapes';
 import useCanvasItemMove from 'hooks/useCanvasItemMove';
-import { canvasIsCreatingNewItemAtom, canvasItemsAtomFamily } from 'recoil/canvas';
+import {
+  canvasIsCreatingNewItemAtom,
+  canvasItemsAtomFamily,
+  canvasSelectedItemAtom,
+  canvasHoveredItemAtom,
+} from 'recoil/canvas';
 
 export default function CanvasItem({ id }) {
   const [isMoving, setIsMoving] = useState(false);
   const [itemState, setItemState] = useRecoilState(canvasItemsAtomFamily(id));
   const isCreatingNewCanvasItem = useRecoilValue(canvasIsCreatingNewItemAtom);
+  const setSelectedCanvasItem = useSetRecoilState(canvasSelectedItemAtom);
+  const setHoveredCanvasItem = useSetRecoilState(canvasHoveredItemAtom);
+  const noop = () => {};
 
   const { onMouseDown } = useCanvasItemMove(({ status, position }) => {
     if (status === 'start') {
+      setSelectedCanvasItem(id);
       setIsMoving(true);
     }
 
     if (status === 'moving') {
       const { x, y } = position;
-
-      console.log(itemState);
-
       setItemState({
         ...itemState,
         x: Math.round(x),
@@ -32,12 +38,33 @@ export default function CanvasItem({ id }) {
     }
   });
 
-  const handleMouseDown = isCreatingNewCanvasItem ? () => {} : onMouseDown;
+  const onClick = (event) => {
+    event.stopPropagation();
+    setSelectedCanvasItem(id);
+  };
+
+  const onMouseEnter = () => {
+    setHoveredCanvasItem(id);
+  };
+
+  const onMouseLeave = () => {
+    setHoveredCanvasItem(null);
+  };
 
   const Shape = createShape(itemState);
   if (!Shape) {
     return null;
   }
 
-  return <Shape {...itemState} onMouseDown={handleMouseDown} isMoving={isMoving} />;
+  return (
+    <Shape
+      {...itemState}
+      onClick={onClick}
+      onMouseDown={isCreatingNewCanvasItem ? noop : onMouseDown}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      selectable={!isCreatingNewCanvasItem}
+      isMoving={isMoving}
+    />
+  );
 }

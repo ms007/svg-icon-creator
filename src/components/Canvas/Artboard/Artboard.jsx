@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import presetsAtom from 'recoil/presets';
 import artboardAtom, { withWidth } from 'recoil/artboard';
-import { newCanvasItemTypeAtom } from 'recoil/canvas';
+import { newCanvasItemTypeAtom, canvasSelectedItemAtom } from 'recoil/canvas';
 import useSvgRef from 'hooks/useSvgRef';
 
 import Grid from './Grid';
@@ -41,6 +41,9 @@ const Artboard = ({ children }) => {
   const { margin } = useRecoilValue(artboardAtom);
   const { iconSize } = useRecoilValue(presetsAtom);
 
+  // ToDo: only reset if not selection is changing
+  const resetSelection = useResetRecoilState(canvasSelectedItemAtom);
+
   const width = useRecoilValue(withWidth);
   const newItemType = useRecoilValue(newCanvasItemTypeAtom);
 
@@ -48,7 +51,14 @@ const Artboard = ({ children }) => {
 
   return (
     <Box width={width} margin={margin}>
-      <SvgContainer ref={svg} width={width} height={width} viewBox={viewBox} cursor={newItemType}>
+      <SvgContainer
+        ref={svg}
+        width={width}
+        height={width}
+        viewBox={viewBox}
+        cursor={newItemType}
+        onClick={resetSelection}
+      >
         <Grid size={iconSize} />
         {children}
       </SvgContainer>

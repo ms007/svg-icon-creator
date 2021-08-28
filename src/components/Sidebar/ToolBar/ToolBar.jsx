@@ -8,7 +8,6 @@ import ToolCaption from './ToolCaption';
 import Rectangle from './Rectangle';
 
 import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom } from 'recoil/canvas';
-import {} from 'recoil/canvas/atom';
 
 const Tools = () => {
   const setNewCanvasItemType = useSetRecoilState(newCanvasItemTypeAtom);

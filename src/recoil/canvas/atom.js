@@ -19,3 +19,13 @@ export const canvasItemsAtomFamily = atomFamily({
   key: 'canvasItemsAtomFamily',
   default: {},
 });
+
+export const canvasSelectedItemAtom = atom({
+  key: 'canvasSelectedItemAtom',
+  default: null,
+});
+
+export const canvasHoveredItemAtom = atom({
+  key: 'canvasHoveredItemAtom',
+  default: null,
+});

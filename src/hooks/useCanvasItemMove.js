@@ -8,21 +8,21 @@ export default function useCanvasItemMove(func) {
   const getMousePosition = useSvgMousePosition();
 
   const callback = useCallback(
-    (status, position) => {
-      func({ status, position });
+    (status, position, event) => {
+      func({ status, event, position });
     },
     [func]
   );
 
   const handleMouseDown = useCallback(
-    (event) => {
+    (event, props) => {
       const position = getMousePosition(event);
       const selectedElement = event.target;
       position.x -= parseFloat(selectedElement.getAttributeNS(null, 'x'));
       position.y -= parseFloat(selectedElement.getAttributeNS(null, 'y'));
       setIsMoving(true);
       setOffset(position);
-      callback('start', position);
+      callback('start', position, event, props);
     },
     [callback, getMousePosition]
   );
@@ -36,7 +36,7 @@ export default function useCanvasItemMove(func) {
       const position = getMousePosition(event);
       position.x = position.x - offset.x;
       position.y = position.y - offset.y;
-      callback('moving', position);
+      callback('moving', position, event);
     },
     [callback, getMousePosition, isMoving, offset]
   );
@@ -52,7 +52,7 @@ export default function useCanvasItemMove(func) {
       const position = getMousePosition(event);
       position.x = position.x - offset.x;
       position.y = position.y - offset.y;
-      callback('end', position);
+      callback('end', position, event);
     },
     [callback, getMousePosition, isMoving, offset]
   );

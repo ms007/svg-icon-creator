@@ -5,8 +5,15 @@ import { useRecoilValue, waitForAll } from 'recoil';
 import Artboard from './Artboard';
 import CanvasItem from './CanvasItem';
 import NewCanvasItem from './NewCanvasItem';
+import { SelectionBox, SelectionBoxBorder } from './Selection';
 
-import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom, canvasItemsAtom } from 'recoil/canvas';
+import {
+  canvasIsCreatingNewItemAtom,
+  newCanvasItemTypeAtom,
+  canvasItemsAtom,
+  canvasSelectedItemAtom,
+  canvasHoveredItemAtom,
+} from 'recoil/canvas';
 
 const Box = styled.div`
   width: 100%;
@@ -22,7 +29,11 @@ const Canvas = () => {
     waitForAll([canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom])
   );
 
+  const selectedItem = useRecoilValue(canvasSelectedItemAtom);
+  const hoveredItem = useRecoilValue(canvasHoveredItemAtom);
   const canvasItems = useRecoilValue(canvasItemsAtom);
+
+  const showSelectionBorder = hoveredItem != null && hoveredItem !== selectedItem;
 
   return (
     <Box>
@@ -32,6 +43,9 @@ const Canvas = () => {
         {canvasItems.map((item) => {
           return <CanvasItem key={item} id={item} />;
         })}
+
+        {selectedItem && <SelectionBox id={selectedItem} />}
+        {showSelectionBorder && <SelectionBoxBorder id={hoveredItem} />}
       </Artboard>
     </Box>
   );
