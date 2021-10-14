@@ -5,6 +5,11 @@ export const canvasIsCreatingNewItemAtom = atom({
   default: false,
 });
 
+export const canvasIsResizingItemAtom = atom({
+  key: 'canvasResizingItemAtom',
+  default: false,
+});
+
 export const newCanvasItemTypeAtom = atom({
   key: 'newCanvasItemTypeAtom',
   default: null,

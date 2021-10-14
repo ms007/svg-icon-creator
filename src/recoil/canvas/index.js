@@ -1,5 +1,6 @@
 import {
   canvasIsCreatingNewItemAtom,
+  canvasIsResizingItemAtom,
   newCanvasItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,
@@ -11,6 +12,7 @@ import withCanvasItemCoordinates from './withCanvasItemCoordinates';
 
 export {
   canvasIsCreatingNewItemAtom,
+  canvasIsResizingItemAtom,
   newCanvasItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,

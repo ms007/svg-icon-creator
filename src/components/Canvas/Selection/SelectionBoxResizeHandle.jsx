@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import useCanvasItemMove from 'hooks/useCanvasItemMove';
+import { useRecoilValue } from 'recoil';
 
-const Handle = styled.rect.attrs(({ width, height, strokeWidth }) => ({
+import useCanvasItemMove from 'hooks/useCanvasItemMove';
+import { withPixelSize } from 'recoil/artboard';
+
+const Handle = styled.rect.attrs(({ width, height, pixel, strokeWidth }) => ({
   width,
   height,
   fill: 'red',
@@ -29,11 +32,65 @@ const Handle = styled.rect.attrs(({ width, height, strokeWidth }) => ({
         return 'pointer';
     }
   }};
+  transform: ${({ direction, pixel }) => {
+    let x, y;
+    switch (direction) {
+      case 'nw':
+        x = -4.6;
+        y = -4.6;
+        break;
+      case 'ne':
+        x = -3.4;
+        y = -4.6;
+        break;
+      case 'sw':
+        x = -4.6;
+        y = -3.4;
+        break;
+      case 'se':
+        x = -3.4;
+        y = -3.4;
+        break;
+      case 'n':
+        x = -4;
+        y = -4.6;
+        break;
+      case 'w':
+        x = -4.6;
+        y = -4;
+        break;
+      case 'e':
+        x = -3.4;
+        y = -4;
+        break;
+      case 's':
+        x = -4;
+        y = -3.4;
+        break;
+      default:
+        break;
+    }
+    return `translate(${pixel * x}px,${pixel * y}px)`;
+  }};
 `;
 
-const SelectionBoxResizeHandle = ({ direction, size, onResize, onResizeEnd, ...props }) => {
+const SelectionBoxResizeHandle = ({
+  direction,
+  onResizeStart,
+  onResize,
+  onResizeEnd,
+  ...props
+}) => {
+  const sizeOfOnePixel = useRecoilValue(withPixelSize);
+  const size = sizeOfOnePixel * 8;
+  const strokeWidth = sizeOfOnePixel * 2;
+
   const { onMouseDown } = useCanvasItemMove(({ status, event, position }) => {
     event.stopPropagation();
+
+    if (status === 'start') {
+      onResizeStart(direction, position);
+    }
 
     if (status === 'moving') {
       onResize(direction, position);
@@ -45,7 +102,15 @@ const SelectionBoxResizeHandle = ({ direction, size, onResize, onResizeEnd, ...p
   });
 
   return (
-    <Handle width={size} height={size} direction={direction} onMouseDown={onMouseDown} {...props} />
+    <Handle
+      width={size}
+      height={size}
+      direction={direction}
+      onMouseDown={onMouseDown}
+      strokeWidth={strokeWidth}
+      pixel={sizeOfOnePixel}
+      {...props}
+    />
   );
 };
 

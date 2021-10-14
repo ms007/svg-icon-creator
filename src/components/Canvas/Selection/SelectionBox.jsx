@@ -3,11 +3,11 @@ import { useKey } from 'react-use';
 import { useResetRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 
 import presetsAtom from 'recoil/presets';
-import { withPixelSize } from 'recoil/artboard';
 import {
   canvasSelectedItemAtom,
   withCanvasItemCoordinates,
   canvasItemsAtomFamily,
+  canvasIsResizingItemAtom,
 } from 'recoil/canvas';
 
 import SelectionBoxBorder from './SelectionBoxBorder';
@@ -15,9 +15,9 @@ import SelectionBoxResizeHandle from './SelectionBoxResizeHandle';
 
 const SelectionBox = ({ id }) => {
   const presets = useRecoilValue(presetsAtom);
-  const sizeOfOnePixel = useRecoilValue(withPixelSize);
   const coordinates = useRecoilValue(withCanvasItemCoordinates(id));
   const setItemState = useSetRecoilState(canvasItemsAtomFamily(id));
+  const setIsResizing = useSetRecoilState(canvasIsResizingItemAtom);
 
   const {
     topLeft,
@@ -34,14 +34,14 @@ const SelectionBox = ({ id }) => {
   useKey('Escape', resetSelection);
 
   const gripCoords = {
-    nw: [topLeft.x - sizeOfOnePixel * 4.6, topLeft.y - sizeOfOnePixel * 4.6],
-    ne: [topRight.x - sizeOfOnePixel * 3.4, topRight.y - sizeOfOnePixel * 4.6],
-    sw: [bottomLeft.x - sizeOfOnePixel * 4.6, bottomLeft.y - sizeOfOnePixel * 3.4],
-    se: [bottomRight.x - sizeOfOnePixel * 3.4, bottomRight.y - sizeOfOnePixel * 3.4],
-    n: [topCenter.x - sizeOfOnePixel * 4, topCenter.y - sizeOfOnePixel * 4.6],
-    w: [leftCenter.x - sizeOfOnePixel * 4.6, leftCenter.y - sizeOfOnePixel * 4],
-    e: [rightCenter.x - sizeOfOnePixel * 3.4, rightCenter.y - sizeOfOnePixel * 4],
-    s: [bottomCenter.x - sizeOfOnePixel * 4, bottomCenter.y - sizeOfOnePixel * 3.4],
+    nw: [topLeft.x, topLeft.y],
+    ne: [topRight.x, topRight.y],
+    sw: [bottomLeft.x, bottomLeft.y],
+    se: [bottomRight.x, bottomRight.y],
+    n: [topCenter.x, topCenter.y],
+    w: [leftCenter.x, leftCenter.y],
+    e: [rightCenter.x, rightCenter.y],
+    s: [bottomCenter.x, bottomCenter.y],
   };
 
   const onResize = (direction, position) => {
@@ -112,6 +112,10 @@ const SelectionBox = ({ id }) => {
     }
   };
 
+  const onResizeStart = () => {
+    setIsResizing(true);
+  };
+
   const onResizeEnd = () => {
     setItemState((state) => ({
       ...state,
@@ -120,6 +124,8 @@ const SelectionBox = ({ id }) => {
       height: Math.max(Math.round(state.height), 1),
       width: Math.max(Math.round(state.width), 1),
     }));
+
+    setTimeout(() => setIsResizing(false), 0);
   };
 
   return (
@@ -131,13 +137,12 @@ const SelectionBox = ({ id }) => {
         return (
           <SelectionBoxResizeHandle
             key={key}
-            size={sizeOfOnePixel * 8}
             direction={key}
             x={x}
             y={y}
-            strokeWidth={sizeOfOnePixel * 2}
             onResize={onResize}
             onResizeEnd={onResizeEnd}
+            onResizeStart={onResizeStart}
           />
         );
       })}
