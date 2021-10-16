@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import sidebarAtom from 'recoil/sidebar';
 import ToolBar from './ToolBar';
 import Shapes from './Shapes';
 import MozaIcon from './MozaIcon';
+import { canvasSelectedItemAtom } from 'recoil/canvas';
 
 const Container = styled.div`
   min-width: ${(props) => `${props.width}px`};
@@ -27,9 +28,14 @@ const Icon = styled.div`
 
 const Sidebar = () => {
   const { width } = useRecoilValue(sidebarAtom);
+  const resetSelection = useResetRecoilState(canvasSelectedItemAtom);
+
+  const onClick = () => {
+    resetSelection();
+  };
 
   return (
-    <Container width={width}>
+    <Container width={width} onClick={onClick}>
       <Box>
         <ToolBar />
       </Box>

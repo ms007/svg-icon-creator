@@ -9,13 +9,24 @@ const theme = {
     },
     shapes: {
       title: '#222222',
-      text: '#565a66',
-      hover: '#222222',
+      shape: {
+        border: {
+          hover: '#50BEFF',
+          selected: '#4790E7',
+        },
+        hover: '#edf9fe',
+        selected: '#CDEBFF',
+      },
+      text: {
+        default: '#565a66',
+        hover: '#222222',
+      },
       input: {
-        background: '#e3e3e6',
-        border: '#565a66',
-        shadow: '0px 0px 3px rgb(86, 90, 102, 0.4)',
-        selection: '#f1817d',
+        background: '#efefef',
+        text: '#222222',
+        border: '#3aaeec',
+        shadow: '0px 0px 3px rgb(86, 90, 102, 0.2)',
+        selection: '#CDEBFF',
       },
     },
   },
