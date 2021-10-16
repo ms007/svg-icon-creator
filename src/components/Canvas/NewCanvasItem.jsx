@@ -68,6 +68,7 @@ const NewCanvasItem = ({ type }) => {
     if (status === 'end') {
       addNewCanvasItem({
         type,
+        name: type.charAt(0).toUpperCase() + type.slice(1),
         x: Math.round(newItem.x),
         y: Math.round(newItem.y),
         width: Math.round(newItem.width),

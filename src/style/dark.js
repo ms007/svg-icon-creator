@@ -7,6 +7,17 @@ const theme = {
       stroke: '#aaaeb9',
       hover: '#f9fafb',
     },
+    shapes: {
+      title: '#f9fafb',
+      text: '#aaaeb9',
+      hover: '#f9fafb',
+      input: {
+        background: '#1b202e',
+        border: '#444c56',
+        shadow: '0px 0px 3px rgb(86, 90, 102, 0.0)',
+        selection: '#922422',
+      },
+    },
   },
   inspector: {
     background: '#1e2433',
