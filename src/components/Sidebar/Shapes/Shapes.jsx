@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
 import Shape from './Shape';
-import { canvasItemsAtom } from 'recoil/canvas';
+import { withCanvasItemsReversed } from 'recoil/canvas';
 
 const Title = styled.span`
   font-weight: 500;
@@ -14,10 +14,8 @@ const Box = styled.div`
 `;
 
 const Shapes = () => {
-  const canvasItems = useRecoilValue(canvasItemsAtom);
-  const reversedItems = [...canvasItems].reverse();
-
-  if (!reversedItems.length) {
+  const canvasItems = useRecoilValue(withCanvasItemsReversed);
+  if (!canvasItems.length) {
     return null;
   }
 
@@ -25,8 +23,8 @@ const Shapes = () => {
     <>
       <Title>Shapes</Title>
       <Box>
-        {reversedItems.map((id, index) => (
-          <Shape id={id} index={index} />
+        {canvasItems.map((id, index) => (
+          <Shape key={id} id={id} index={index} />
         ))}
       </Box>
     </>

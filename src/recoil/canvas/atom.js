@@ -34,3 +34,8 @@ export const canvasHoveredItemAtom = atom({
   key: 'canvasHoveredItemAtom',
   default: null,
 });
+
+export const canvasEditingItemAtom = atom({
+  key: 'canvasEditingItemAtom',
+  default: null,
+});

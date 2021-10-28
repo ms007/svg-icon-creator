@@ -12,7 +12,7 @@ const theme = {
       shape: {
         border: {
           hover: '#d3ecff',
-          selected: '#83BBFF',
+          selected: '#83bbff',
         },
         hover: '#1ba2f1',
         selected: '#186ad7',

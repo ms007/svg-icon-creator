@@ -1,9 +1,15 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useKey } from 'react-use';
 
-import { canvasItemsAtomFamily } from 'recoil/canvas';
+import {
+  canvasItemsAtomFamily,
+  canvasSelectedItemAtom,
+  canvasEditingItemAtom,
+  withCanvasNextItemReversed,
+  withCanvasPrevItemReversed,
+} from 'recoil/canvas';
 
 const Box = styled.div`
   margin-left: 10px;
@@ -42,24 +48,74 @@ const Text = styled.input`
 
 const Input = ({ id }) => {
   const [shape, setShape] = useRecoilState(canvasItemsAtomFamily(id));
-  const { name } = shape;
+  const [editingId, setEditingId] = useRecoilState(canvasEditingItemAtom);
+  const setSelectedId = useSetRecoilState(canvasSelectedItemAtom);
+  const nextCanvasItem = useRecoilValue(withCanvasNextItemReversed);
+  const prevCanvasItem = useRecoilValue(withCanvasPrevItemReversed);
 
+  const { name } = shape;
   const lastValue = useRef(name);
   const inputRef = useRef(null);
 
-  useKey('Escape', () => inputRef.current.blur());
-  useKey('Enter', () => inputRef.current.blur());
+  useEffect(() => {
+    if (editingId != null && id !== editingId) {
+      inputRef.current.focus();
+    }
+  }, [id, editingId]);
+
+  useKey(
+    ({ key }) => key === 'Escape' || key === 'Enter',
+    (event) => {
+      event.preventDefault();
+      inputRef.current?.blur();
+    },
+    { event: 'keydown' }
+  );
+
+  useKey(
+    ({ key, shiftKey }) => !shiftKey && key === 'Tab',
+    (event) => {
+      event.preventDefault();
+      if (nextCanvasItem) {
+        save();
+        setSelectedId(nextCanvasItem);
+        setEditingId(nextCanvasItem);
+      }
+    },
+    { event: 'keydown' }
+  );
+
+  useKey(
+    ({ key, shiftKey }) => shiftKey && key === 'Tab',
+    (event) => {
+      event.preventDefault();
+      if (prevCanvasItem) {
+        save();
+        setSelectedId(prevCanvasItem);
+        setEditingId(prevCanvasItem);
+      }
+    },
+    { event: 'keydown' }
+  );
+
+  const save = () => {
+    const value = name.trim().length ? name : lastValue.current;
+    setShape({ ...shape, name: value });
+  };
 
   const onChange = (event) => {
     lastValue.current = name.length ? name : lastValue;
     setShape({ ...shape, name: event.target.value });
   };
 
-  const onFocus = (event) => event.target.select();
+  const onFocus = (event) => {
+    event.target.select();
+    setEditingId(id);
+  };
 
   const onBlur = () => {
-    const value = name.trim().length ? name : lastValue.current;
-    setShape({ ...shape, name: value });
+    save();
+    setEditingId(null);
   };
 
   return (
