@@ -9,14 +9,14 @@ import {
   newCanvasItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
 } from 'recoil/canvas';
 
 const NewCanvasItem = ({ type }) => {
   const [newItem, setNewItem] = useState(null);
   const resetType = useResetRecoilState(newCanvasItemTypeAtom);
   const resetIsCreatingNewItem = useResetRecoilState(canvasIsCreatingNewItemAtom);
-  const setSelectedCanvasItem = useSetRecoilState(canvasSelectedItemAtom);
+  const setSelectedCanvasItem = useSetRecoilState(canvasSelectedItemsAtom);
 
   useKey('Escape', () => reset());
 
@@ -29,7 +29,7 @@ const NewCanvasItem = ({ type }) => {
     const id = uuid();
     set(canvasItemsAtom, (canvasItems) => [...canvasItems, id]);
     set(canvasItemsAtomFamily(id), canvasItem);
-    setSelectedCanvasItem(id);
+    setSelectedCanvasItem([id]);
     reset();
   });
 

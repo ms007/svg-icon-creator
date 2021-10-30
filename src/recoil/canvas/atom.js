@@ -25,9 +25,9 @@ export const canvasItemsAtomFamily = atomFamily({
   default: {},
 });
 
-export const canvasSelectedItemAtom = atom({
-  key: 'canvasSelectedItemAtom',
-  default: null,
+export const canvasSelectedItemsAtom = atom({
+  key: 'canvasSelectedItemsAtom',
+  default: [],
 });
 
 export const canvasHoveredItemAtom = atom({

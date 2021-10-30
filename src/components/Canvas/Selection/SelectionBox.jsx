@@ -4,7 +4,7 @@ import { useResetRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 
 import presetsAtom from 'recoil/presets';
 import {
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
   withCanvasItemCoordinates,
   canvasItemsAtomFamily,
   canvasIsResizingItemAtom,
@@ -30,7 +30,7 @@ const SelectionBox = ({ id }) => {
     rightCenter,
   } = coordinates;
 
-  const resetSelection = useResetRecoilState(canvasSelectedItemAtom);
+  const resetSelection = useResetRecoilState(canvasSelectedItemsAtom);
   useKey('Escape', resetSelection);
 
   const gripCoords = {

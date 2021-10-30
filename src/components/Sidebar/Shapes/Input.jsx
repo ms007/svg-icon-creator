@@ -5,7 +5,7 @@ import { useKey } from 'react-use';
 
 import {
   canvasItemsAtomFamily,
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
   canvasEditingItemAtom,
   withCanvasNextItemReversed,
   withCanvasPrevItemReversed,
@@ -49,7 +49,7 @@ const Text = styled.input`
 const Input = ({ id }) => {
   const [shape, setShape] = useRecoilState(canvasItemsAtomFamily(id));
   const [editingId, setEditingId] = useRecoilState(canvasEditingItemAtom);
-  const setSelectedId = useSetRecoilState(canvasSelectedItemAtom);
+  const setSelectedItems = useSetRecoilState(canvasSelectedItemsAtom);
   const nextCanvasItem = useRecoilValue(withCanvasNextItemReversed);
   const prevCanvasItem = useRecoilValue(withCanvasPrevItemReversed);
 
@@ -78,7 +78,7 @@ const Input = ({ id }) => {
       event.preventDefault();
       if (nextCanvasItem) {
         save();
-        setSelectedId(nextCanvasItem);
+        setSelectedItems([nextCanvasItem]);
         setEditingId(nextCanvasItem);
       }
     },
@@ -91,7 +91,7 @@ const Input = ({ id }) => {
       event.preventDefault();
       if (prevCanvasItem) {
         save();
-        setSelectedId(prevCanvasItem);
+        setSelectedItems([prevCanvasItem]);
         setEditingId(prevCanvasItem);
       }
     },

@@ -6,7 +6,7 @@ import useCanvasItemMove from 'hooks/useCanvasItemMove';
 import {
   canvasIsCreatingNewItemAtom,
   canvasItemsAtomFamily,
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
   canvasEditingItemAtom,
   canvasHoveredItemAtom,
 } from 'recoil/canvas';
@@ -16,13 +16,13 @@ export default function CanvasItem({ id }) {
   const [itemState, setItemState] = useRecoilState(canvasItemsAtomFamily(id));
   const isCreatingNewCanvasItem = useRecoilValue(canvasIsCreatingNewItemAtom);
   const resetEditing = useResetRecoilState(canvasEditingItemAtom);
-  const setSelectedCanvasItem = useSetRecoilState(canvasSelectedItemAtom);
+  const setSelectedCanvasItems = useSetRecoilState(canvasSelectedItemsAtom);
   const setHoveredCanvasItem = useSetRecoilState(canvasHoveredItemAtom);
   const noop = () => {};
 
   const { onMouseDown } = useCanvasItemMove(({ status, position }) => {
     if (status === 'start') {
-      setSelectedCanvasItem(id);
+      setSelectedCanvasItems([id]);
       resetEditing();
       setIsMoving(true);
     }
@@ -43,7 +43,7 @@ export default function CanvasItem({ id }) {
 
   const onClick = (event) => {
     event.stopPropagation();
-    setSelectedCanvasItem(id);
+    setSelectedCanvasItems([id]);
     resetEditing();
   };
 

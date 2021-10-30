@@ -4,7 +4,7 @@ import {
   newCanvasItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
   canvasHoveredItemAtom,
   canvasEditingItemAtom,
 } from './atom';
@@ -20,7 +20,7 @@ export {
   newCanvasItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
   canvasHoveredItemAtom,
   canvasEditingItemAtom,
   withCanvasItemCoordinates,

@@ -7,7 +7,7 @@ import presetsAtom from 'recoil/presets';
 import artboardAtom, { withWidth } from 'recoil/artboard';
 import {
   newCanvasItemTypeAtom,
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
   canvasIsCreatingNewItemAtom,
   canvasIsResizingItemAtom,
 } from 'recoil/canvas';
@@ -48,7 +48,7 @@ const Artboard = ({ children }) => {
   const isResizing = useRecoilValue(canvasIsResizingItemAtom);
   const isCreating = useRecoilValue(canvasIsCreatingNewItemAtom);
 
-  const resetSelection = useResetRecoilState(canvasSelectedItemAtom);
+  const resetSelection = useResetRecoilState(canvasSelectedItemsAtom);
   const onClick = () => {
     if (!isResizing && !isCreating) {
       resetSelection();

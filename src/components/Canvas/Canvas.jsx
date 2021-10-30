@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, waitForAll } from 'recoil';
 
@@ -11,7 +11,7 @@ import {
   canvasIsCreatingNewItemAtom,
   newCanvasItemTypeAtom,
   canvasItemsAtom,
-  canvasSelectedItemAtom,
+  canvasSelectedItemsAtom,
   canvasHoveredItemAtom,
 } from 'recoil/canvas';
 
@@ -29,23 +29,27 @@ const Canvas = () => {
     waitForAll([canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom])
   );
 
-  const selectedItem = useRecoilValue(canvasSelectedItemAtom);
+  const selectedItems = useRecoilValue(canvasSelectedItemsAtom);
   const hoveredItem = useRecoilValue(canvasHoveredItemAtom);
   const canvasItems = useRecoilValue(canvasItemsAtom);
 
-  const showSelectionBorder = hoveredItem != null && hoveredItem !== selectedItem;
+  const isSelectedItem = (id) => selectedItems.some((selectedItem) => selectedItem === id);
+  const showBorderOnHovered = (id) => hoveredItem != null && !isSelectedItem(id);
 
   return (
     <Box>
       <Artboard>
         {isCreatingNewItem && <NewCanvasItem type={type} />}
 
-        {canvasItems.map((item) => {
-          return <CanvasItem key={item} id={item} />;
+        {canvasItems.map((id) => {
+          return (
+            <Fragment key={id}>
+              <CanvasItem id={id} />
+              {isSelectedItem(id) && <SelectionBox id={id} />}
+              {showBorderOnHovered(hoveredItem) && <SelectionBoxBorder id={hoveredItem} />}
+            </Fragment>
+          );
         })}
-
-        {selectedItem && <SelectionBox id={selectedItem} />}
-        {showSelectionBorder && <SelectionBoxBorder id={hoveredItem} />}
       </Artboard>
     </Box>
   );

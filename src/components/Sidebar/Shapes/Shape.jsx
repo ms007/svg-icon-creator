@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import Preview from './Preview';
 import Input from './Input';
 import Text from './Text';
-import { canvasSelectedItemAtom } from 'recoil/canvas';
+import { canvasSelectedItemsAtom } from 'recoil/canvas';
 
 const Button = styled.div`
   display: flex;
@@ -55,13 +55,13 @@ const Button = styled.div`
 
 const Shape = ({ id }) => {
   const ref = useRef(null);
-  const [selectedShape, setSelectedShape] = useRecoilState(canvasSelectedItemAtom);
+  const [selectedShapes, setSelectedShapes] = useRecoilState(canvasSelectedItemsAtom);
 
-  const isSelected = selectedShape === id;
+  const isSelected = selectedShapes.some((selectedId) => selectedId === id);
 
   const onClick = (event) => {
     event.stopPropagation();
-    setSelectedShape(id);
+    setSelectedShapes([id]);
   };
 
   return (
