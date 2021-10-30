@@ -14,7 +14,7 @@ const Path = styled.path.attrs(({ strokeWidth }) => ({
   pointer-events: none;
 `;
 
-const SelectionBoxBorder = ({ id }) => {
+const Border = ({ id }) => {
   const onePixel = useRecoilValue(withPixelSize);
   const coordinates = useRecoilValue(withCanvasItemCoordinates(id));
 
@@ -37,4 +37,4 @@ const SelectionBoxBorder = ({ id }) => {
   return <Path strokeWidth={onePixel * 2.5} d={d}></Path>;
 };
 
-export default SelectionBoxBorder;
+export default Border;

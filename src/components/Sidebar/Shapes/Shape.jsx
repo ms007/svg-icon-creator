@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import Preview from './Preview';
 import Input from './Input';
 import Text from './Text';
-import { canvasSelectedItemsAtom, canvasHoveredItemAtom } from 'recoil/canvas';
+import { canvasSelectedItemsAtom, withHoveredCanvasItem } from 'recoil/canvas';
 
 const Button = styled.div`
   display: flex;
@@ -13,10 +13,8 @@ const Button = styled.div`
   height: 32px;
   align-items: center;
   position: relative;
-  color: ${(props) =>
-    props.selected
-      ? props.theme.sidebar.shapes.text.hover
-      : props.theme.sidebar.shapes.text.default};
+  color: ${({ selected, hovered, theme }) =>
+    selected || hovered ? theme.sidebar.shapes.text.hover : theme.sidebar.shapes.text.default};
   z-index: 0;
 
   &::before {
@@ -25,18 +23,26 @@ const Button = styled.div`
     left: -10px;
     width: calc(100% + 10px);
     height: calc(100% + 2px);
-    border-left: ${(props) =>
+    border-left: ${({ selected, hovered, theme }) =>
       `3px solid ${
-        props.selected ? props.theme.sidebar.shapes.shape.border.selected : 'transparent'
+        selected
+          ? theme.sidebar.shapes.shape.border.selected
+          : hovered
+          ? theme.sidebar.shapes.shape.border.hover
+          : 'transparent'
       }`};
     border-radius: 2px;
-    background-color: ${(props) =>
-      props.selected ? props.theme.sidebar.shapes.shape.selected : 'transparent'};
+    background-color: ${({ selected, hovered, theme }) =>
+      selected
+        ? theme.sidebar.shapes.shape.selected
+        : hovered
+        ? theme.sidebar.shapes.shape.hover
+        : 'transparent'};
     z-index: -1;
   }
 
   &:hover {
-    color: ${(props) => props.theme.sidebar.shapes.text.hover};
+    color: ${({ theme }) => theme.sidebar.shapes.text.hover};
     cursor: pointer;
   }
 
@@ -56,9 +62,10 @@ const Button = styled.div`
 const Shape = ({ id }) => {
   const ref = useRef(null);
   const [selectedCanvasItem, setSelectedCanvasItem] = useRecoilState(canvasSelectedItemsAtom);
-  const setHoveredCanvasItem = useSetRecoilState(canvasHoveredItemAtom);
+  const [hoveredCanvasItem, setHoveredCanvasItem] = useRecoilState(withHoveredCanvasItem);
 
   const isSelected = selectedCanvasItem.some((selectedId) => selectedId === id);
+  const isHovered = hoveredCanvasItem === id;
 
   const onClick = (event) => {
     event.stopPropagation();
@@ -74,6 +81,7 @@ const Shape = ({ id }) => {
       key={id}
       onClick={onClick}
       selected={isSelected}
+      hovered={isHovered}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

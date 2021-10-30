@@ -1,5 +1,2 @@
-import SelectionBox from './SelectionBox';
-export { default as SelectionBox } from './SelectionBox';
-export { default as SelectionBoxBorder } from './SelectionBoxBorder';
-
-export default SelectionBox;
+export { default as Selection } from './Selection';
+export { default as Hover } from './Hover';

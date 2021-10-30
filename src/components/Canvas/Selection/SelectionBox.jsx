@@ -10,7 +10,7 @@ import {
   canvasIsResizingItemAtom,
 } from 'recoil/canvas';
 
-import SelectionBoxBorder from './SelectionBoxBorder';
+import SelectionBoxBorder from './Border';
 import SelectionBoxResizeHandle from './SelectionBoxResizeHandle';
 
 const SelectionBox = ({ id }) => {

@@ -1,19 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, waitForAll } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import Artboard from './Artboard';
 import CanvasItem from './CanvasItem';
 import NewCanvasItem from './NewCanvasItem';
-import { SelectionBox, SelectionBoxBorder } from './Selection';
+import { Hover, Selection } from './Selection';
 
-import {
-  canvasIsCreatingNewItemAtom,
-  newCanvasItemTypeAtom,
-  canvasItemsAtom,
-  canvasSelectedItemsAtom,
-  canvasHoveredItemAtom,
-} from 'recoil/canvas';
+import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom, canvasItemsAtom } from 'recoil/canvas';
 
 const Box = styled.div`
   width: 100%;
@@ -25,31 +19,21 @@ const Box = styled.div`
 `;
 
 const Canvas = () => {
-  const [isCreatingNewItem, type] = useRecoilValue(
-    waitForAll([canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom])
-  );
-
-  const selectedItems = useRecoilValue(canvasSelectedItemsAtom);
-  const hoveredItem = useRecoilValue(canvasHoveredItemAtom);
+  const isCreatingNewItem = useRecoilValue(canvasIsCreatingNewItemAtom);
+  const type = useRecoilValue(newCanvasItemTypeAtom);
   const canvasItems = useRecoilValue(canvasItemsAtom);
-
-  const isSelectedItem = (id) => selectedItems.some((selectedItem) => selectedItem === id);
-  const showBorderOnHovered = (id) => hoveredItem != null && !isSelectedItem(id);
 
   return (
     <Box>
       <Artboard>
         {isCreatingNewItem && <NewCanvasItem type={type} />}
 
-        {canvasItems.map((id) => {
-          return (
-            <Fragment key={id}>
-              <CanvasItem id={id} />
-              {isSelectedItem(id) && <SelectionBox id={id} />}
-              {showBorderOnHovered(hoveredItem) && <SelectionBoxBorder id={hoveredItem} />}
-            </Fragment>
-          );
-        })}
+        {canvasItems.map((id) => (
+          <CanvasItem key={id} id={id} />
+        ))}
+
+        <Hover />
+        <Selection />
       </Artboard>
     </Box>
   );
