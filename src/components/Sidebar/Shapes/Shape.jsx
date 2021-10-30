@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import Preview from './Preview';
 import Input from './Input';
 import Text from './Text';
-import { canvasSelectedItemsAtom } from 'recoil/canvas';
+import { canvasSelectedItemsAtom, canvasHoveredItemAtom } from 'recoil/canvas';
 
 const Button = styled.div`
   display: flex;
@@ -55,17 +55,28 @@ const Button = styled.div`
 
 const Shape = ({ id }) => {
   const ref = useRef(null);
-  const [selectedShapes, setSelectedShapes] = useRecoilState(canvasSelectedItemsAtom);
+  const [selectedCanvasItem, setSelectedCanvasItem] = useRecoilState(canvasSelectedItemsAtom);
+  const setHoveredCanvasItem = useSetRecoilState(canvasHoveredItemAtom);
 
-  const isSelected = selectedShapes.some((selectedId) => selectedId === id);
+  const isSelected = selectedCanvasItem.some((selectedId) => selectedId === id);
 
   const onClick = (event) => {
     event.stopPropagation();
-    setSelectedShapes([id]);
+    setSelectedCanvasItem([id]);
   };
 
+  const onMouseEnter = () => setHoveredCanvasItem(id);
+  const onMouseLeave = () => setHoveredCanvasItem(null);
+
   return (
-    <Button ref={ref} key={id} onClick={onClick} selected={isSelected}>
+    <Button
+      ref={ref}
+      key={id}
+      onClick={onClick}
+      selected={isSelected}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <Preview id={id} />
       {isSelected ? <Input id={id} /> : <Text id={id} />}
     </Button>
