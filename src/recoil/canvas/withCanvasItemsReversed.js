@@ -8,6 +8,7 @@ const withCanvasItemsReversed = selector({
     const canvasItems = get(canvasItemsAtom);
     return [...canvasItems].reverse();
   },
+  set: ({ set }, items) => set(canvasItemsAtom, [...items].reverse()),
 });
 
 export default withCanvasItemsReversed;

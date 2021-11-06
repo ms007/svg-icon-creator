@@ -11,10 +11,8 @@ const theme = {
       title: '#222222',
       shape: {
         border: {
-          hover: '#50beff',
           selected: '#4790e7',
         },
-        hover: '#edf9fe',
         selected: '#cdebff',
       },
       text: {
@@ -27,6 +25,9 @@ const theme = {
         border: '#3aaeec',
         shadow: '0px 0px 3px rgb(86, 90, 102, 0.2)',
         selection: '#cdebff',
+      },
+      divider: {
+        background: '#4790e7',
       },
     },
   },

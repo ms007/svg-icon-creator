@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
-import sidebarAtom from 'recoil/sidebar';
 import ToolBar from './ToolBar';
 import Shapes from './Shapes';
 import MozaIcon from './MozaIcon';
+import { useDrop } from 'react-dnd';
+
+import { sidebarAtom } from 'recoil/sidebar';
 import { canvasSelectedItemsAtom } from 'recoil/canvas';
 
 const Container = styled.div`
@@ -30,12 +32,16 @@ const Sidebar = () => {
   const { width } = useRecoilValue(sidebarAtom);
   const resetSelection = useResetRecoilState(canvasSelectedItemsAtom);
 
+  // workaround:
+  // https://github.com/react-dnd/react-dnd/issues/3115#issuecomment-826799284
+  const [, drop] = useDrop(() => ({ accept: 'Shape' }));
+
   const onClick = () => {
     resetSelection();
   };
 
   return (
-    <Container width={width} onClick={onClick}>
+    <Container ref={drop} width={width} onClick={onClick}>
       <Box>
         <ToolBar />
       </Box>
