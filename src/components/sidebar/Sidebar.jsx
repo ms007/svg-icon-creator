@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
-import ToolBar from './ToolBar';
-import Shapes from './Shapes';
-import MozaIcon from './MozaIcon';
+import ToolBar from './toolBar';
+import Shapes from './shapes';
+import MozaIcon from './mozaIcon';
 import { useDrop } from 'react-dnd';
 
 import { sidebarAtom } from 'recoil/sidebar';

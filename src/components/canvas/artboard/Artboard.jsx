@@ -12,7 +12,7 @@ import {
   canvasIsResizingItemAtom,
 } from 'recoil/canvas';
 
-import Grid from './Grid';
+import Grid from './grid';
 
 const Box = styled.div`
   margin: ${(props) => `${props.margin}px`};

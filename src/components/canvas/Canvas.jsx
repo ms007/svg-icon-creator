@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
-import Artboard from './Artboard';
+import Artboard from './artboard';
 import CanvasItem from './CanvasItem';
 import NewCanvasItem from './NewCanvasItem';
-import { Hover, Selection } from './Selection';
+import { Hover, Selection } from './selection';
 
 import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom, canvasItemsAtom } from 'recoil/canvas';
 

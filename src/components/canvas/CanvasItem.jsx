@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
-import { createShape } from './Shapes';
+import { createShape } from './shapes';
 import useCanvasItemMove from 'hooks/useCanvasItemMove';
 import {
   canvasIsCreatingNewItemAtom,

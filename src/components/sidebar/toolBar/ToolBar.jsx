@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import ToolButton from './ToolButton';
 import ToolTitle from './ToolTitle';
 import ToolCaption from './ToolCaption';
-import Rectangle from './Rectangle';
+import Rectangle from './rectangle';
 
 import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom } from 'recoil/canvas';
 

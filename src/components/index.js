@@ -1,3 +1,3 @@
-export { default as Canvas } from './Canvas';
-export { default as Sidebar } from './Sidebar';
-export { default as Inspector } from './Inspector';
+export { default as Canvas } from './canvas';
+export { default as Sidebar } from './sidebar';
+export { default as Inspector } from './inspector';

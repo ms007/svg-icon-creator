@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
 import inspectorAtom from 'recoil/inspector';
-import ThemeSwitch from './ThemeSwitch';
+import ThemeSwitch from './themeSwitch';
 
 const Box = styled.div`
   min-width: ${(props) => `${props.width}px`};
