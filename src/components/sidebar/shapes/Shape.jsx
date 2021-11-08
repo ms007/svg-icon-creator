@@ -7,31 +7,47 @@ import ShapeButton from './ShapeButton';
 import Preview from './Preview';
 import Input from './Input';
 import Text from './Text';
-import { canvasSelectedItemsAtom, withHoveredCanvasItem } from 'recoil/canvas';
+import {
+  canvasSelectedItemsAtom,
+  withHoveredCanvasItem,
+  canvasEditingItemAtom,
+} from 'recoil/canvas';
 import { draggedShapeAtom, withShapeDraggingConstraints } from 'recoil/sidebar';
 
 const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
   const ref = useRef(null);
   const [selectedCanvasItem, setSelectedCanvasItem] = useRecoilState(canvasSelectedItemsAtom);
+  const [editingCanvasItem, setEditingCanvasItem] = useRecoilState(canvasEditingItemAtom);
   const [hoveredCanvasItem, setHoveredCanvasItem] = useRecoilState(withHoveredCanvasItem);
   const setDraggedShape = useSetRecoilState(draggedShapeAtom);
   const { canDropBefore, canDropAfter } = useRecoilValue(withShapeDraggingConstraints(id));
 
-  const [{ isDragging }, drag, preview] = useDrag(() => ({
-    type: 'Shape',
-    options: { dropEffect: 'move' },
-    item: () => {
-      setDraggedShape(id);
-      return { id, index };
-    },
-    end: (item) => {
-      setDraggedShape(null);
-      onDrop(item);
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+  const isSelected = selectedCanvasItem.some((selectedId) => selectedId === id);
+  const isEditing = editingCanvasItem === id;
+  const isHovered = hoveredCanvasItem === id;
+
+  const [{ isDragging }, drag, preview] = useDrag(
+    () => ({
+      type: 'Shape',
+      options: { dropEffect: 'move' },
+      canDrag: () => !isEditing,
+      item: () => {
+        setDraggedShape(id);
+        setHoveredCanvasItem(null);
+        return { id, index };
+      },
+      end: (item) => {
+        onDrop(item);
+        setHoveredCanvasItem(null);
+        setDraggedShape(null);
+      },
+      collect: (monitor) => ({
+        canDrag: monitor.canDrag(),
+        isDragging: monitor.isDragging(),
+      }),
     }),
-  }));
+    [isEditing]
+  );
 
   const [, drop] = useDrop({
     accept: 'Shape',
@@ -63,18 +79,21 @@ const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, []); // eslint-disable-line
 
-  drag(drop(ref));
-
-  const isSelected = selectedCanvasItem.some((selectedId) => selectedId === id);
-  const isHovered = hoveredCanvasItem === id;
-
   const onClick = (event) => {
     event.stopPropagation();
-    setSelectedCanvasItem([id]);
+
+    if (!isSelected) {
+      setSelectedCanvasItem([id]);
+      return;
+    }
+
+    setEditingCanvasItem(id);
   };
 
   const onMouseEnter = () => setHoveredCanvasItem(id);
   const onMouseLeave = () => setHoveredCanvasItem(null);
+
+  drag(drop(ref));
 
   return (
     <ShapeButton
@@ -88,7 +107,7 @@ const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
       onMouseLeave={onMouseLeave}
     >
       <Preview id={id} />
-      {isSelected ? <Input id={id} /> : <Text id={id} />}
+      {isEditing ? <Input id={id} /> : <Text id={id} />}
     </ShapeButton>
   );
 };

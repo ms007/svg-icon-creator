@@ -26,6 +26,7 @@ const Text = styled.input`
   color: inherit;
   border: 1px solid transparent;
   border-radius: 3px;
+  user-select: ${(props) => (props.draggable ? 'text' : 'auto')};
 
   &:hover {
     color: ${(props) => props.theme.sidebar.shapes.text.hover};
@@ -58,6 +59,10 @@ const Input = ({ id }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    if (id === editingId) {
+      inputRef.current.select();
+    }
+
     if (editingId != null && id !== editingId) {
       inputRef.current.focus();
     }
@@ -108,11 +113,6 @@ const Input = ({ id }) => {
     setShape({ ...shape, name: event.target.value });
   };
 
-  const onFocus = (event) => {
-    event.target.select();
-    setEditingId(id);
-  };
-
   const onBlur = () => {
     save();
     setEditingId(null);
@@ -120,7 +120,17 @@ const Input = ({ id }) => {
 
   return (
     <Box>
-      <Text value={name} onChange={onChange} onBlur={onBlur} onFocus={onFocus} ref={inputRef} />
+      <Text
+        draggable
+        ref={inputRef}
+        value={name}
+        onChange={onChange}
+        onBlur={onBlur}
+        onDragStart={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      />
     </Box>
   );
 };
