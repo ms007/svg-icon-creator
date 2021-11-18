@@ -1,20 +1,13 @@
 import React, { Fragment, useState } from 'react';
-import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useLatest } from 'react-use';
 
-import Shape from './Shape';
-import Divider from './Divider';
-import ShapeDragLayer from './ShapeDragLayer';
 import { withCanvasItemsReversed, canvasSelectedItemsAtom } from 'recoil/canvas';
 
-const Title = styled.span`
-  font-weight: 500;
-`;
-
-const Box = styled.div`
-  margin-top: 10px;
-`;
+import { H4 } from 'components/common';
+import { Shape, DragLayer } from './shape';
+import ScrollBox from './scrollBox';
+import Divider from './divider';
 
 const Shapes = () => {
   const [dropIndex, setDropIndex] = useState(-1);
@@ -52,8 +45,9 @@ const Shapes = () => {
 
   return (
     <>
-      <Title>Shapes</Title>
-      <Box>
+      <H4>Shapes</H4>
+
+      <ScrollBox>
         {canvasItems.map((id, index) => (
           <Fragment key={id}>
             <Divider visible={dropIndex === index} />
@@ -61,8 +55,9 @@ const Shapes = () => {
             <Divider visible={dropIndex === index + 1} />
           </Fragment>
         ))}
-      </Box>
-      <ShapeDragLayer />
+      </ScrollBox>
+
+      <DragLayer />
     </>
   );
 };

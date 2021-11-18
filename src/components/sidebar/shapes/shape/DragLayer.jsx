@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { useDragLayer } from 'react-dnd';
 
 import Text from './Text';
-import Preview from './Preview';
+import Preview from './preview';
 
-const DragLayer = styled.div`
+const Wrapper = styled.div`
   position: fixed;
   pointer-events: none;
   left: 0;
@@ -22,7 +22,7 @@ const Box = styled.div`
   color: ${({ theme }) => theme.sidebar.shapes.text.hover};
 `;
 
-const ShapeDragLayer = () => {
+const DragLayer = () => {
   const { isDragging, item, currentOffset } = useDragLayer((monitor) => ({
     item: monitor.getItem(),
     isDragging: monitor.isDragging(),
@@ -37,13 +37,13 @@ const ShapeDragLayer = () => {
   const transform = `translate(${currentOffset?.x || 0}px, ${currentOffset?.y || 0}px)`;
 
   return (
-    <DragLayer>
+    <Wrapper>
       <Box visible={currentOffset != null} style={{ transform }}>
         <Preview id={id} />
         <Text id={id} />
       </Box>
-    </DragLayer>
+    </Wrapper>
   );
 };
 
-export default ShapeDragLayer;
+export default DragLayer;

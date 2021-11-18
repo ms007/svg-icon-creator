@@ -8,6 +8,7 @@ const Box = styled.div`
   margin-left: 10px;
   border: 1px solid transparent;
   width: 100%;
+  user-select: none;
 `;
 
 const Text = ({ id }) => {

@@ -41,9 +41,14 @@ export default function CanvasItem({ id }) {
     }
   });
 
+  const scrollIntoView = (id) => {
+    document.getElementById(`l${id}`).scrollIntoView({ behavior: 'smooth' });
+  };
+
   const onClick = (event) => {
     event.stopPropagation();
     setSelectedCanvasItems([id]);
+    scrollIntoView(id);
     resetEditing();
   };
 

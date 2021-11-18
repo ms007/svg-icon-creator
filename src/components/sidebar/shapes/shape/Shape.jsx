@@ -1,18 +1,18 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useDrag, useDrop } from 'react-dnd';
-import { getEmptyImage } from 'react-dnd-html5-backend';
+import { useDrag, useDrop, DragPreviewImage } from 'react-dnd';
 
-import ShapeButton from './ShapeButton';
-import Preview from './Preview';
-import Input from './Input';
-import Text from './Text';
 import {
   canvasSelectedItemsAtom,
   withHoveredCanvasItem,
   canvasEditingItemAtom,
 } from 'recoil/canvas';
 import { draggedShapeAtom, withShapeDraggingConstraints } from 'recoil/sidebar';
+
+import Text from './Text';
+import Input from './Input';
+import Preview from './preview';
+import ShapeBox from './ShapeBox';
 
 const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
   const ref = useRef(null);
@@ -75,10 +75,6 @@ const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
     },
   });
 
-  useEffect(() => {
-    preview(getEmptyImage(), { captureDraggingState: true });
-  }, []); // eslint-disable-line
-
   const onClick = (event) => {
     event.stopPropagation();
 
@@ -96,19 +92,27 @@ const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
   drag(drop(ref));
 
   return (
-    <ShapeButton
-      key={id}
-      ref={ref}
-      onClick={onClick}
-      selected={isSelected}
-      hovered={isHovered}
-      dragging={isDragging}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <Preview id={id} />
-      {isEditing ? <Input id={id} /> : <Text id={id} />}
-    </ShapeButton>
+    <div>
+      <DragPreviewImage
+        connect={preview}
+        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+      />
+
+      <ShapeBox
+        id={`l${id}`}
+        key={id}
+        ref={ref}
+        onClick={onClick}
+        selected={isSelected}
+        hovered={isHovered}
+        dragging={isDragging}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <Preview id={id} />
+        {isEditing ? <Input id={id} /> : <Text id={id} />}
+      </ShapeBox>
+    </div>
   );
 };
 
