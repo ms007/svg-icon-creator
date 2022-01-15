@@ -1,6 +1,9 @@
 const theme = {
+  body: {
+    color: '#222222',
+  },
   sidebar: {
-    background: '#dadade',
+    background: '#ffffff',
     color: '#222222',
     tools: {
       text: '#565a66',
@@ -32,7 +35,7 @@ const theme = {
     },
   },
   inspector: {
-    background: '#dadade',
+    background: '#ffffff',
     color: '#222222',
     switch: {
       fill: '#565a66',

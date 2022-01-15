@@ -1,4 +1,7 @@
 const theme = {
+  body: {
+    color: '#ffffff',
+  },
   sidebar: {
     background: '#1e2433',
     color: '#f9fafb',

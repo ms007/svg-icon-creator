@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
 const Box = styled.div`
-  max-height: ${({ top }) => `calc(100vh - ${top}px - 70px)`};
+  max-height: ${({ top }) => `calc(100vh - ${top}px - 20px)`};
   margin: -10px;
   padding: 10px;
   overflow-y: auto;
