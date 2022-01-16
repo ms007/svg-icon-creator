@@ -14,5 +14,5 @@ const Logo = ({ height }) => {
 export default Logo;
 
 Logo.defaultProps = {
-  height: 28,
+  height: 24,
 };

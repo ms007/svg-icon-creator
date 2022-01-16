@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "mozaicon",
+    "short_name": "mozaicon",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
