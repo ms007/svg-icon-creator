@@ -9,6 +9,7 @@ import {
   canvasEditingItemAtom,
 } from './atom';
 
+import withNewCanvasItem from './withNewCanvasItem';
 import withHoveredCanvasItem from './withHoveredCanvasItem';
 import withCanvasItemCoordinates from './withCanvasItemCoordinates';
 import withCanvasItemsReversed from './withCanvasItemsReversed';
@@ -25,6 +26,7 @@ export {
   canvasHoveredItemAtom,
   canvasEditingItemAtom,
   withHoveredCanvasItem,
+  withNewCanvasItem,
   withCanvasItemCoordinates,
   withCanvasItemsReversed,
   withCanvasNextItemReversed,

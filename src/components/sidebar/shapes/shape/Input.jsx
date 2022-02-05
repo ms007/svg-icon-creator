@@ -113,6 +113,8 @@ const Input = ({ id }) => {
   };
 
   const onChange = (event) => {
+    event.stopPropagation();
+    event.nativeEvent.stopImmediatePropagation();
     lastValue.current = name.length ? name : lastValue;
     setShape({ ...shape, name: event.target.value });
   };
