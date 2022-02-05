@@ -7,8 +7,8 @@ const Wrapper = styled.div`
 
 const Box = styled.div`
   position: absolute;
-  margin-left: -6px;
-  width: calc(100% + 6px);
+  margin-left: -10px;
+  width: calc(100% + 20px);
   height: 100%;
   display: flex;
   align-items: center;
@@ -23,13 +23,13 @@ const Circle = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 4px;
-  background-color: ${({ theme }) => theme.sidebar.shapes.divider.background};
+  background-color: var(--primary);
 `;
 
 const Line = styled.div`
   height: 2px;
   width: 100%;
-  background-color: ${({ theme }) => theme.sidebar.shapes.divider.background};
+  background-color: var(--primary);
 `;
 
 const Divider = ({ visible }) => {

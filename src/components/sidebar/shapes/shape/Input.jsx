@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import theme from 'styled-theming';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useKey } from 'react-use';
 
@@ -10,6 +11,11 @@ import {
   withCanvasNextItemReversed,
   withCanvasPrevItemReversed,
 } from 'recoil/canvas';
+
+const hoverColor = theme('mode', {
+  light: `0 0 2px 0 ${'#b9bcc0'}`,
+  dark: 'var(--sidebar)',
+});
 
 const Box = styled.div`
   margin-left: 10px;
@@ -25,25 +31,23 @@ const Text = styled.input`
   background: none;
   color: inherit;
   border: 1px solid transparent;
-  border-radius: 3px;
-  user-select: ${(props) => (props.draggable ? 'text' : 'auto')};
+  border-radius: 2px;
+  user-select: ${({ draggable }) => (draggable ? 'text' : 'auto')};
 
   &:hover {
-    color: ${(props) => props.theme.sidebar.shapes.text.hover};
+    color: ${hoverColor};
     cursor: pointer;
   }
 
   &:focus {
-    background-color: ${(props) => props.theme.sidebar.shapes.input.background};
-    color: ${(props) => props.theme.sidebar.shapes.input.text};
-    outline: none;
+    background-color: #ffffff;
     cursor: text;
-    filter: ${(props) => `drop-shadow(${props.theme.sidebar.shapes.input.shadow})`};
-    border-color: ${(props) => props.theme.sidebar.shapes.input.border};
+    outline: 2px solid var(--primaryAlpha);
+    filter: drop-shadow(0px 0px 3px rgb(86, 90, 102, 0.2));
   }
 
   &::selection {
-    background: ${(props) => props.theme.sidebar.shapes.input.selection};
+    background: var(--primaryBeta);
   }
 `;
 

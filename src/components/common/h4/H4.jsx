@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const Heading = styled.h4`
   font-weight: 500;
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  color: var(--neutralDelta);
 `;
 
 const H4 = ({ children }) => {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useKey } from 'react-use';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { H4 } from 'components/common';
 import ToolButton from './ToolButton';
 import ToolTitle from './ToolTitle';
 import ToolCaption from './ToolCaption';
@@ -10,7 +11,7 @@ import Rectangle from './rectangle';
 import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom } from 'recoil/canvas';
 
 const Tools = () => {
-  const setNewCanvasItemType = useSetRecoilState(newCanvasItemTypeAtom);
+  const [newCanvasItemType, setNewCanvasItemType] = useRecoilState(newCanvasItemTypeAtom);
   const setIsCreatingNewItem = useSetRecoilState(canvasIsCreatingNewItemAtom);
 
   useKey('r', () => onToolbarButtonClick('rectangle'));
@@ -23,7 +24,11 @@ const Tools = () => {
 
   return (
     <>
-      <ToolButton onClick={() => onToolbarButtonClick('rectangle')}>
+      <H4>Tools</H4>
+      <ToolButton
+        selected={newCanvasItemType === 'rectangle'}
+        onClick={() => onToolbarButtonClick('rectangle')}
+      >
         <Rectangle />
         <ToolTitle title="Rectangle" />
         <ToolCaption caption="(R)" />

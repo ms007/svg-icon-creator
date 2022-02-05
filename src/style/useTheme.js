@@ -2,22 +2,30 @@ import { useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
 import { atom, useRecoilState } from 'recoil';
 
+import { light, dark } from './colors';
+
 const themeAtom = atom({
   key: 'themeAtom',
   default: null,
 });
+
+const colors = {
+  light,
+  dark,
+};
 
 const useTheme = (initialTheme = 'light') => {
   const [name, setName] = useLocalStorage('theme', initialTheme);
   const [theme, setTheme] = useRecoilState(themeAtom);
 
   useEffect(() => {
-    const loadThemeValues = async () => {
-      const { default: themeValues } = await import(`./${name}`);
-      setTheme(themeValues);
-    };
-
-    loadThemeValues();
+    const keys = Object.keys(colors[name]);
+    keys.map((key) => {
+      const constructVar = `--${key}`;
+      document.body.style.setProperty(constructVar, colors[name][key]);
+      setTheme(name);
+      return name;
+    });
   }, [name, setTheme]);
 
   const toggleTheme = () => {
@@ -25,7 +33,7 @@ const useTheme = (initialTheme = 'light') => {
   };
 
   const isReady = theme != null;
-  return { name, theme, isReady, toggleTheme };
+  return { theme, toggleTheme, isReady };
 };
 
 export default useTheme;

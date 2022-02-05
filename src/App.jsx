@@ -7,7 +7,7 @@ import windowAtom from './recoil/window';
 import { useTheme, GlobalStyle } from './style';
 import { Sidebar, Canvas, Inspector } from './components';
 
-const Box = styled.main`
+const Main = styled.main`
   display: flex;
   flex-direction: row;
 `;
@@ -26,13 +26,13 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ mode: theme }}>
       <GlobalStyle />
-      <Box>
+      <Main>
         <Sidebar />
         <Canvas />
         <Inspector />
-      </Box>
+      </Main>
     </ThemeProvider>
   );
 };

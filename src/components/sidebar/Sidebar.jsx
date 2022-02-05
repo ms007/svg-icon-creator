@@ -2,29 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
-import { Logo } from 'components/common';
+import { Logo, SitePanel } from 'components/common';
 import ToolBar from './toolBar';
 import Shapes from './shapes';
 import { useDrop } from 'react-dnd';
 
 import { sidebarAtom } from 'recoil/sidebar';
-import { canvasSelectedItemsAtom } from 'recoil/canvas';
-
-const Container = styled.div`
-  min-width: ${(props) => `${props.width}px`};
-  width: ${(props) => `${props.width}px`};
-  height: 100vh;
-  background-color: ${(props) => props.theme.sidebar.background};
-  color: ${(props) => props.theme.sidebar.color};
-`;
+import {
+  canvasSelectedItemsAtom,
+  newCanvasItemTypeAtom,
+  canvasIsCreatingNewItemAtom,
+} from 'recoil/canvas';
 
 const Box = styled.div`
-  padding: 20px;
+  padding: 24px;
 `;
 
 const Sidebar = () => {
   const { width } = useRecoilValue(sidebarAtom);
   const resetSelection = useResetRecoilState(canvasSelectedItemsAtom);
+  const resetType = useResetRecoilState(newCanvasItemTypeAtom);
+  const resetIsCreatingNewItem = useResetRecoilState(canvasIsCreatingNewItemAtom);
 
   // workaround:
   // https://github.com/react-dnd/react-dnd/issues/3115#issuecomment-826799284
@@ -32,10 +30,12 @@ const Sidebar = () => {
 
   const onClick = () => {
     resetSelection();
+    resetType();
+    resetIsCreatingNewItem();
   };
 
   return (
-    <Container ref={drop} width={width} onClick={onClick}>
+    <SitePanel ref={drop} width={width} onClick={onClick}>
       <Box>
         <Logo />
       </Box>
@@ -45,7 +45,7 @@ const Sidebar = () => {
       <Box>
         <Shapes />
       </Box>
-    </Container>
+    </SitePanel>
   );
 };
 

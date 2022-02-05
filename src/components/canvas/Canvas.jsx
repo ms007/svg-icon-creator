@@ -14,8 +14,7 @@ const Box = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-  background-color: ${(props) => props.theme.canvas.background};
-  color: ${(props) => props.theme.canvas.color};
+  background-color: var(--canvas);
 `;
 
 const Canvas = () => {

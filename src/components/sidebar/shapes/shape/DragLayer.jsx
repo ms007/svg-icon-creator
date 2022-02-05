@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from 'styled-theming';
 import { useDragLayer } from 'react-dnd';
 
 import Text from './Text';
 import Preview from './preview';
+
+const color = theme('mode', {
+  light: ({ selected, hovered }) => (selected || hovered ? 'var(--body)' : 'var(--neutralDelta)'),
+  dark: ({ selected, hovered }) =>
+    selected ? 'var(--sidebar)' : hovered ? 'var(--body)' : 'var(--neutralBeta)',
+});
 
 const Wrapper = styled.div`
   position: fixed;
@@ -19,7 +26,7 @@ const Box = styled.div`
   display: ${({ visible }) => (visible ? 'flex' : 'none')};
   height: 32px;
   align-items: center;
-  color: ${({ theme }) => theme.sidebar.shapes.text.hover};
+  color: ${color};
 `;
 
 const DragLayer = () => {

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from 'styled-theming';
+
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import useSvgRef from 'hooks/useSvgRef';
@@ -14,14 +16,18 @@ import {
 
 import Grid from './grid';
 
+const boxShadow = theme('mode', {
+  light: `0 0 2px 0 ${'#b9bcc0'}`,
+  dark: 'none',
+});
+
 const Box = styled.div`
   margin: ${(props) => `${props.margin}px`};
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
-  background-color: ${(props) => props.theme.artboard.background};
-  box-shadow: ${(props) => `0 0 2px 0 ${props.theme.artboard.boxShadow}`};
-  border-radius: 2px;
-  color: ${(props) => props.theme.artboard.color};
+  background-color: #ffffff;
+  box-shadow: ${boxShadow};
+  border-radius: 20px;
 `;
 
 const SvgContainer = styled.svg.attrs({
