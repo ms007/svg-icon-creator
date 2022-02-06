@@ -88,6 +88,7 @@ const Input = ({ id }) => {
       if (nextCanvasItem) {
         save();
         setSelectedItems([nextCanvasItem]);
+        inputRef.current.blur();
         setEditingId(nextCanvasItem);
       }
     },
@@ -101,6 +102,7 @@ const Input = ({ id }) => {
       if (prevCanvasItem) {
         save();
         setSelectedItems([prevCanvasItem]);
+        inputRef.current.blur();
         setEditingId(prevCanvasItem);
       }
     },

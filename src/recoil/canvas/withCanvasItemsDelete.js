@@ -8,6 +8,7 @@ import {
 
 const withCanvasItemsDelete = selector({
   key: 'withCanvasItemsDelete',
+  get: () => {},
   set: ({ get, set }) => {
     const editingCanvasItem = get(canvasEditingItemAtom);
     const isEditing = editingCanvasItem != null;
