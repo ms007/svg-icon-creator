@@ -22,12 +22,16 @@ const boxShadow = theme('mode', {
 });
 
 const Box = styled.div`
+  box-sizing: content-box;
   margin: ${(props) => `${props.margin}px`};
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
   background-color: #ffffff;
   box-shadow: ${boxShadow};
   border-radius: 20px;
+  border-color: #ffffff;
+  border-style: solid;
+  border-width: ${({ width }) => (width > 600 ? `${35}px` : `${20}px`)};
 `;
 
 const SvgContainer = styled.svg.attrs({
@@ -75,6 +79,7 @@ const Artboard = ({ children }) => {
         viewBox={viewBox}
         cursor={newItemType}
         onClick={onClick}
+        overflow="visible"
       >
         <Grid size={iconSize} />
         {children}
