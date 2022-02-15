@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { MenuItem, applyStatics } from 'components/common';
-import ThemeSwitchButton from './ThemeSwitchButton';
+import { MenuItem, applyStatics, MenuIcon, Drop } from 'components/common';
 import { useTheme } from 'style';
 
 const Box = styled.div`
@@ -18,7 +17,9 @@ const ThemeSwitchMenuItem = (props) => {
     <MenuItem onClick={toggleTheme} {...props}>
       {({ hover }) => (
         <Box>
-          <ThemeSwitchButton hovered={hover} />
+          <MenuIcon hovered={hover}>
+            <Drop />
+          </MenuIcon>
           {text}
         </Box>
       )}

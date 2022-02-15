@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Drop } from 'components/common';
-
 const Box = styled.div`
   width: 24px;
   height: 24px;
@@ -13,12 +11,8 @@ const Box = styled.div`
   color: ${({ hovered }) => (hovered ? 'var(--neutralDelta)' : 'var(--neutralGamma)')};
 `;
 
-const ThemeSwitchButton = (props) => {
-  return (
-    <Box {...props}>
-      <Drop />
-    </Box>
-  );
+const ThemeSwitchButton = ({ children, ...props }) => {
+  return <Box {...props}>{children}</Box>;
 };
 
 export default ThemeSwitchButton;
