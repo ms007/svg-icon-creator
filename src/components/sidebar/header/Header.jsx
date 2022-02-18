@@ -17,7 +17,7 @@ const Header = () => {
       <Logo />
       <div>
         <Menu
-          width={220}
+          width={230}
           align="end"
           offsetY={4}
           offsetX={1}

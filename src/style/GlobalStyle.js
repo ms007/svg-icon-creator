@@ -1,23 +1,46 @@
 import { createGlobalStyle } from 'styled-components';
-import { normalize } from 'styled-normalize';
-
 const GlobalStyle = createGlobalStyle`
-  ${normalize}
 
-  body {
-    overflow: hidden;
-
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    color: var(--body);
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 
   * {
-    box-sizing: border-box;
+    margin: 0;
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  body {
+    line-height: 1.5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    overflow: hidden;
+    color: var(--body);
+  }
+
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+
+  #root, #__next {
+    isolation: isolate;
   }
 `;
 

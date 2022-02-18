@@ -1,11 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import theme from 'styled-theming';
+
+const color = theme('mode', {
+  light: 'var(--neutralDelta)',
+  dark: 'var(--neutralGamma)',
+});
+
 const Heading = styled.h4`
-  font-weight: 500;
+  font-weight: 700;
   margin: 0;
   margin-bottom: 16px;
-  color: var(--neutralDelta);
+  color: ${color};
 `;
 
 const H4 = ({ children }) => {
