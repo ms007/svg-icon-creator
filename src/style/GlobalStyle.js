@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
     overflow-wrap: break-word;
   }
 
-  #root, #__next {
+  #root {
     isolation: isolate;
   }
 `;
