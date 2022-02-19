@@ -1,14 +1,27 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { useRecoilValue } from 'recoil';
 
+import { SidePanel } from 'components/common';
+import Preview from './preview';
+
 import inspectorAtom from 'recoil/inspector';
-import { SitePanel } from 'components/common';
+
+const Box = styled.div`
+  padding: 24px;
+`;
 
 const Inspector = () => {
   const { width } = useRecoilValue(inspectorAtom);
 
-  return <SitePanel width={width}>Inspector</SitePanel>;
+  return (
+    <SidePanel width={width}>
+      <Box>
+        <Preview />
+      </Box>
+    </SidePanel>
+  );
 };
 
 export default Inspector;

@@ -8,7 +8,7 @@ const Box = styled.div`
   background-color: var(--sidebar);
 `;
 
-const SitePanel = React.forwardRef(({ children, ...props }, ref) => {
+const SidePanel = React.forwardRef(({ children, ...props }, ref) => {
   return (
     <Box ref={ref} {...props}>
       {children}
@@ -16,4 +16,4 @@ const SitePanel = React.forwardRef(({ children, ...props }, ref) => {
   );
 });
 
-export default SitePanel;
+export default SidePanel;

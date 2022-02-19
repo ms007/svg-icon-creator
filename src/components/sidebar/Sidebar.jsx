@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
-import { SitePanel } from 'components/common';
+import { SidePanel } from 'components/common';
 import Header from './header';
 import ToolBar from './toolBar';
 import Shapes from './shapes';
@@ -36,7 +36,7 @@ const Sidebar = () => {
   };
 
   return (
-    <SitePanel ref={drop} width={width} onClick={onClick}>
+    <SidePanel ref={drop} width={width} onClick={onClick}>
       <Header />
       <Box>
         <ToolBar />
@@ -44,7 +44,7 @@ const Sidebar = () => {
       <Box>
         <Shapes />
       </Box>
-    </SitePanel>
+    </SidePanel>
   );
 };
 
