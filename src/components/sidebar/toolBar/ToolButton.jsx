@@ -12,11 +12,6 @@ const hover = theme('mode', {
   dark: 'var(--neutralDelta)',
 });
 
-const background = theme('mode', {
-  light: 'transparent',
-  dark: ({ selected }) => (selected ? 'var(--primary)' : 'transparent'),
-});
-
 const Button = styled.button`
   position: relative;
   width: 100%;
@@ -33,7 +28,7 @@ const Button = styled.button`
   &:before {
     content: '';
     position: absolute;
-    background-color: ${background};
+    background-color: 'transparent';
     width: calc(100% + 20px);
     height: 44px;
     left: -10px;
