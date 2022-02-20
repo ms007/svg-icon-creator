@@ -7,7 +7,7 @@ import { withPixelSize } from 'recoil/artboard';
 
 const Path = styled.path.attrs(({ strokeWidth }) => ({
   fill: 'none',
-  stroke: 'red',
+  stroke: 'var(--primary)',
   strokeWidth,
   shapeRendering: 'crispEdges',
 }))`
@@ -18,7 +18,7 @@ const Border = ({ id }) => {
   const onePixel = useRecoilValue(withPixelSize);
   const coordinates = useRecoilValue(withCanvasItemCoordinates(id));
 
-  const offset = onePixel * 0.98;
+  const offset = 0;
 
   const offsetX = coordinates.topLeft.x - offset;
   const offsetY = coordinates.topLeft.y - offset;
@@ -34,7 +34,7 @@ const Border = ({ id }) => {
     `M${topLeft.x},${topLeft.y} L${topRight.x},${topRight.y}` +
     ` ${bottomRight.x},${bottomRight.y} ${bottomLeft.x},${bottomLeft.y}z`;
 
-  return <Path strokeWidth={onePixel * 2.5} d={d}></Path>;
+  return <Path strokeWidth={onePixel * 2} d={d}></Path>;
 };
 
 export default Border;

@@ -18,8 +18,12 @@ export default function useCanvasItemMove(func) {
     (event, props) => {
       const position = getMousePosition(event);
       const selectedElement = event.target;
-      position.x -= parseFloat(selectedElement.getAttributeNS(null, 'x'));
-      position.y -= parseFloat(selectedElement.getAttributeNS(null, 'y'));
+
+      const positionXAttribute = event.target.nodeName === 'circle' ? 'cx' : 'x';
+      const positionYAttribute = event.target.nodeName === 'circle' ? 'cy' : 'y';
+
+      position.x -= parseFloat(selectedElement.getAttributeNS(null, positionXAttribute));
+      position.y -= parseFloat(selectedElement.getAttributeNS(null, positionYAttribute));
       setIsMoving(true);
       setOffset(position);
       callback('start', position, event, props);

@@ -138,8 +138,8 @@ const SelectionBox = ({ id }) => {
           <SelectionBoxResizeHandle
             key={key}
             direction={key}
-            x={x}
-            y={y}
+            cx={x}
+            cy={y}
             onResize={onResize}
             onResizeEnd={onResizeEnd}
             onResizeStart={onResizeStart}

@@ -6,14 +6,13 @@ import { useRecoilValue } from 'recoil';
 import useCanvasItemMove from 'hooks/useCanvasItemMove';
 import { withPixelSize } from 'recoil/artboard';
 
-const Handle = styled.rect.attrs(({ width, height, pixel, strokeWidth }) => ({
-  width,
-  height,
-  fill: 'red',
-  stroke: 'rgba(0,0,0,0)',
+const Handle = styled.circle.attrs(({ size, strokeWidth }) => ({
+  r: size,
   strokeWidth,
 }))`
+  fill: white;
   pointer-events: all;
+  stroke: var(--primary);
   cursor: ${({ direction }) => {
     switch (direction) {
       case 'e':
@@ -32,46 +31,6 @@ const Handle = styled.rect.attrs(({ width, height, pixel, strokeWidth }) => ({
         return 'pointer';
     }
   }};
-  transform: ${({ direction, pixel }) => {
-    let x, y;
-    switch (direction) {
-      case 'nw':
-        x = -4.6;
-        y = -4.6;
-        break;
-      case 'ne':
-        x = -3.4;
-        y = -4.6;
-        break;
-      case 'sw':
-        x = -4.6;
-        y = -3.4;
-        break;
-      case 'se':
-        x = -3.4;
-        y = -3.4;
-        break;
-      case 'n':
-        x = -4;
-        y = -4.6;
-        break;
-      case 'w':
-        x = -4.6;
-        y = -4;
-        break;
-      case 'e':
-        x = -3.4;
-        y = -4;
-        break;
-      case 's':
-        x = -4;
-        y = -3.4;
-        break;
-      default:
-        break;
-    }
-    return `translate(${pixel * x}px,${pixel * y}px)`;
-  }};
 `;
 
 const SelectionBoxResizeHandle = ({
@@ -82,7 +41,7 @@ const SelectionBoxResizeHandle = ({
   ...props
 }) => {
   const sizeOfOnePixel = useRecoilValue(withPixelSize);
-  const size = sizeOfOnePixel * 8;
+  const size = sizeOfOnePixel * 4;
   const strokeWidth = sizeOfOnePixel * 2;
 
   const { onMouseDown } = useCanvasItemMove(({ status, event, position }) => {
@@ -103,12 +62,10 @@ const SelectionBoxResizeHandle = ({
 
   return (
     <Handle
-      width={size}
-      height={size}
+      size={size}
       direction={direction}
       onMouseDown={onMouseDown}
       strokeWidth={strokeWidth}
-      pixel={sizeOfOnePixel}
       {...props}
     />
   );
