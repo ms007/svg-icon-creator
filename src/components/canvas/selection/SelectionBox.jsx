@@ -1,6 +1,6 @@
 import React from 'react';
 import { useKey } from 'react-use';
-import { useResetRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import presetsAtom from 'recoil/presets';
 import {
@@ -30,8 +30,8 @@ const SelectionBox = ({ id }) => {
     rightCenter,
   } = coordinates;
 
-  const resetSelection = useResetRecoilState(canvasSelectedItemsAtom);
-  useKey('Escape', resetSelection);
+  const setSelectedItems = useSetRecoilState(canvasSelectedItemsAtom);
+  useKey('Escape', () => setSelectedItems([]));
 
   const gripCoords = {
     nw: [topLeft.x, topLeft.y],

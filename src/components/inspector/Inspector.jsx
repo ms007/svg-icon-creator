@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
 import { SidePanel } from 'components/common';
+import Appearance from './appearance';
 import Preview from './preview';
 
 import inspectorAtom from 'recoil/inspector';
@@ -17,6 +18,9 @@ const Inspector = () => {
 
   return (
     <SidePanel width={width}>
+      <Box>
+        <Appearance />
+      </Box>
       <Box>
         <Preview />
       </Box>

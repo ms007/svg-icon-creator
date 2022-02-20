@@ -7,7 +7,9 @@ const useCanvasItemDelete = () => {
   const deleteCanvasItems = useSetRecoilState(withCanvasItemsDelete);
 
   const shouldDelete = (event) => {
-    return event.key === 'Backspace' || event.key === 'Delete';
+    const isValidKey = event.key === 'Backspace' || event.key === 'Delete';
+    const isValidTarget = event.target.tagName !== 'INPUT';
+    return isValidKey && isValidTarget;
   };
 
   useKey(shouldDelete, deleteCanvasItems, { event: 'keyup' });

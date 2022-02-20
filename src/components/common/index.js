@@ -6,3 +6,4 @@ export { default as SidePanel } from './sidePanel';
 
 export * from './icons';
 export * from './menu';
+export * from './input';

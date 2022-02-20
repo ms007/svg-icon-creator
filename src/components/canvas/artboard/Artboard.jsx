@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from 'styled-theming';
 
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import useSvgRef from 'hooks/useSvgRef';
 import presetsAtom from 'recoil/presets';
@@ -57,11 +57,11 @@ const Artboard = ({ children }) => {
   const { iconSize } = useRecoilValue(presetsAtom);
   const isResizing = useRecoilValue(canvasIsResizingItemAtom);
   const isCreating = useRecoilValue(canvasIsCreatingNewItemAtom);
+  const setSelectedCanvasItems = useSetRecoilState(canvasSelectedItemsAtom);
 
-  const resetSelection = useResetRecoilState(canvasSelectedItemsAtom);
   const onClick = () => {
     if (!isResizing && !isCreating) {
-      resetSelection();
+      setSelectedCanvasItems([]);
     }
   };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState, useResetRecoilState } from 'recoil';
 
 import { SidePanel } from 'components/common';
 import Header from './header';
@@ -21,7 +21,7 @@ const Box = styled.div`
 
 const Sidebar = () => {
   const { width } = useRecoilValue(sidebarAtom);
-  const resetSelection = useResetRecoilState(canvasSelectedItemsAtom);
+  const setSelectedItems = useSetRecoilState(canvasSelectedItemsAtom);
   const resetType = useResetRecoilState(newCanvasItemTypeAtom);
   const resetIsCreatingNewItem = useResetRecoilState(canvasIsCreatingNewItemAtom);
 
@@ -30,7 +30,7 @@ const Sidebar = () => {
   const [, drop] = useDrop(() => ({ accept: 'Shape' }));
 
   const onClick = () => {
-    resetSelection();
+    setSelectedItems([]);
     resetType();
     resetIsCreatingNewItem();
   };

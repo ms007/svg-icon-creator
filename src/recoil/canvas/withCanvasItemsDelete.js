@@ -1,27 +1,18 @@
 import { selector } from 'recoil';
-import {
-  canvasSelectedItemsAtom,
-  canvasItemsAtom,
-  canvasEditingItemAtom,
-  canvasHoveredItemAtom,
-} from './atom';
+import { canvasSelectedItemsAtom, canvasItemsAtom, canvasHoveredItemAtom } from './atom';
 
 const withCanvasItemsDelete = selector({
   key: 'withCanvasItemsDelete',
   get: () => {},
   set: ({ get, set }) => {
-    const editingCanvasItem = get(canvasEditingItemAtom);
-    const isEditing = editingCanvasItem != null;
-    if (isEditing) {
-      return;
-    }
-
     const selectedCanvasItems = get(canvasSelectedItemsAtom) || [];
     if (selectedCanvasItems.length < 1) {
       return;
     }
 
     const currentCanvasItems = get(canvasItemsAtom);
+
+    // ToDo: What if more than one item is selected?
 
     const lastSelectedItem = selectedCanvasItems[selectedCanvasItems.length - 1];
     const indexOfLastSelectedItem = currentCanvasItems.indexOf(lastSelectedItem);

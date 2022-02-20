@@ -16,6 +16,7 @@ import withCanvasItemsReversed from './withCanvasItemsReversed';
 import withCanvasNextItemReversed from './withCanvasNextItemReversed';
 import withCanvasPrevItemReversed from './withCanvasPrevItemReversed';
 import withCanvasItemsDelete from './withCanvasItemsDelete';
+import withSelectedCanvasItemsDimensions from './withSelectedCanvasItemsDimensions';
 
 export {
   canvasIsCreatingNewItemAtom,
@@ -33,6 +34,7 @@ export {
   withCanvasNextItemReversed,
   withCanvasPrevItemReversed,
   withCanvasItemsDelete,
+  withSelectedCanvasItemsDimensions,
 };
 
 export default canvasItemsAtom;
