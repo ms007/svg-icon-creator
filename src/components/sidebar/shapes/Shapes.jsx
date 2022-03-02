@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useLatest } from 'react-use';
 
@@ -8,6 +9,10 @@ import { H4 } from 'components/common';
 import { Shape, DragLayer } from './shape';
 import ScrollBox from './scrollBox';
 import Divider from './divider';
+
+const Title = styled(H4)`
+  margin-bottom: 6px;
+`;
 
 const Shapes = () => {
   const [dropIndex, setDropIndex] = useState(-1);
@@ -45,7 +50,7 @@ const Shapes = () => {
 
   return (
     <>
-      <H4>Shapes</H4>
+      <Title>Shapes</Title>
 
       <ScrollBox>
         {canvasItems.map((id, index) => (

@@ -15,8 +15,8 @@ const Heading = styled.h4`
   color: ${color};
 `;
 
-const H4 = ({ children }) => {
-  return <Heading>{children}</Heading>;
+const H4 = ({ children, className }) => {
+  return <Heading className={className}>{children}</Heading>;
 };
 
 export default H4;
