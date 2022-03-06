@@ -23,7 +23,7 @@ const boxShadow = theme('mode', {
 
 const Box = styled.div`
   box-sizing: content-box;
-  margin: ${(props) => `${props.margin}px`};
+  margin: ${(props) => `${props.margin}px ${(props.margin / 100) * 70}px`};
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
   background-color: #ffffff;

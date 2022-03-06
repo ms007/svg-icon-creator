@@ -10,7 +10,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 80px 80px;
   grid-template-rows: 28px 28px;
-  gap: 15px 20px;
+  gap: 12px 16px;
   grid-template-areas:
     'width x'
     'height y';
@@ -32,7 +32,7 @@ const Dimensions = () => {
   const { width, height, x, y } = canvasItemDimensions;
   const dimensions = [{ width }, { height }, { x }, { y }].map((dimension) => {
     const name = getName(dimension);
-    const label = name.charAt(0);
+    const label = name.charAt(0).toUpperCase();
     const value = getValue(dimension);
     const disabled = value == null || value === '';
     const min = name === 'width' || name === 'height' ? 1 : null;

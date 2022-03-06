@@ -16,7 +16,6 @@ const Label = styled.div`
   font-size: 10px;
   font-weight: 700;
   color: ${({ active, disabled }) => (active && !disabled ? colorActive : colorInActive)};
-  text-transform: uppercase;
 `;
 
 export default Label;

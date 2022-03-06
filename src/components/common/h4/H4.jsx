@@ -11,7 +11,7 @@ const color = theme('mode', {
 const Heading = styled.h4`
   font-weight: 700;
   margin: 0;
-  margin-bottom: 16px;
+  margin-bottom: 15px;
   color: ${color};
 `;
 
