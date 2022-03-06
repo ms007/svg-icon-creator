@@ -23,7 +23,8 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
     lastValidValue.current = value;
   }, [value]);
 
-  const isValid = (number) => (min && number < min ? false : max & (number > max) ? false : true);
+  const isValid = (number) =>
+    min != null && number < min ? false : max != null && number > max ? false : true;
 
   const increment = (event) => {
     event.preventDefault();
@@ -65,7 +66,8 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
   const onBlur = () => {
     const value = inputRef.current.value;
     const isNumber = isNumeric(value);
-    setCurrentValue(isNumber ? value : lastValidValue.current);
+    const isValidNumber = isNumber && isValid(parseFloat(value));
+    setCurrentValue(isValidNumber ? value : lastValidValue.current);
     update(value);
     setActive(false);
   };

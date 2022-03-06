@@ -23,12 +23,12 @@ const InputField = styled.input`
   border: none;
 
   &:focus {
-    cursor: text;
+    cursor: ${({ disabled }) => (disabled ? 'default' : 'text')};
     outline: none;
   }
 
   &:hover {
-    cursor: text;
+    cursor: ${({ disabled }) => (disabled ? 'default' : 'text')};
   }
 
   &::selection {

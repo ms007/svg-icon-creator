@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { useLatest } from 'react-use';
 
 import { NumberInput } from 'components/common';
-import { withSelectedCanvasItemsDimensions } from 'recoil/canvas';
+import { withDimensions } from 'recoil/inspector';
 
 const Container = styled.div`
   display: grid;
@@ -24,13 +24,11 @@ const getName = (dimension) => Object.keys(dimension)[0];
 const getValue = (dimension) => Object.values(dimension)[0];
 
 const Dimensions = () => {
-  const [canvasItemDimensions, setCanvasItemDimensions] = useRecoilState(
-    withSelectedCanvasItemsDimensions
-  );
-  const latestDimensions = useLatest(canvasItemDimensions);
+  const [dimensions, setDimensions] = useRecoilState(withDimensions);
+  const latestDimensions = useLatest(dimensions);
 
-  const { width, height, x, y } = canvasItemDimensions;
-  const dimensions = [{ width }, { height }, { x }, { y }].map((dimension) => {
+  const { width, height, x, y } = dimensions;
+  const inputFields = [{ width }, { height }, { x }, { y }].map((dimension) => {
     const name = getName(dimension);
     const label = name.charAt(0).toUpperCase();
     const value = getValue(dimension);
@@ -43,12 +41,12 @@ const Dimensions = () => {
   const onChange = (name, value) => {
     const newDimensions = { ...latestDimensions.current };
     newDimensions[name] = value;
-    setCanvasItemDimensions(newDimensions);
+    setDimensions(newDimensions);
   };
 
   return (
     <Container>
-      {dimensions.map(({ name, label, value, disabled, min, max }) => (
+      {inputFields.map(({ name, label, value, disabled, min, max }) => (
         <Area name={name} key={name}>
           <NumberInput
             label={label}
