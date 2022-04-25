@@ -7,7 +7,7 @@ import { SidePanel } from 'components/common';
 import Appearance from './appearance';
 import Preview from './preview';
 
-import inspectorAtom from 'recoil/inspector';
+import { inspectorAtom } from 'recoil/inspector';
 
 const Box = styled.div`
   padding: 24px;

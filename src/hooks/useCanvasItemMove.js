@@ -19,11 +19,10 @@ export default function useCanvasItemMove(func) {
       const position = getMousePosition(event);
       const selectedElement = event.target;
 
-      const positionXAttribute = event.target.nodeName === 'circle' ? 'cx' : 'x';
-      const positionYAttribute = event.target.nodeName === 'circle' ? 'cy' : 'y';
+      const { x, y } = selectedElement.getBBox();
+      position.x -= parseFloat(x);
+      position.y -= parseFloat(y);
 
-      position.x -= parseFloat(selectedElement.getAttributeNS(null, positionXAttribute));
-      position.y -= parseFloat(selectedElement.getAttributeNS(null, positionYAttribute));
       setIsMoving(true);
       setOffset(position);
       callback('start', position, event, props);

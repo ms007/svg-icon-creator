@@ -1,24 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { NumberInput } from 'components/common';
-import { withUniformRadius } from 'recoil/inspector';
+import { withUniformRadius, withMaxRadius } from 'recoil/inspector';
 
 const Box = styled.div`
   width: 80px;
   height: 28px;
-  margin-right: 8px;
 `;
 
-const Uniform = () => {
+const Uniform = ({ disabled }) => {
   const [radius, setRadius] = useRecoilState(withUniformRadius);
-
-  const disabled = radius == null || radius === '';
+  const max = useRecoilValue(withMaxRadius);
 
   return (
     <Box>
-      <NumberInput label="px" value={radius} onChange={setRadius} min={0} disabled={disabled} />
+      <NumberInput
+        label="px"
+        value={radius}
+        onChange={setRadius}
+        min={0}
+        max={max}
+        disabled={disabled}
+      />
     </Box>
   );
 };

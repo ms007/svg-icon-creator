@@ -33,9 +33,12 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
       return;
     }
 
-    const newValue = parseFloat(value) + 1;
+    let newValue = parseFloat(value) + 1;
     if (!isValid(newValue)) {
-      return;
+      if (max == null) {
+        return;
+      }
+      newValue = max;
     }
 
     setCurrentValue(newValue);
@@ -49,9 +52,12 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
       return;
     }
 
-    const newValue = parseFloat(value) - 1;
+    let newValue = parseFloat(value) - 1;
     if (!isValid(newValue)) {
-      return;
+      if (min == null) {
+        return;
+      }
+      newValue = min;
     }
 
     setCurrentValue(newValue);

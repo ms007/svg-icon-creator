@@ -3,7 +3,7 @@ import { selector } from 'recoil';
 import artboarAtom from './atom';
 import windowAtom from 'recoil/window';
 import sidebarAtom from 'recoil/sidebar';
-import inspectorAtom from 'recoil/inspector';
+import { inspectorAtom } from 'recoil/inspector';
 
 const artboardWithWidth = selector({
   key: 'artboardWithWidth',

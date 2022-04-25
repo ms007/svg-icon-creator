@@ -1,17 +1,11 @@
 import { selector } from 'recoil';
 import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
-import { withIndividualRadiusEnabled } from 'recoil/inspector';
 
-const withUniformRadius = selector({
-  key: 'withUniformRadius',
+const withIndividualRadius = selector({
+  key: 'withIndividualRadius',
   get: ({ get }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {
-      return '';
-    }
-
-    const isIndividualRadius = get(withIndividualRadiusEnabled);
-    if (isIndividualRadius) {
       return '';
     }
 
@@ -19,12 +13,12 @@ const withUniformRadius = selector({
     const id = selectedCanvasItems[0];
     const { radius } = get(canvasItemsAtomFamily(id));
     if (radius == null) {
-      return 0;
+      return { topLeft: 0, topRight: 0, bottomLeft: 0, bottomRight: 0 };
     }
 
-    return Object.values(radius)[0];
+    return radius;
   },
-  set: ({ get, set }, value) => {
+  set: ({ get, set }, radius) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {
       return;
@@ -34,16 +28,15 @@ const withUniformRadius = selector({
     const id = selectedCanvasItems[0];
     const canvasItem = get(canvasItemsAtomFamily(id));
 
-    if (value <= 0) {
+    const isEmpty = Object.values(radius).every((value) => value <= 0);
+    if (isEmpty) {
       const { radius, ...rest } = canvasItem;
       set(canvasItemsAtomFamily(id), rest);
       return;
     }
 
-    const [topLeft, topRight, bottomLeft, bottomRight] = Array(4).fill(value);
-    const radius = { topLeft, topRight, bottomLeft, bottomRight };
     set(canvasItemsAtomFamily(id), { ...canvasItem, radius });
   },
 });
 
-export default withUniformRadius;
+export default withIndividualRadius;
