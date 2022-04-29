@@ -5,7 +5,8 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ active }) => (active ? '#fff' : 'var(--neutralAlpha)')};
+  background-color: ${({ active, disabled }) =>
+    disabled ? 'var(--neutral10)' : active ? '#fff' : 'var(--neutral20)'};
   border: 1px solid transparent;
   border-radius: 4px;
   outline: ${({ active }) => (active ? '2px solid var(--primaryAlpha)' : 'none')};

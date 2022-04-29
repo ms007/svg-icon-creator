@@ -11,8 +11,8 @@ import Individual from './inidividual';
 import { withIndividualRadiusEnabled } from 'recoil/inspector';
 
 const iconColor = theme('mode', {
-  light: 'var(--neutralDelta)',
-  dark: 'var(--neutralGamma)',
+  light: 'var(--neutral50)',
+  dark: 'var(--neutral40)',
 });
 
 const Box = styled.div`

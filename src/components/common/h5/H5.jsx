@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import theme from 'styled-theming';
 
 const color = theme('mode', {
-  light: 'var(--neutralDelta)',
-  dark: 'var(--neutralGamma)',
+  light: 'var(--neutral50)',
+  dark: 'var(--neutral40)',
 });
 
 const Heading = styled.h5`

@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import theme from 'styled-theming';
 
 const color = theme('mode', {
-  light: ({ selected }) => (selected ? 'var(--primary)' : 'var(--neutralDelta)'),
-  dark: ({ selected }) => (selected ? 'var(--neutralDelta)' : 'var(--neutralBeta)'),
+  light: ({ selected }) => (selected ? 'var(--primary)' : 'var(--neutral50)'),
+  dark: ({ selected }) => (selected ? 'var(--neutral50)' : 'var(--neutral30)'),
 });
 
 const hover = theme('mode', {
   light: 'var(--primary)',
-  dark: 'var(--neutralDelta)',
+  dark: 'var(--neutral50)',
 });
 
 const Button = styled.button`

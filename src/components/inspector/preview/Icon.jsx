@@ -6,7 +6,7 @@ import IconShape from './IconShape';
 import { canvasItemsAtom } from 'recoil/canvas';
 
 const Box = styled.div`
-  color: var(--neutralDelta);
+  color: var(--neutral50);
 `;
 
 const Icon = ({ size }) => {

@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import theme from 'styled-theming';
 
 const color = theme('mode', {
-  light: ({ selected, hovered }) => (selected || hovered ? 'var(--body)' : 'var(--neutralDelta)'),
-  dark: ({ selected, hovered }) =>
-    selected ? 'var(--sidebar)' : hovered ? 'var(--body)' : 'var(--neutralBeta)',
+  light: ({ selected, hovered }) => (selected || hovered ? 'var(--body)' : 'var(--neutral50)'),
+  dark: ({ selected, hovered }) => (selected || hovered ? 'var(--body)' : 'var(--neutral30)'),
 });
 
 const backgroundColor = theme('mode', {
-  light: ({ selected }) => (selected ? 'var(--neutralAlpha)' : 'transparent'),
-  dark: ({ selected }) => (selected ? 'var(--neutralGamma)' : 'transparent'),
+  light: ({ selected }) => (selected ? 'var(--neutral20)' : 'transparent'),
+  dark: ({ selected }) => (selected ? 'var(--neutral20)' : 'transparent'),
 });
 
 const Box = styled.div`

@@ -7,7 +7,7 @@ import Icon from './Icon';
 import presetsAtom from 'recoil/presets';
 
 const border = theme('mode', {
-  light: '1px solid var(--neutralAlpha)',
+  light: '1px solid var(--neutral10)',
   dark: '1px solid var(--neutral)',
 });
 

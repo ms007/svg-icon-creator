@@ -7,9 +7,9 @@ import Text from './Text';
 import Preview from './preview';
 
 const color = theme('mode', {
-  light: ({ selected, hovered }) => (selected || hovered ? 'var(--body)' : 'var(--neutralDelta)'),
+  light: ({ selected, hovered }) => (selected || hovered ? 'var(--body)' : 'var(--neutral50)'),
   dark: ({ selected, hovered }) =>
-    selected ? 'var(--sidebar)' : hovered ? 'var(--body)' : 'var(--neutralBeta)',
+    selected ? 'var(--sidebar)' : hovered ? 'var(--body)' : 'var(--neutral30)',
 });
 
 const Wrapper = styled.div`

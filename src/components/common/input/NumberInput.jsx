@@ -104,7 +104,9 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
         onBlur={onBlur}
         ref={inputRef}
       />
-      <Label active={active}>{label}</Label>
+      <Label active={active} disabled={disabled}>
+        {label}
+      </Label>
     </InputWrapper>
   );
 };

@@ -9,12 +9,12 @@ import { withIndividualRadius, withMaxRadius } from 'recoil/inspector';
 
 const iconColor = theme('mode', {
   light: '#b4b4b4',
-  dark: 'var(--neutralAlpha)',
+  dark: 'var(--neutral20)',
 });
 
 const iconStroke = theme('mode', {
-  light: 'var(--neutralDelta)',
-  dark: 'var(--neutralGamma)',
+  light: 'var(--neutral50)',
+  dark: 'var(--neutral40)',
 });
 
 const Container = styled.div`

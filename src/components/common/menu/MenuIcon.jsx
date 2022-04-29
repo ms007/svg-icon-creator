@@ -8,7 +8,7 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ hovered }) => (hovered ? 'var(--neutralDelta)' : 'var(--neutralGamma)')};
+  color: ${({ hovered }) => (hovered ? 'var(--neutral50)' : 'var(--neutral40)')};
 `;
 
 const ThemeSwitchButton = ({ children, ...props }) => {

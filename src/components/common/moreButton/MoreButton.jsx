@@ -14,10 +14,10 @@ const Button = styled.button`
   cursor: pointer;
   outline: inherit;
   border-radius: 3px;
-  background-color: ${({ active }) => (active ? 'var(--neutralAlpha)' : 'none')};
+  background-color: ${({ active }) => (active ? 'var(--neutral20)' : 'none')};
 
   &:hover {
-    background-color: var(--neutralAlpha);
+    background-color: var(--neutral20);
   }
 `;
 

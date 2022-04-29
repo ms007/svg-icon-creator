@@ -7,8 +7,8 @@ const colorActive = theme('mode', {
 });
 
 const colorInActive = theme('mode', {
-  light: 'var(--neutralGamma)',
-  dark: 'var(--neutralDelta)',
+  light: 'var(--neutral40)',
+  dark: 'var(--neutral50)',
 });
 
 const InputField = styled.input`

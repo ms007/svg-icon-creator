@@ -50,12 +50,12 @@ const Menu = styled(MenuInner)`
   }
 
   ${menuItemSelector.hover} {
-    background-color: var(--neutralAlpha);
+    background-color: var(--neutral20);
   }
 
   ${menuDividerSelector.name} {
     margin: 10px -10px;
-    background-color: var(--neutralAlpha);
+    background-color: var(--neutral10);
     height: 2px;
   }
 `;
