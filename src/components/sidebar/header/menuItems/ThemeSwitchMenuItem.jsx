@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { MenuItem, applyStatics, MenuIcon, Drop } from 'components/common';
+import { MenuItem, MenuIcon, Drop } from 'components/common';
 import { useTheme } from 'style';
 
 const Box = styled.div`
@@ -26,7 +26,5 @@ const ThemeSwitchMenuItem = (props) => {
     </MenuItem>
   );
 };
-
-applyStatics(MenuItem)(ThemeSwitchMenuItem);
 
 export default ThemeSwitchMenuItem;
