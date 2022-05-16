@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { DndProvider } from 'react-dnd';
@@ -12,7 +12,10 @@ const dndProviderOptions = {
   enableMouseEvents: true,
 };
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <RecoilRoot>
       <DndProvider backend={TouchBackend} options={dndProviderOptions}>
@@ -20,6 +23,5 @@ ReactDOM.render(
         <App />
       </DndProvider>
     </RecoilRoot>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
