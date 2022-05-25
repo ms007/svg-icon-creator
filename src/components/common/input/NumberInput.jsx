@@ -7,6 +7,8 @@ import Label from './Label';
 
 const isNumeric = (value) => !isNaN(parseFloat(value)) && isFinite(value);
 
+const isAltKeyPressed = (event) => event.altKey === true;
+
 const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
   const inputRef = useRef(null);
   const lastValidValue = useRef(value);
@@ -33,7 +35,9 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
       return;
     }
 
-    let newValue = parseFloat(value) + 1;
+    const altKeyPressed = isAltKeyPressed(event);
+
+    let newValue = parseFloat(value) + (altKeyPressed ? 0.1 : 1);
     if (!isValid(newValue)) {
       if (max == null) {
         return;
@@ -41,6 +45,7 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
       newValue = max;
     }
 
+    newValue = newValue.toPrecision(2);
     setCurrentValue(newValue);
     update(newValue);
   };
@@ -52,7 +57,9 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
       return;
     }
 
-    let newValue = parseFloat(value) - 1;
+    const altKeyPressed = isAltKeyPressed(event);
+
+    let newValue = parseFloat(value) - (altKeyPressed ? 0.1 : 1);
     if (!isValid(newValue)) {
       if (min == null) {
         return;
@@ -60,6 +67,7 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
       newValue = min;
     }
 
+    newValue = newValue.toPrecision(2);
     setCurrentValue(newValue);
     update(newValue);
   };
