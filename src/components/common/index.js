@@ -1,11 +1,10 @@
 export { default as Spacer } from './spacer';
-export { default as H4 } from './h4';
-export { default as H5 } from './h5';
 export { default as Logo } from './logo';
 export { default as MoreButton } from './moreButton';
 export { default as ToggleButton } from './toggleButton';
 export { default as SidePanel } from './sidePanel';
 
+export * from './headings';
 export * from './icons';
 export * from './menu';
 export * from './input';
