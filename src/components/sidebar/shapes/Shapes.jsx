@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useLatest } from 'react-use';
 
-import { withCanvasItemsReversed, canvasSelectedItemsAtom } from 'recoil/canvas';
+import { canvasSelectedItemsAtom } from 'recoil/canvas';
+import { withSidebarShapes } from 'recoil/sidebar';
 
 import { H4 } from 'components/common';
 import { Shape, DragLayer } from './shape';
@@ -16,7 +17,7 @@ const Title = styled(H4)`
 
 const Shapes = () => {
   const [dropIndex, setDropIndex] = useState(-1);
-  const [canvasItems, setCanvasItems] = useRecoilState(withCanvasItemsReversed);
+  const [canvasItems, setCanvasItems] = useRecoilState(withSidebarShapes);
   const setSelectedItems = useSetRecoilState(canvasSelectedItemsAtom);
 
   const latestDropIndex = useLatest(dropIndex);

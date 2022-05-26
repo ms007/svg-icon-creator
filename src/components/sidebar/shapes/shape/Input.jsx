@@ -8,9 +8,9 @@ import {
   canvasItemsAtomFamily,
   canvasSelectedItemsAtom,
   canvasEditingItemAtom,
-  withCanvasNextItemReversed,
-  withCanvasPrevItemReversed,
 } from 'recoil/canvas';
+
+import { withSidebarShapesNextItem, withSidebarShapesPrevItem } from 'recoil/sidebar';
 
 const hoverColor = theme('mode', {
   light: `0 0 2px 0 ${'#b9bcc0'}`,
@@ -55,8 +55,8 @@ const Input = ({ id }) => {
   const [shape, setShape] = useRecoilState(canvasItemsAtomFamily(id));
   const [editingId, setEditingId] = useRecoilState(canvasEditingItemAtom);
   const setSelectedItems = useSetRecoilState(canvasSelectedItemsAtom);
-  const nextCanvasItem = useRecoilValue(withCanvasNextItemReversed);
-  const prevCanvasItem = useRecoilValue(withCanvasPrevItemReversed);
+  const nextCanvasItem = useRecoilValue(withSidebarShapesNextItem);
+  const prevCanvasItem = useRecoilValue(withSidebarShapesPrevItem);
 
   const { name } = shape;
   const lastValue = useRef(name);

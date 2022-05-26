@@ -12,9 +12,6 @@ import {
 import withNewCanvasItem from './withNewCanvasItem';
 import withHoveredCanvasItem from './withHoveredCanvasItem';
 import withCanvasItemCoordinates from './withCanvasItemCoordinates';
-import withCanvasItemsReversed from './withCanvasItemsReversed';
-import withCanvasNextItemReversed from './withCanvasNextItemReversed';
-import withCanvasPrevItemReversed from './withCanvasPrevItemReversed';
 import withCanvasItemsDelete from './withCanvasItemsDelete';
 
 export {
@@ -29,9 +26,6 @@ export {
   withHoveredCanvasItem,
   withNewCanvasItem,
   withCanvasItemCoordinates,
-  withCanvasItemsReversed,
-  withCanvasNextItemReversed,
-  withCanvasPrevItemReversed,
   withCanvasItemsDelete,
 };
 

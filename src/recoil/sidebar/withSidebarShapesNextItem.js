@@ -1,17 +1,17 @@
 import { selector } from 'recoil';
 
-import { canvasEditingItemAtom } from './atom';
-import withCanvasItemsReversed from './withCanvasItemsReversed';
+import { canvasEditingItemAtom } from 'recoil/canvas';
+import withSidebarShapes from './withSidebarShapes';
 
-const withCanvasNextItemReversed = selector({
-  key: 'withCanvasNextItemReversed',
+const withSidebarShapesNextItem = selector({
+  key: 'withSidebarShapesNextItem',
   get: ({ get }) => {
     const editingId = get(canvasEditingItemAtom);
     if (editingId == null) {
       return null;
     }
 
-    const canvasItems = get(withCanvasItemsReversed);
+    const canvasItems = get(withSidebarShapes);
     const count = canvasItems.length;
     if (count < 2) {
       return null;
@@ -22,4 +22,4 @@ const withCanvasNextItemReversed = selector({
   },
 });
 
-export default withCanvasNextItemReversed;
+export default withSidebarShapesNextItem;

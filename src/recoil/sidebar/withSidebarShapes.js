@@ -1,9 +1,9 @@
 import { selector } from 'recoil';
 
-import { canvasItemsAtom } from './atom';
+import { canvasItemsAtom } from 'recoil/canvas';
 
-const withCanvasItemsReversed = selector({
-  key: 'withCanvasItemsReversed',
+const withSidebarShapes = selector({
+  key: 'withSidebarShapes',
   get: ({ get }) => {
     const canvasItems = get(canvasItemsAtom);
     return [...canvasItems].reverse();
@@ -11,4 +11,4 @@ const withCanvasItemsReversed = selector({
   set: ({ set }, items) => set(canvasItemsAtom, [...items].reverse()),
 });
 
-export default withCanvasItemsReversed;
+export default withSidebarShapes;

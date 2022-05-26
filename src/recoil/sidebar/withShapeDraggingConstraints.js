@@ -1,7 +1,7 @@
 import { selectorFamily } from 'recoil';
 
 import { draggedShapeAtom } from './atom';
-import withCanvasItemsReversed from 'recoil/canvas/withCanvasItemsReversed';
+import withSidebarShapes from './withSidebarShapes';
 
 const withShapeDraggingConstraints = selectorFamily({
   key: 'withShapeDraggingConstraints',
@@ -11,7 +11,7 @@ const withShapeDraggingConstraints = selectorFamily({
       canDropAfter: false,
     };
 
-    const canvasItems = get(withCanvasItemsReversed);
+    const canvasItems = get(withSidebarShapes);
     const draggedItem = get(draggedShapeAtom);
 
     const count = canvasItems.length;
