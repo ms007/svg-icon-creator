@@ -3,6 +3,7 @@ import withShapeDraggingConstraints from './withShapeDraggingConstraints';
 import withSidebarShapes from './withSidebarShapes';
 import withSidebarShapesNextItem from './withSidebarShapesNextItem';
 import withSidebarShapesPrevItem from './withSidebarShapesPrevItem';
+import withSidebarBoxBorderRadius from './withSidebarBoxBorderRadius';
 
 export {
   sidebarAtom,
@@ -11,6 +12,7 @@ export {
   withSidebarShapes,
   withSidebarShapesNextItem,
   withSidebarShapesPrevItem,
+  withSidebarBoxBorderRadius,
 };
 
 export default sidebarAtom;

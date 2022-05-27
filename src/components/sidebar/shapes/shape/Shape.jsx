@@ -9,6 +9,7 @@ import {
 } from 'recoil/canvas';
 import { draggedShapeAtom, withShapeDraggingConstraints } from 'recoil/sidebar';
 
+import useShapeSelect from 'hooks/useShapeSelect';
 import Text from './Text';
 import Input from './Input';
 import Preview from './preview';
@@ -16,15 +17,17 @@ import ShapeBox from './ShapeBox';
 
 const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
   const ref = useRef(null);
-  const [selectedCanvasItem, setSelectedCanvasItem] = useRecoilState(canvasSelectedItemsAtom);
+  const selectedCanvasItems = useRecoilValue(canvasSelectedItemsAtom);
   const [editingCanvasItem, setEditingCanvasItem] = useRecoilState(canvasEditingItemAtom);
   const [hoveredCanvasItem, setHoveredCanvasItem] = useRecoilState(withHoveredCanvasItem);
   const setDraggedShape = useSetRecoilState(draggedShapeAtom);
   const { canDropBefore, canDropAfter } = useRecoilValue(withShapeDraggingConstraints(id));
+  const selectCanvasItem = useShapeSelect();
 
-  const isSelected = selectedCanvasItem.some((selectedId) => selectedId === id);
+  const isSelected = selectedCanvasItems.some((selectedId) => selectedId === id);
   const isEditing = editingCanvasItem === id;
   const isHovered = hoveredCanvasItem === id;
+  const selectedItemsCount = selectedCanvasItems.length;
 
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
@@ -78,8 +81,17 @@ const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
   const onClick = (event) => {
     event.stopPropagation();
 
-    if (!isSelected) {
-      setSelectedCanvasItem([id]);
+    const options = {
+      metaKey: event.metaKey,
+      shiftKey: event.shiftKey,
+      ctrlKey: event.ctrlKey,
+      anyKeyPressed() {
+        return this.metaKey || this.shiftKey || this.ctrlKey;
+      },
+    };
+
+    if (!isSelected || options.anyKeyPressed() || selectedItemsCount > 1) {
+      selectCanvasItem(id, options);
       return;
     }
 
@@ -99,7 +111,7 @@ const Shape = ({ id, index, onDrop, onDropIndexChange }) => {
       />
 
       <ShapeBox
-        id={`l${id}`}
+        id={id}
         key={id}
         ref={ref}
         onClick={onClick}

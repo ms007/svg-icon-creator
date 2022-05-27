@@ -1,6 +1,9 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import theme from 'styled-theming';
+
+import { withSidebarBoxBorderRadius } from 'recoil/sidebar';
 
 const color = theme('mode', {
   light: ({ selected, hovered }) => (selected || hovered ? 'var(--body)' : 'var(--neutral50)'),
@@ -22,13 +25,13 @@ const Box = styled.div`
   background-color: ${backgroundColor};
   color: ${color};
   cursor: ${({ dragging }) => (dragging ? 'grabbing' : 'pointer')};
-  border-radius: 4px;
   z-index: 0;
 `;
 
-const ShapeBox = React.forwardRef(({ children, ...props }, ref) => {
+const ShapeBox = React.forwardRef(({ children, id, ...props }, ref) => {
+  const borderRadius = useRecoilValue(withSidebarBoxBorderRadius(id));
   return (
-    <Box ref={ref} {...props}>
+    <Box ref={ref} {...props} style={borderRadius}>
       {children}
     </Box>
   );

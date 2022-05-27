@@ -3,10 +3,10 @@ import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState 
 
 import { createShape } from './shapes';
 import useCanvasItemMove from 'hooks/useCanvasItemMove';
+import useCanvasItemSelect from 'hooks/useCanvasItemSelect';
 import {
   canvasIsCreatingNewItemAtom,
   canvasItemsAtomFamily,
-  canvasSelectedItemsAtom,
   canvasEditingItemAtom,
   canvasHoveredItemAtom,
 } from 'recoil/canvas';
@@ -16,13 +16,13 @@ export default function CanvasItem({ id }) {
   const [itemState, setItemState] = useRecoilState(canvasItemsAtomFamily(id));
   const isCreatingNewCanvasItem = useRecoilValue(canvasIsCreatingNewItemAtom);
   const resetEditing = useResetRecoilState(canvasEditingItemAtom);
-  const setSelectedCanvasItems = useSetRecoilState(canvasSelectedItemsAtom);
   const setHoveredCanvasItem = useSetRecoilState(canvasHoveredItemAtom);
+  const selectCanvasItem = useCanvasItemSelect();
   const noop = () => {};
 
-  const { onMouseDown } = useCanvasItemMove(({ status, position }) => {
+  const { onMouseDown } = useCanvasItemMove(({ status, position, event }) => {
     if (status === 'start') {
-      setSelectedCanvasItems([id]);
+      selectCanvasItem(id, { shiftKey: event.shiftKey });
       resetEditing();
       setIsMoving(true);
     }
@@ -47,7 +47,6 @@ export default function CanvasItem({ id }) {
 
   const onClick = (event) => {
     event.stopPropagation();
-    setSelectedCanvasItems([id]);
     scrollIntoView(id);
     resetEditing();
   };
