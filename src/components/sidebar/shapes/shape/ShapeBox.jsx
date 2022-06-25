@@ -31,7 +31,7 @@ const Box = styled.div`
 const ShapeBox = React.forwardRef(({ children, id, ...props }, ref) => {
   const borderRadius = useRecoilValue(withSidebarBoxBorderRadius(id));
   return (
-    <Box ref={ref} {...props} style={borderRadius}>
+    <Box ref={ref} id={id} {...props} style={borderRadius}>
       {children}
     </Box>
   );

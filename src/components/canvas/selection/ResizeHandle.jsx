@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useRecoilValue } from 'recoil';
 
-import useCanvasItemMove from 'hooks/useCanvasItemMove';
+import useCanvasItemResize from 'hooks/useCanvasItemResize';
 import { withPixelSize } from 'recoil/artboard';
 
 const Handle = styled.circle.attrs(({ size, strokeWidth }) => ({
@@ -33,18 +33,12 @@ const Handle = styled.circle.attrs(({ size, strokeWidth }) => ({
   }};
 `;
 
-const SelectionBoxResizeHandle = ({
-  direction,
-  onResizeStart,
-  onResize,
-  onResizeEnd,
-  ...props
-}) => {
+const ResizeHandle = ({ direction, onResizeStart, onResize, onResizeEnd, ...props }) => {
   const sizeOfOnePixel = useRecoilValue(withPixelSize);
   const size = sizeOfOnePixel * 4;
   const strokeWidth = sizeOfOnePixel * 2;
 
-  const { onMouseDown } = useCanvasItemMove(({ status, event, position }) => {
+  const { onMouseDown } = useCanvasItemResize(({ status, event, position }) => {
     event.stopPropagation();
 
     if (status === 'start') {
@@ -71,4 +65,4 @@ const SelectionBoxResizeHandle = ({
   );
 };
 
-export default SelectionBoxResizeHandle;
+export default ResizeHandle;

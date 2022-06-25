@@ -2,7 +2,7 @@ import { useKey } from 'react-use';
 import { useRecoilCallback } from 'recoil';
 import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
 
-export default function useCanvasItemsChangePositionWithKeyboard() {
+export default function useCanvasItemsKeyboardShortcuts() {
   const rePosition = useRecoilCallback(
     ({ snapshot, set }) => async (direction) => {
       const selectedItems = await snapshot.getPromise(canvasSelectedItemsAtom);
@@ -19,8 +19,13 @@ export default function useCanvasItemsChangePositionWithKeyboard() {
     []
   );
 
+  const unselect = useRecoilCallback(({ set }) => () => {
+    set(canvasSelectedItemsAtom, []);
+  });
+
   useKey('ArrowUp', () => rePosition('up'));
   useKey('ArrowDown', () => rePosition('down'));
   useKey('ArrowLeft', () => rePosition('left'));
   useKey('ArrowRight', () => rePosition('right'));
+  useKey('Escape', unselect);
 }

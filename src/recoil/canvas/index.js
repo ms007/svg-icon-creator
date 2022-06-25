@@ -12,6 +12,8 @@ import {
 import withNewCanvasItem from './withNewCanvasItem';
 import withHoveredCanvasItem from './withHoveredCanvasItem';
 import withCanvasItemCoordinates from './withCanvasItemCoordinates';
+import withSelectionCoordinates from './withSelectionCoordinates';
+import withSelectionGripCoords from './withSelectionGripCoords';
 import withCanvasItemsDelete from './withCanvasItemsDelete';
 
 export {
@@ -26,6 +28,8 @@ export {
   withHoveredCanvasItem,
   withNewCanvasItem,
   withCanvasItemCoordinates,
+  withSelectionCoordinates,
+  withSelectionGripCoords,
   withCanvasItemsDelete,
 };
 

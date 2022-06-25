@@ -5,7 +5,7 @@ import theme from 'styled-theming';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import useSvgRef from 'hooks/useSvgRef';
-import useCanvasItemsChangePositionWithKeyboard from 'hooks/useCanvasItemsChangePositionWithKeyboard';
+import useCanvasItemsKeyboardShortcuts from 'hooks/useCanvasItemsKeyboardShortcuts';
 import presetsAtom from 'recoil/presets';
 import artboardAtom, { withWidth } from 'recoil/artboard';
 import {
@@ -59,7 +59,7 @@ const Artboard = ({ children }) => {
   const isResizing = useRecoilValue(canvasIsResizingItemAtom);
   const isCreating = useRecoilValue(canvasIsCreatingNewItemAtom);
   const setSelectedCanvasItems = useSetRecoilState(canvasSelectedItemsAtom);
-  useCanvasItemsChangePositionWithKeyboard();
+  useCanvasItemsKeyboardShortcuts();
 
   const onClick = () => {
     if (!isResizing && !isCreating) {

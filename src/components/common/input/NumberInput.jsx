@@ -15,10 +15,18 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
   const [active, setActive] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
 
-  useKey('Escape', () => inputRef.current?.blur(), { target: inputRef.current });
   useKey('Enter', () => inputRef.current?.blur(), { target: inputRef.current });
   useKey('ArrowUp', (event) => increment(event), { target: inputRef.current });
   useKey('ArrowDown', (event) => decrement(event), { target: inputRef.current });
+  useKey(
+    'Escape',
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      inputRef.current?.blur();
+    },
+    { target: inputRef.current }
+  );
 
   useEffect(() => {
     setCurrentValue(value);
