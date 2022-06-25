@@ -1,36 +1,19 @@
 import { selectorFamily } from 'recoil';
 
 import { canvasItemsAtomFamily } from './atom';
+import getCoordinates from './helper/coordinatesHelper';
 
 const withCanvasItemCoordinates = selectorFamily({
   key: 'withCanvasItemCoordinates',
   get: (id) => ({ get }) => {
-    const canvasItem = get(canvasItemsAtomFamily(id));
+    if (id == null) {
+      return {};
+    }
 
+    const canvasItem = get(canvasItemsAtomFamily(id));
     const { x, y, width, height } = canvasItem;
 
-    const topLeft = { x, y };
-    const topRight = { x: x + width, y };
-    const bottomRight = { x: x + width, y: y + height };
-    const bottomLeft = { x, y: y + height };
-
-    const topCenter = { x: x + width / 2, y };
-    const bottomCenter = { x: x + width / 2, y: y + height };
-    const leftCenter = { x, y: y + height / 2 };
-    const rightCenter = { x: x + width, y: y + height / 2 };
-
-    return {
-      topLeft,
-      topRight,
-      bottomRight,
-      bottomLeft,
-      topCenter,
-      bottomCenter,
-      leftCenter,
-      rightCenter,
-      width,
-      height,
-    };
+    return getCoordinates(x, y, width, height);
   },
 });
 

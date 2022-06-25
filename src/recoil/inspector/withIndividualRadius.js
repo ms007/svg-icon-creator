@@ -1,5 +1,12 @@
 import { selector } from 'recoil';
-import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
+import {
+  canvasSelectedItemsAtom,
+  canvasItemsAtomFamily,
+  withCanvasItemMaxRadius,
+} from 'recoil/canvas';
+
+const corners = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
+const defaultIndividualRadius = { topLeft: 0, topRight: 0, bottomLeft: 0, bottomRight: 0 };
 
 const withIndividualRadius = selector({
   key: 'withIndividualRadius',
@@ -9,33 +16,42 @@ const withIndividualRadius = selector({
       return '';
     }
 
-    // ToDo: What if we would like to select more than one item
-    const id = selectedCanvasItems[0];
-    const { radius } = get(canvasItemsAtomFamily(id));
-    if (radius == null) {
-      return { topLeft: 0, topRight: 0, bottomLeft: 0, bottomRight: 0 };
-    }
-
-    return radius;
+    return selectedCanvasItems
+      .map((id) => {
+        const { radius } = get(canvasItemsAtomFamily(id));
+        return radius || defaultIndividualRadius;
+      })
+      .reduce((prev, current) => {
+        const [topLeft, topRight, bottomLeft, bottomRight] = corners.map((corner) => {
+          const prevCorner = prev[corner];
+          const currentCorner = current[corner];
+          return prevCorner === 'multi' || prevCorner !== currentCorner ? 'multi' : currentCorner;
+        });
+        return { topLeft, topRight, bottomLeft, bottomRight };
+      });
   },
-  set: ({ get, set }, radius) => {
+  set: ({ get, set }, { name, value }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {
       return;
     }
 
-    // ToDo: What if we would like to select more than one item
-    const id = selectedCanvasItems[0];
-    const canvasItem = get(canvasItemsAtomFamily(id));
+    selectedCanvasItems.forEach((id) => {
+      const canvasItem = get(canvasItemsAtomFamily(id));
+      const radius = { ...(canvasItem.radius || defaultIndividualRadius) };
 
-    const isEmpty = Object.values(radius).every((value) => value <= 0);
-    if (isEmpty) {
-      const { radius, ...rest } = canvasItem;
-      set(canvasItemsAtomFamily(id), rest);
-      return;
-    }
+      const max = get(withCanvasItemMaxRadius(id));
+      radius[name] = Math.min(value, max);
 
-    set(canvasItemsAtomFamily(id), { ...canvasItem, radius });
+      const isEmpty = Object.values(radius).every((value) => value <= 0);
+      if (isEmpty) {
+        const { radius, ...rest } = canvasItem;
+        set(canvasItemsAtomFamily(id), rest);
+        return;
+      }
+
+      set(canvasItemsAtomFamily(id), { ...canvasItem, radius });
+    });
   },
 });
 

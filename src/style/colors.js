@@ -27,5 +27,3 @@ export const dark = {
   canvas: '#2B3345',
   sidebar: '#1E2433',
 };
-
-//#40454F

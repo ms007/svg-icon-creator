@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import theme from 'styled-theming';
 
+const colorMulti = theme('mode', {
+  light: 'var(--neutral30)',
+  dark: 'var(--neutral40)',
+});
+
 const colorActive = theme('mode', {
   light: 'inherit',
   dark: '#222',
@@ -19,7 +24,7 @@ const InputField = styled.input`
   align-items: center;
   background: none;
   font-size: 12px;
-  color: ${({ active }) => (active ? colorActive : colorInActive)};
+  color: ${({ active, multi }) => (active ? colorActive : multi ? colorMulti : colorInActive)};
   border: none;
 
   &:focus {

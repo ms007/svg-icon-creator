@@ -1,7 +1,6 @@
 import { selector } from 'recoil';
 import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
 import { inspectorIndividualCornersAtomFamily } from './atom';
-import withUniformRadius from './withUniformRadius';
 
 const withIndividualRadiusEnabled = selector({
   key: 'withIndividualRadiusEnabled',
@@ -11,9 +10,7 @@ const withIndividualRadiusEnabled = selector({
       return false;
     }
 
-    // ToDo: What if we would like to select more than one item
-    const id = selectedCanvasItems[0];
-    return get(inspectorIndividualCornersAtomFamily(id));
+    return selectedCanvasItems.some((id) => get(inspectorIndividualCornersAtomFamily(id)));
   },
   set: ({ get, set }, enabled) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
@@ -21,16 +18,20 @@ const withIndividualRadiusEnabled = selector({
       return;
     }
 
-    // ToDo: What if we would like to select more than one item
-    const id = selectedCanvasItems[0];
-    set(inspectorIndividualCornersAtomFamily(id), enabled);
+    selectedCanvasItems.forEach((id) => {
+      set(inspectorIndividualCornersAtomFamily(id), enabled);
 
-    const { radius } = get(canvasItemsAtomFamily(id));
-    if (radius && !enabled) {
-      // take the largest individual corner as new uniform value
-      const values = Object.values(radius);
-      set(withUniformRadius, Math.max.apply(null, values));
-    }
+      const item = get(canvasItemsAtomFamily(id));
+      const { radius } = item;
+      if (radius && !enabled) {
+        // take the largest individual corner as new uniform value
+        const values = Object.values(radius);
+        const max = Math.max(...values);
+        const [topLeft, topRight, bottomLeft, bottomRight] = Array(4).fill(max);
+        const changedRadius = { topLeft, topRight, bottomLeft, bottomRight };
+        set(canvasItemsAtomFamily(id), { ...item, radius: changedRadius });
+      }
+    });
   },
 });
 

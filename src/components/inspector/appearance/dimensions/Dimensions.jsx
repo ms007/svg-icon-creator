@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useLatest } from 'react-use';
 
 import { NumberInput } from 'components/common';
-import { withDimensions } from 'recoil/inspector';
+import { withDimensions, withDimensionsIncrease } from 'recoil/inspector';
 
 const Container = styled.div`
   display: grid;
@@ -25,6 +25,7 @@ const getValue = (dimension) => Object.values(dimension)[0];
 
 const Dimensions = () => {
   const [dimensions, setDimensions] = useRecoilState(withDimensions);
+  const increaseDimensions = useSetRecoilState(withDimensionsIncrease);
   const latestDimensions = useLatest(dimensions);
 
   const { width, height, x, y } = dimensions;
@@ -33,9 +34,10 @@ const Dimensions = () => {
     const label = name.charAt(0).toUpperCase();
     const value = getValue(dimension);
     const disabled = value == null || value === '';
+    const multi = value === 'multi';
     const min = name === 'width' || name === 'height' ? 1 : null;
     const max = null;
-    return { name, label, value, disabled, min, max };
+    return { name, label, value, disabled, multi, min, max };
   });
 
   const onChange = (name, value) => {
@@ -44,16 +46,27 @@ const Dimensions = () => {
     setDimensions(newDimensions);
   };
 
+  const onIncrement = (name, amount) => {
+    increaseDimensions({ name, amount });
+  };
+
+  const onDecrement = (name, amount) => {
+    increaseDimensions({ name, amount: -amount });
+  };
+
   return (
     <Container>
-      {inputFields.map(({ name, label, value, disabled, min, max }) => (
+      {inputFields.map(({ name, label, value, disabled, multi, min, max }) => (
         <Area name={name} key={name}>
           <NumberInput
             label={label}
             value={value}
             onChange={(value) => onChange(name, value)}
+            onIncrement={(value) => onIncrement(name, value)}
+            onDecrement={(value) => onDecrement(name, value)}
             min={min}
             max={max}
+            multi={multi}
             disabled={disabled}
           />
         </Area>

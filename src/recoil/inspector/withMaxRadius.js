@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
+import { canvasSelectedItemsAtom, withCanvasItemMaxRadius } from 'recoil/canvas';
 
 const withMaxRadius = selector({
   key: 'withMaxRadius',
@@ -9,12 +9,12 @@ const withMaxRadius = selector({
       return 0;
     }
 
-    // ToDo: What if we would like to select more than one item
+    if (selectedCanvasItems.length > 1) {
+      return Number.MAX_SAFE_INTEGER;
+    }
+
     const id = selectedCanvasItems[0];
-    const item = get(canvasItemsAtomFamily(id));
-    const { width, height } = item;
-    const min = Math.min(width, height);
-    return min / 2;
+    return get(withCanvasItemMaxRadius(id));
   },
 });
 

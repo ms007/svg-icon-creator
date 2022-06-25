@@ -1,5 +1,9 @@
 import { selector } from 'recoil';
-import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
+import {
+  canvasSelectedItemsAtom,
+  canvasItemsAtomFamily,
+  withCanvasItemMaxRadius,
+} from 'recoil/canvas';
 import { withIndividualRadiusEnabled } from 'recoil/inspector';
 
 const withUniformRadius = selector({
@@ -15,14 +19,12 @@ const withUniformRadius = selector({
       return '';
     }
 
-    // ToDo: What if we would like to select more than one item
-    const id = selectedCanvasItems[0];
-    const { radius } = get(canvasItemsAtomFamily(id));
-    if (radius == null) {
-      return 0;
-    }
+    const radii = selectedCanvasItems.map((id) => {
+      const { radius } = get(canvasItemsAtomFamily(id));
+      return radius ? Object.values(radius)[0] : 0;
+    });
 
-    return Object.values(radius)[0];
+    return radii.every((radius) => radius === radii[0]) ? radii[0] : 'multi';
   },
   set: ({ get, set }, value) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
@@ -30,19 +32,22 @@ const withUniformRadius = selector({
       return;
     }
 
-    // ToDo: What if we would like to select more than one item
-    const id = selectedCanvasItems[0];
-    const canvasItem = get(canvasItemsAtomFamily(id));
+    selectedCanvasItems.forEach((id) => {
+      const canvasItem = get(canvasItemsAtomFamily(id));
 
-    if (value <= 0) {
-      const { radius, ...rest } = canvasItem;
-      set(canvasItemsAtomFamily(id), rest);
-      return;
-    }
+      if (value <= 0) {
+        const { radius, ...rest } = canvasItem;
+        set(canvasItemsAtomFamily(id), rest);
+        return;
+      }
 
-    const [topLeft, topRight, bottomLeft, bottomRight] = Array(4).fill(value);
-    const radius = { topLeft, topRight, bottomLeft, bottomRight };
-    set(canvasItemsAtomFamily(id), { ...canvasItem, radius });
+      const max = get(withCanvasItemMaxRadius(id));
+      const currentValue = Math.min(value, max);
+
+      const [topLeft, topRight, bottomLeft, bottomRight] = Array(4).fill(currentValue);
+      const radius = { topLeft, topRight, bottomLeft, bottomRight };
+      set(canvasItemsAtomFamily(id), { ...canvasItem, radius });
+    });
   },
 });
 

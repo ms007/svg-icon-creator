@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'styled-theming';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { useLatest } from 'react-use';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { NumberInput, Corner } from 'components/common';
-import { withIndividualRadius, withMaxRadius } from 'recoil/inspector';
+import {
+  withIndividualRadius,
+  withIndividualRadiusIncrease,
+  withMaxRadius,
+} from 'recoil/inspector';
 
 const iconColor = theme('mode', {
   light: '#b4b4b4',
@@ -49,27 +52,38 @@ const getValue = (value) => Object.values(value)[0];
 
 const Individual = () => {
   const [radius, setRadius] = useRecoilState(withIndividualRadius);
+  const increaseRadius = useSetRecoilState(withIndividualRadiusIncrease);
   const max = useRecoilValue(withMaxRadius);
-  const latestRadius = useLatest(radius);
 
   const { topLeft, topRight, bottomLeft, bottomRight } = radius;
   const inputFields = [{ topLeft }, { topRight }, { bottomLeft }, { bottomRight }].map((corner) => {
     const name = getName(corner);
     const label = 'px';
     const value = getValue(corner);
+    const multi = value === 'multi';
     const min = 0;
-    return { name, label, value, min, max };
+    return { name, label, value, multi, min, max };
   });
 
   const onChange = (name, value) => {
-    const newRadius = { ...latestRadius.current };
-    newRadius[name] = value;
-    setRadius(newRadius);
+    if (value === 'multi') {
+      return;
+    }
+
+    setRadius({ name, value });
+  };
+
+  const onIncrement = (name, amount) => {
+    increaseRadius({ name, amount });
+  };
+
+  const onDecrement = (name, amount) => {
+    increaseRadius({ name, amount: -amount });
   };
 
   return (
     <Container>
-      {inputFields.map(({ name, label, value, min, max }) => (
+      {inputFields.map(({ name, label, multi, value, min, max }) => (
         <Area name={name} key={name}>
           {(name === 'topRight' || name === 'bottomRight') && (
             <Icon topRight={name === 'topRight'} bottomRight={name === 'bottomRight'} height={20} />
@@ -80,6 +94,9 @@ const Individual = () => {
               label={label}
               value={value}
               onChange={(value) => onChange(name, value)}
+              onIncrement={(amount) => onIncrement(name, amount)}
+              onDecrement={(amount) => onDecrement(name, amount)}
+              multi={multi}
               min={min}
               max={max}
             />

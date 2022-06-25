@@ -12,11 +12,6 @@ const withCanvasItemsDelete = selector({
 
     const currentCanvasItems = get(canvasItemsAtom);
 
-    // ToDo: What if more than one item is selected?
-
-    const lastSelectedItem = selectedCanvasItems[selectedCanvasItems.length - 1];
-    const indexOfLastSelectedItem = currentCanvasItems.indexOf(lastSelectedItem);
-
     const canvasItems = currentCanvasItems.filter(
       (convasItem) => !selectedCanvasItems.includes(convasItem)
     );
@@ -29,9 +24,7 @@ const withCanvasItemsDelete = selector({
       return;
     }
 
-    set(canvasSelectedItemsAtom, [
-      canvasItems[indexOfLastSelectedItem] || canvasItems[canvasItems.length - 1],
-    ]);
+    set(canvasSelectedItemsAtom, [canvasItems[canvasItems.length - 1]]);
   },
 });
 

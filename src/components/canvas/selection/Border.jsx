@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
-import { withCanvasItemCoordinates } from 'recoil/canvas';
 import { withPixelSize } from 'recoil/artboard';
 
 const Path = styled.path.attrs(({ strokeWidth }) => ({
@@ -14,9 +13,8 @@ const Path = styled.path.attrs(({ strokeWidth }) => ({
   pointer-events: none;
 `;
 
-const Border = ({ id }) => {
+const Border = ({ coordinates }) => {
   const onePixel = useRecoilValue(withPixelSize);
-  const coordinates = useRecoilValue(withCanvasItemCoordinates(id));
 
   const offset = 0;
 

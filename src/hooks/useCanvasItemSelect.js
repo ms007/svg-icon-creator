@@ -1,22 +1,33 @@
-import { useSetRecoilState } from 'recoil';
+import { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
 import { canvasSelectedItemsAtom } from 'recoil/canvas';
 
 export default function useCanvasItemSelect() {
-  const selectItems = useSetRecoilState(canvasSelectedItemsAtom);
+  const [selectedItems, selectItems] = useRecoilState(canvasSelectedItemsAtom);
 
-  return (id, options = {}) => {
-    const { shiftKey = false } = options;
-    if (!shiftKey) {
-      selectItems([id]);
-      return;
-    }
+  return useCallback(
+    (id, options = {}) => {
+      const { shiftKey = false } = options;
 
-    selectItems((selectedItems) => {
-      if (selectedItems.includes(id)) {
-        return selectedItems.filter((item) => item !== id);
+      if (!shiftKey && selectedItems.length <= 1) {
+        selectItems([id]);
+        return;
       }
 
-      return [...selectedItems, id];
-    });
-  };
+      if (!shiftKey && selectedItems.length > 1) {
+        if (!selectedItems.includes(id)) {
+          selectItems([id]);
+        }
+        return;
+      }
+
+      if (selectedItems.includes(id)) {
+        selectItems(selectedItems.filter((item) => item !== id));
+        return;
+      }
+
+      selectItems([...selectedItems, id]);
+    },
+    [selectedItems, selectItems]
+  );
 }

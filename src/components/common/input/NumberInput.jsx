@@ -9,16 +9,36 @@ const isNumeric = (value) => !isNaN(parseFloat(value)) && isFinite(value);
 
 const isAltKeyPressed = (event) => event.altKey === true;
 
-const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
+const NumberInput = ({
+  label,
+  value,
+  min,
+  max,
+  multi,
+  disabled,
+  onChange,
+  onIncrement,
+  onDecrement,
+}) => {
   const inputRef = useRef(null);
   const lastValidValue = useRef(value);
   const [active, setActive] = useState(false);
   const [currentValue, setCurrentValue] = useState(value);
 
-  useKey('Escape', () => inputRef.current?.blur(), { target: inputRef.current });
   useKey('Enter', () => inputRef.current?.blur(), { target: inputRef.current });
   useKey('ArrowUp', (event) => increment(event), { target: inputRef.current });
+  useKey('ArrowLeft', (event) => event.stopPropagation(), { target: inputRef.current });
+  useKey('ArrowRight', (event) => event.stopPropagation(), { target: inputRef.current });
   useKey('ArrowDown', (event) => decrement(event), { target: inputRef.current });
+  useKey(
+    'Escape',
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      inputRef.current?.blur();
+    },
+    { target: inputRef.current }
+  );
 
   useEffect(() => {
     setCurrentValue(value);
@@ -30,46 +50,16 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
 
   const increment = (event) => {
     event.preventDefault();
-    const value = inputRef.current.value;
-    if (!isNumeric(value)) {
-      return;
-    }
-
+    event.stopPropagation();
     const altKeyPressed = isAltKeyPressed(event);
-
-    let newValue = parseFloat(value) + (altKeyPressed ? 0.1 : 1);
-    if (!isValid(newValue)) {
-      if (max == null) {
-        return;
-      }
-      newValue = max;
-    }
-
-    newValue = newValue.toPrecision(2);
-    setCurrentValue(newValue);
-    update(newValue);
+    onIncrement(altKeyPressed ? 0.1 : 1);
   };
 
   const decrement = (event) => {
     event.preventDefault();
-    const value = inputRef.current.value;
-    if (!isNumeric(value)) {
-      return;
-    }
-
+    event.stopPropagation();
     const altKeyPressed = isAltKeyPressed(event);
-
-    let newValue = parseFloat(value) - (altKeyPressed ? 0.1 : 1);
-    if (!isValid(newValue)) {
-      if (min == null) {
-        return;
-      }
-      newValue = min;
-    }
-
-    newValue = newValue.toPrecision(2);
-    setCurrentValue(newValue);
-    update(newValue);
+    onDecrement(altKeyPressed ? 0.1 : 1);
   };
 
   const onFocus = () => {
@@ -78,26 +68,44 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
   };
 
   const onBlur = () => {
-    const value = inputRef.current.value;
-    const isNumber = isNumeric(value);
-    const isValidNumber = isNumber && isValid(parseFloat(value));
-    setCurrentValue(isValidNumber ? value : lastValidValue.current);
-    update(value);
     setActive(false);
+
+    const value = inputRef.current.value;
+    if (value === 'multi') {
+      return;
+    }
+
+    let newValue = value;
+
+    const isNumber = isNumeric(newValue);
+    if (isNumber) {
+      newValue = parseFloat(newValue);
+      if (!isValid(newValue)) {
+        if (max != null && newValue > max) {
+          newValue = max;
+        } else if (min != null && newValue < min) {
+          newValue = min;
+        }
+      }
+    }
+
+    const isValidNumber = isNumber && isValid(newValue);
+    setCurrentValue(isValidNumber ? newValue : lastValidValue.current);
+    update(newValue);
   };
 
-  const update = (n) => {
-    let newValue = isNumeric(n) ? parseFloat(n) : lastValidValue.current;
-    newValue = isValid(newValue) ? newValue : lastValidValue.current;
-    lastValidValue.current = newValue;
-    onChange(newValue);
-  };
+  const update = (value) => {
+    if (value === 'multi') {
+      return;
+    }
 
-  const handleChange = (event) => {
-    const newValue = event.target.value;
-    setCurrentValue(newValue);
-    if (isNumeric(newValue)) {
-      update(newValue);
+    setCurrentValue(value);
+    if (isNumeric(value)) {
+      value = parseFloat(value);
+      if (isValid(value)) {
+        lastValidValue.current = value;
+        onChange(value);
+      }
     }
   };
 
@@ -105,9 +113,10 @@ const NumberInput = ({ label, value, min, max, disabled, onChange }) => {
     <InputWrapper disabled={disabled} active={active}>
       <InputField
         active={active}
+        multi={multi}
         disabled={disabled}
         value={currentValue}
-        onChange={handleChange}
+        onChange={(event) => update(event.target.value)}
         onFocus={onFocus}
         onBlur={onBlur}
         ref={inputRef}
