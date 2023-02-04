@@ -4,7 +4,7 @@ import { canvasItemsAtomFamily, canvasSelectedItemsAtom } from './atom';
 import getCoordinates from './helper/coordinatesHelper';
 
 const withSelectionCoordinates = selector({
-  key: 'withSelectionCoordinates',
+  key: 'canvas.withSelectionCoordinates',
   get: ({ get }) => {
     const selectedItems = get(canvasSelectedItemsAtom);
     if (selectedItems.length < 1) {

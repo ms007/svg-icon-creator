@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 
 export const artboardIsReadyAtom = atom({
-  key: 'artboardIsReadyAtom',
+  key: 'artboard.isReady',
   default: false,
 });
 
 export const artboardAtom = atom({
-  key: 'artboardAtom',
+  key: 'artboard',
   default: {
     margin: 100,
     minWidth: 300,

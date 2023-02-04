@@ -2,7 +2,7 @@ import { selector } from 'recoil';
 import { canvasSelectedItemsAtom, canvasItemsAtom, canvasHoveredItemAtom } from './atom';
 
 const withCanvasItemsDelete = selector({
-  key: 'withCanvasItemsDelete',
+  key: 'canvas.withCanvasItemsDelete',
   get: () => {},
   set: ({ get, set }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom) || [];

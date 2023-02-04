@@ -8,7 +8,7 @@ import NewCanvasItem from './NewCanvasItem';
 import { Hover, Selection } from './selection';
 import useCanvasItemDelete from 'hooks/useCanvasItemDelete';
 
-import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom, canvasItemsAtom } from 'recoil/canvas';
+import { canvasIsCreatingNewItemAtom, canvasNewItemTypeAtom, canvasItemsAtom } from 'recoil/canvas';
 
 const Box = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ const Box = styled.div`
 const Canvas = () => {
   useCanvasItemDelete();
   const isCreatingNewItem = useRecoilValue(canvasIsCreatingNewItemAtom);
-  const type = useRecoilValue(newCanvasItemTypeAtom);
+  const type = useRecoilValue(canvasNewItemTypeAtom);
   const canvasItems = useRecoilValue(canvasItemsAtom);
 
   return (

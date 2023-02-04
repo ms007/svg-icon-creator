@@ -3,7 +3,7 @@ import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
 import { inspectorIndividualCornersAtomFamily } from './atom';
 
 const withIndividualRadiusEnabled = selector({
-  key: 'withIndividualRadiusEnabled',
+  key: 'inspector.withIndividualRadiusEnabled',
   get: ({ get }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {

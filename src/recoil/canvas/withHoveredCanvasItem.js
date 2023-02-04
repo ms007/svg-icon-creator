@@ -4,7 +4,7 @@ import { canvasSelectedItemsAtom, canvasHoveredItemAtom } from './atom';
 import { draggedShapeAtom } from 'recoil/sidebar';
 
 const withHoveredCanvasItem = selector({
-  key: 'withHoveredCanvasItem',
+  key: 'canvas.withHoveredCanvasItem',
   get: ({ get }) => {
     const selectedItems = get(canvasSelectedItemsAtom);
     const hoveredItem = get(canvasHoveredItemAtom);

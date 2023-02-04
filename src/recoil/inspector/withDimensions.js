@@ -7,7 +7,7 @@ const getSameValueOrMulti = (array) => {
 };
 
 const withDimensions = selector({
-  key: 'withDimensions',
+  key: 'inspector.withDimensions',
   get: ({ get }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {

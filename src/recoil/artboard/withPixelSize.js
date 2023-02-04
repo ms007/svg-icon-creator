@@ -4,7 +4,7 @@ import withWidth from './withWidth';
 import presetsAtom from '../presets';
 
 const artboardWithPixelSize = selector({
-  key: 'artboardWithPixelSize',
+  key: 'artboard.withPixelSize',
   get: ({ get }) => {
     const artboardWidth = get(withWidth);
     const { iconSize } = get(presetsAtom);

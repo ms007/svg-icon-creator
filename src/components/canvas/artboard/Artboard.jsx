@@ -8,7 +8,7 @@ import useCanvasItemsKeyboardShortcuts from 'hooks/useCanvasItemsKeyboardShortcu
 import presetsAtom from 'recoil/presets';
 import { artboardAtom, artboardIsReadyAtom, withWidth } from 'recoil/artboard';
 import {
-  newCanvasItemTypeAtom,
+  canvasNewItemTypeAtom,
   canvasSelectedItemsAtom,
   canvasIsCreatingNewItemAtom,
   canvasIsResizingItemAtom,
@@ -71,7 +71,7 @@ const Artboard = ({ children }) => {
   };
 
   const width = useRecoilValue(withWidth);
-  const newItemType = useRecoilValue(newCanvasItemTypeAtom);
+  const newItemType = useRecoilValue(canvasNewItemTypeAtom);
 
   const viewBox = `0 0 ${iconSize} ${iconSize}`;
 

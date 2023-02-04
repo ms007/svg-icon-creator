@@ -8,7 +8,7 @@ import {
 const defaultIndividualRadius = { topLeft: 0, topRight: 0, bottomLeft: 0, bottomRight: 0 };
 
 const withIndividualRadiusIncrease = selector({
-  key: 'withIndividualRadiusIncrease',
+  key: 'inspector.withIndividualRadiusIncrease',
   get: () => {},
   set: ({ get, set }, { name, amount }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);

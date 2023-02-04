@@ -1,41 +1,41 @@
 import { atom, atomFamily } from 'recoil';
 
 export const canvasIsCreatingNewItemAtom = atom({
-  key: 'canvasCreatingNewItemAtom',
+  key: 'canvas.creatingNewItem',
   default: false,
 });
 
 export const canvasIsResizingItemAtom = atom({
-  key: 'canvasResizingItemAtom',
+  key: 'canvas.resizingItem',
   default: false,
 });
 
-export const newCanvasItemTypeAtom = atom({
-  key: 'newCanvasItemTypeAtom',
+export const canvasNewItemTypeAtom = atom({
+  key: 'canvas.newItemType',
   default: null,
 });
 
 export const canvasItemsAtom = atom({
-  key: 'canvasItemsAtom',
+  key: 'canvas.items',
   default: [],
 });
 
 export const canvasItemsAtomFamily = atomFamily({
-  key: 'canvasItemsAtomFamily',
+  key: 'canvas.itemsFamily',
   default: {},
 });
 
 export const canvasSelectedItemsAtom = atom({
-  key: 'canvasSelectedItemsAtom',
+  key: 'canvas.selectedItems',
   default: [],
 });
 
 export const canvasHoveredItemAtom = atom({
-  key: 'canvasHoveredItemAtom',
+  key: 'canvas.hoveredItem',
   default: null,
 });
 
 export const canvasEditingItemAtom = atom({
-  key: 'canvasEditingItemAtom',
+  key: 'canvas.editingItem',
   default: null,
 });

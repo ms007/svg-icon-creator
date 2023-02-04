@@ -3,7 +3,7 @@ import { selectorFamily } from 'recoil';
 import { canvasItemsAtomFamily } from './atom';
 
 const withCanvasItemMaxRadius = selectorFamily({
-  key: 'withCanvasItemMaxRadius',
+  key: 'canvas.withCanvasItemMaxRadius',
   get:
     (id) =>
     ({ get }) => {

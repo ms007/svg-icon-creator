@@ -2,7 +2,7 @@ import { selector } from 'recoil';
 import { canvasSelectedItemsAtom, withCanvasItemMaxRadius } from 'recoil/canvas';
 
 const withMaxRadius = selector({
-  key: 'withMaxRadius',
+  key: 'inspector.withMaxRadius',
   get: ({ get }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {

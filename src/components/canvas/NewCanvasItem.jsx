@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import useCanvasItemCreate from 'hooks/useCanvasItemCreate';
 import {
   canvasIsCreatingNewItemAtom,
-  newCanvasItemTypeAtom,
+  canvasNewItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,
   canvasSelectedItemsAtom,
@@ -14,7 +14,7 @@ import {
 
 const NewCanvasItem = ({ type }) => {
   const [newItem, setNewItem] = useState(null);
-  const resetType = useResetRecoilState(newCanvasItemTypeAtom);
+  const resetType = useResetRecoilState(canvasNewItemTypeAtom);
   const resetIsCreatingNewItem = useResetRecoilState(canvasIsCreatingNewItemAtom);
   const setSelectedCanvasItem = useSetRecoilState(canvasSelectedItemsAtom);
 

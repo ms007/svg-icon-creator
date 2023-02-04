@@ -1,10 +1,10 @@
 import { selector } from 'recoil';
-import { canvasIsCreatingNewItemAtom, newCanvasItemTypeAtom, canvasEditingItemAtom } from './atom';
+import { canvasIsCreatingNewItemAtom, canvasNewItemTypeAtom, canvasEditingItemAtom } from './atom';
 
 const withNewCanvasItem = selector({
-  key: 'withNewCanvasItem',
+  key: 'canvas.withNewCanvasItem',
   get: ({ get }) => {
-    return get(newCanvasItemTypeAtom);
+    return get(canvasNewItemTypeAtom);
   },
   set: ({ get, set }, type) => {
     const editingCanvasItem = get(canvasEditingItemAtom);
@@ -13,7 +13,7 @@ const withNewCanvasItem = selector({
       return;
     }
 
-    set(newCanvasItemTypeAtom, type);
+    set(canvasNewItemTypeAtom, type);
     set(canvasIsCreatingNewItemAtom, true);
   },
 });

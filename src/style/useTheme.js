@@ -1,13 +1,9 @@
 import { useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { light, dark } from './colors';
-
-const themeAtom = atom({
-  key: 'themeAtom',
-  default: null,
-});
+import { presetsThemeAtom } from 'recoil/presets';
 
 const colors = {
   light,
@@ -16,7 +12,7 @@ const colors = {
 
 const useTheme = (initialTheme = 'light') => {
   const [name, setName] = useLocalStorage('theme', initialTheme);
-  const [theme, setTheme] = useRecoilState(themeAtom);
+  const [theme, setTheme] = useRecoilState(presetsThemeAtom);
 
   useEffect(() => {
     const keys = Object.keys(colors[name]);

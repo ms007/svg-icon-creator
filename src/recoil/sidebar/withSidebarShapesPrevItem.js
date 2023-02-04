@@ -4,7 +4,7 @@ import { canvasEditingItemAtom } from 'recoil/canvas';
 import withSidebarShapes from './withSidebarShapes';
 
 const withSidebarShapesPrevItem = selector({
-  key: 'withSidebarShapesPrevItem',
+  key: 'sidebar.withSidebarShapesPrevItem',
   get: ({ get }) => {
     const editingId = get(canvasEditingItemAtom);
     if (editingId == null) {

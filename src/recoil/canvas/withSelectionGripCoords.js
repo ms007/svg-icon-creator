@@ -3,7 +3,7 @@ import { selector } from 'recoil';
 import withSelectionCoordinates from './withSelectionCoordinates';
 
 const withSelectionGripCords = selector({
-  key: 'withSelectionGripCords',
+  key: 'canvas.withSelectionGripCords',
   get: ({ get }) => {
     const coordinates = get(withSelectionCoordinates);
     if (coordinates == null) {

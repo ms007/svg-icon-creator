@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 const windowAtom = atom({
-  key: 'windowAtom',
+  key: 'window',
   default: {
     width: window.innerWidth,
     height: window.innerHeight,

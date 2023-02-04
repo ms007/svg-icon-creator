@@ -9,7 +9,7 @@ const corners = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
 const defaultIndividualRadius = { topLeft: 0, topRight: 0, bottomLeft: 0, bottomRight: 0 };
 
 const withIndividualRadius = selector({
-  key: 'withIndividualRadius',
+  key: 'inspector.withIndividualRadius',
   get: ({ get }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {

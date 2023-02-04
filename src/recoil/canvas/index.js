@@ -1,7 +1,7 @@
 import {
   canvasIsCreatingNewItemAtom,
   canvasIsResizingItemAtom,
-  newCanvasItemTypeAtom,
+  canvasNewItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,
   canvasSelectedItemsAtom,
@@ -20,7 +20,7 @@ import withCanvasItemMaxRadius from './withCanvasItemMaxRadius';
 export {
   canvasIsCreatingNewItemAtom,
   canvasIsResizingItemAtom,
-  newCanvasItemTypeAtom,
+  canvasNewItemTypeAtom,
   canvasItemsAtom,
   canvasItemsAtomFamily,
   canvasSelectedItemsAtom,

@@ -1,13 +1,13 @@
 import { atom, atomFamily } from 'recoil';
 
 export const inspectorAtom = atom({
-  key: 'inspectorAtom',
+  key: 'inspector',
   default: {
     width: 342,
   },
 });
 
 export const inspectorIndividualCornersAtomFamily = atomFamily({
-  key: 'inspectorIndividualCornersAtomFamily',
+  key: 'inspector.individualCornersFamily',
   default: false,
 });

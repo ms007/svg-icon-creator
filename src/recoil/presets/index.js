@@ -1,3 +1,5 @@
-import atom from './atom';
+import { presetsAtom, presetsThemeAtom } from './atom';
 
-export default atom;
+export { presetsAtom, presetsThemeAtom };
+
+export default presetsAtom;

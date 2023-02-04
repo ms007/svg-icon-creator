@@ -7,7 +7,7 @@ import {
 import { withIndividualRadiusEnabled } from 'recoil/inspector';
 
 const withUniformRadius = selector({
-  key: 'withUniformRadius',
+  key: 'inspector.withUniformRadius',
   get: ({ get }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
     if (selectedCanvasItems.length < 1) {

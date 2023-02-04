@@ -11,7 +11,7 @@ import { useDrop } from 'react-dnd';
 import { sidebarAtom } from 'recoil/sidebar';
 import {
   canvasSelectedItemsAtom,
-  newCanvasItemTypeAtom,
+  canvasNewItemTypeAtom,
   canvasIsCreatingNewItemAtom,
 } from 'recoil/canvas';
 
@@ -22,7 +22,7 @@ const Box = styled.div`
 const Sidebar = () => {
   const { width } = useRecoilValue(sidebarAtom);
   const setSelectedItems = useSetRecoilState(canvasSelectedItemsAtom);
-  const resetType = useResetRecoilState(newCanvasItemTypeAtom);
+  const resetType = useResetRecoilState(canvasNewItemTypeAtom);
   const resetIsCreatingNewItem = useResetRecoilState(canvasIsCreatingNewItemAtom);
 
   // workaround:

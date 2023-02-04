@@ -6,7 +6,7 @@ import {
 } from 'recoil/canvas';
 
 const withUniformRadiusIncrease = selector({
-  key: 'withUniformRadiusIncrease',
+  key: 'inspector.withUniformRadiusIncrease',
   get: () => {},
   set: ({ get, set }, amount) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);

@@ -2,7 +2,7 @@ import { selector } from 'recoil';
 import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
 
 const withDimensionsIncrease = selector({
-  key: 'withDimensionsIncrease',
+  key: 'inspector.withDimensionsIncrease',
   get: () => {},
   set: ({ get, set }, { name, amount }) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
