@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
+import { RecoilDevTools } from 'recoil-toolkit';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { DndProvider } from 'react-dnd';
 
@@ -18,6 +19,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <RecoilRoot>
+      <RecoilDevTools forceSerialize={false} />
       <DndProvider backend={TouchBackend} options={dndProviderOptions}>
         <DebugObserver />
         <App />

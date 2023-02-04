@@ -12,6 +12,7 @@
     "react-scripts": "^5.0.1",
     "react-use": "^17.4.0",
     "recoil": "^0.7.6",
+    "recoil-toolkit": "^0.2.11",
     "styled-components": "^5.3.6",
     "styled-theming": "^2.2.0",
     "uuid": "^9.0.0"

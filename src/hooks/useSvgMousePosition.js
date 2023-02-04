@@ -1,10 +1,8 @@
 import { useCallback } from 'react';
-import { useRecoilValue } from 'recoil';
-
-import svgAtom from 'recoil/svg';
+import useSvgContainer from './useSvgContainer';
 
 export default function useSvgMousePosition() {
-  const svg = useRecoilValue(svgAtom);
+  const svg = useSvgContainer();
 
   const getMousePosition = useCallback(
     (event) => {

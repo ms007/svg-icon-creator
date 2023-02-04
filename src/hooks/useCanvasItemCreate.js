@@ -1,11 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
 
-import svgAtom from 'recoil/svg';
+import useSvgContainer from './useSvgContainer';
 import useSvgMousePosition from './useSvgMousePosition';
 
 export default function useCanvasItemCreate(func) {
-  const svg = useRecoilValue(svgAtom);
+  const svg = useSvgContainer();
   const [isCreating, setIsCreating] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
 

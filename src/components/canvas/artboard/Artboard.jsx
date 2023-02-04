@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import theme from 'styled-theming';
 
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import useSvgRef from 'hooks/useSvgRef';
 import useCanvasItemsKeyboardShortcuts from 'hooks/useCanvasItemsKeyboardShortcuts';
 import presetsAtom from 'recoil/presets';
-import artboardAtom, { withWidth } from 'recoil/artboard';
+import { artboardAtom, artboardIsReadyAtom, withWidth } from 'recoil/artboard';
 import {
   newCanvasItemTypeAtom,
   canvasSelectedItemsAtom,
@@ -53,13 +52,17 @@ const SvgContainer = styled.svg.attrs({
 `;
 
 const Artboard = ({ children }) => {
-  const svg = useSvgRef();
   const { margin } = useRecoilValue(artboardAtom);
   const { iconSize } = useRecoilValue(presetsAtom);
   const isResizing = useRecoilValue(canvasIsResizingItemAtom);
   const isCreating = useRecoilValue(canvasIsCreatingNewItemAtom);
   const setSelectedCanvasItems = useSetRecoilState(canvasSelectedItemsAtom);
+  const setReady = useSetRecoilState(artboardIsReadyAtom);
   useCanvasItemsKeyboardShortcuts();
+
+  useEffect(() => {
+    setReady(true);
+  }, [setReady]);
 
   const onClick = () => {
     if (!isResizing && !isCreating) {
@@ -75,7 +78,7 @@ const Artboard = ({ children }) => {
   return (
     <Box width={width} margin={margin}>
       <SvgContainer
-        ref={svg}
+        id="svg-container"
         width={width}
         height={width}
         viewBox={viewBox}

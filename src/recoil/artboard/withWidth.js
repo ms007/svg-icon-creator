@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 
-import artboarAtom from './atom';
+import { artboardAtom } from './atom';
 import windowAtom from 'recoil/window';
 import sidebarAtom from 'recoil/sidebar';
 import { inspectorAtom } from 'recoil/inspector';
@@ -8,7 +8,7 @@ import { inspectorAtom } from 'recoil/inspector';
 const artboardWithWidth = selector({
   key: 'artboardWithWidth',
   get: ({ get }) => {
-    const { margin, minWidth, maxWidth } = get(artboarAtom);
+    const { margin, minWidth, maxWidth } = get(artboardAtom);
 
     const window = get(windowAtom);
     const sidebar = get(sidebarAtom);

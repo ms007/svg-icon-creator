@@ -1,7 +1,8 @@
-import atom from './atom';
+import { artboardAtom, artboardIsReadyAtom } from './atom';
+
 import withWidth from './withWidth';
 import withPixelSize from './withPixelSize';
 
-export { withWidth, withPixelSize };
+export { artboardAtom, artboardIsReadyAtom, withWidth, withPixelSize };
 
-export default atom;
+export default artboardAtom;

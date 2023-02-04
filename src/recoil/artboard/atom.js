@@ -1,6 +1,11 @@
 import { atom } from 'recoil';
 
-const artboardAtom = atom({
+export const artboardIsReadyAtom = atom({
+  key: 'artboardIsReadyAtom',
+  default: false,
+});
+
+export const artboardAtom = atom({
   key: 'artboardAtom',
   default: {
     margin: 100,
@@ -8,5 +13,3 @@ const artboardAtom = atom({
     maxWidth: 900,
   },
 });
-
-export default artboardAtom;
