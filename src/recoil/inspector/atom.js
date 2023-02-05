@@ -11,3 +11,8 @@ export const inspectorIndividualCornersAtomFamily = atomFamily({
   key: 'inspector.individualCornersFamily',
   default: false,
 });
+
+export const inspectorBorderAtomFamily = atomFamily({
+  key: 'inspector.borderAtomFamily',
+  default: false,
+});

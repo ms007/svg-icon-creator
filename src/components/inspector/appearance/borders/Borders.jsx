@@ -1,6 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+
 import { H5, NumberInput, CheckBox, Spacer } from 'components/common';
+import { withBorderEnabled } from 'recoil/inspector';
+import { useRecoilState } from 'recoil';
 
 const Box = styled.div`
   display: flex;
@@ -21,7 +23,7 @@ const InputBox = styled.div`
 `;
 
 const Borders = () => {
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useRecoilState(withBorderEnabled);
   return (
     <>
       <H5>Borders</H5>

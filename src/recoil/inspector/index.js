@@ -1,6 +1,7 @@
 import { inspectorAtom } from './atom';
 
 import withAppearanceEnabled from './withAppearanceEnabled';
+import withBorderEnabled from './withBorderEnabled';
 import withDimensions from './withDimensions';
 import withDimensionsIncrease from './withDimensionsIncrease';
 import withUniformRadius from './withUniformRadius';
@@ -13,6 +14,7 @@ import withMaxRadius from './withMaxRadius';
 export {
   inspectorAtom,
   withAppearanceEnabled,
+  withBorderEnabled,
   withDimensions,
   withDimensionsIncrease,
   withUniformRadius,
