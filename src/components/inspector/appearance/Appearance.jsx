@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { H4 } from 'components/common';
 import Dimensions from './dimensions';
 import Corners from './corners';
+import Borders from './borders';
 
 import { withAppearanceEnabled } from 'recoil/inspector';
 
@@ -14,7 +15,12 @@ const Appearance = () => {
       <H4>Appearance</H4>
       <Dimensions />
 
-      {isEnabled && <Corners />}
+      {isEnabled && (
+        <>
+          <Corners />
+          <Borders />
+        </>
+      )}
     </>
   );
 };

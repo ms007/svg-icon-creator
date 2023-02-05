@@ -3,6 +3,7 @@ export { default as Logo } from './logo';
 export { default as MoreButton } from './moreButton';
 export { default as ToggleButton } from './toggleButton';
 export { default as SidePanel } from './sidePanel';
+export { default as CheckBox } from './checkbox';
 
 export * from './headings';
 export * from './icons';

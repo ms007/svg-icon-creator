@@ -44,14 +44,14 @@ const Corners = () => {
       <H5>Corner Radius</H5>
 
       <Box>
-        <Uniform disabled={individualEnabled} />
-        <Spacer size={10} />
         <ToggleCornerButton
           active={individualEnabled}
           onClick={() => setIndividualEnabled(!individualEnabled)}
         >
           <Corner height={20} />
         </ToggleCornerButton>
+        <Spacer size={10} />
+        <Uniform disabled={individualEnabled} />
       </Box>
 
       {individualEnabled && (
