@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { H5, NumberInput, CheckBox, Spacer } from 'components/common';
-import { withBorderEnabled } from 'recoil/inspector';
+import { withBorderWidth, withBorderEnabled } from 'recoil/inspector';
 import { useRecoilState } from 'recoil';
 
 const Box = styled.div`
@@ -23,15 +23,34 @@ const InputBox = styled.div`
 `;
 
 const Borders = () => {
-  const [checked, setChecked] = useRecoilState(withBorderEnabled);
+  const [strokeWidth, setStrokeWidth] = useRecoilState(withBorderWidth);
+  const [enabled, setEnabled] = useRecoilState(withBorderEnabled);
+
+  const onChange = (value) => {
+    if (value === 'multi') {
+      return;
+    }
+
+    setStrokeWidth(value);
+  };
+
   return (
     <>
       <H5>Borders</H5>
       <Box>
-        <BorderCheckBox checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+        <BorderCheckBox checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
         <Spacer size={10} />
         <InputBox>
-          <NumberInput label="px" />
+          <NumberInput
+            label="px"
+            value={strokeWidth}
+            onChange={onChange}
+            // onIncrement={onIncrement}
+            // onDecrement={onDecrement}
+            min={0}
+            multi={strokeWidth === 'multi'}
+            disabled={!enabled}
+          />
         </InputBox>
       </Box>
     </>

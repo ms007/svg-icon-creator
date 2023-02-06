@@ -10,7 +10,10 @@ const withBorderEnabled = selector({
       return false;
     }
 
-    return selectedCanvasItems.some((id) => get(inspectorBorderAtomFamily(id)));
+    return selectedCanvasItems.some((id) => {
+      const { enabled } = get(inspectorBorderAtomFamily(id));
+      return enabled;
+    });
   },
   set: ({ get, set }, enabled) => {
     const selectedCanvasItems = get(canvasSelectedItemsAtom);
@@ -19,19 +22,22 @@ const withBorderEnabled = selector({
     }
 
     selectedCanvasItems.forEach((id) => {
-      set(inspectorBorderAtomFamily(id), enabled);
+      const inspectorValues = get(inspectorBorderAtomFamily(id));
+      set(inspectorBorderAtomFamily(id), { ...inspectorValues, enabled });
 
-      const item = get(canvasItemsAtomFamily(id));
-      const { stroke } = item;
-      if (stroke && !enabled) {
-        // remove the stroke
-        const canvasItem = Object.keys()
-          .filter((key) => key !== 'stroke')
-          .reduce((cur, key) => {
-            return Object.assign(cur, { [key]: item[key] });
-          }, {});
+      const canvasItem = get(canvasItemsAtomFamily(id));
 
-        set(canvasItemsAtomFamily(id), canvasItem);
+      if (enabled) {
+        const stroke = canvasItem.stroke || {};
+        const { width } = inspectorValues;
+        set(canvasItemsAtomFamily(id), { ...canvasItem, stroke: { ...stroke, width } });
+      } else {
+        const { stroke } = canvasItem;
+        if (stroke) {
+          // remove the stroke
+          const { stroke, ...rest } = canvasItem;
+          set(canvasItemsAtomFamily(id), rest);
+        }
       }
     });
   },
