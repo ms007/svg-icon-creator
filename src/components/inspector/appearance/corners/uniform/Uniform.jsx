@@ -6,7 +6,6 @@ import { NumberInput } from 'components/common';
 import { withUniformRadius, withUniformRadiusIncrease, withMaxRadius } from 'recoil/inspector';
 
 const Box = styled.div`
-  width: 80px;
   height: 28px;
 `;
 

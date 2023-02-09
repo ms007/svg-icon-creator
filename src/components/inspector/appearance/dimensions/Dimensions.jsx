@@ -8,7 +8,7 @@ import { withDimensions, withDimensionsIncrease } from 'recoil/inspector';
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 80px 80px;
+  grid-template-columns: 75px 75px;
   grid-template-rows: 28px 28px;
   gap: 12px 16px;
   grid-template-areas:

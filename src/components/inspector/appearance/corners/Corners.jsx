@@ -15,9 +15,13 @@ const iconColor = theme('mode', {
   dark: 'var(--neutral40)',
 });
 
-const Box = styled.div`
-  display: flex;
-  align-items: center;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 28px 75px;
+  gap: 0 12px;
+  grid-template-areas:
+    'width x'
+    'height y';
 `;
 
 const ToggleCornerButton = styled(ToggleButton)`
@@ -43,16 +47,15 @@ const Corners = () => {
     <>
       <H5>Corner Radius</H5>
 
-      <Box>
+      <Container>
         <ToggleCornerButton
           active={individualEnabled}
           onClick={() => setIndividualEnabled(!individualEnabled)}
         >
           <Corner height={20} />
         </ToggleCornerButton>
-        <Spacer size={10} />
         <Uniform disabled={individualEnabled} />
-      </Box>
+      </Container>
 
       {individualEnabled && (
         <>
