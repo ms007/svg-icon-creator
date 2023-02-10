@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { H5, NumberInput, CheckBox } from 'components/common';
+import { H5, NumberInput, CheckBox, ColorInput } from 'components/common';
 import { withBorderWidth, withBorderIncrease, withBorderEnabled } from 'recoil/inspector';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -8,6 +8,11 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 28px 75px;
   gap: 0 12px;
+  margin-right: 16px;
+`;
+
+const Box = styled.div`
+  display: flex;
 `;
 
 const BorderCheckBox = styled(CheckBox)`
@@ -20,6 +25,7 @@ const BorderCheckBox = styled(CheckBox)`
 
 const InputBox = styled.div`
   height: 28px;
+  width: 75px;
 `;
 
 const Borders = () => {
@@ -46,8 +52,12 @@ const Borders = () => {
   return (
     <>
       <H5>Borders</H5>
-      <Container>
-        <BorderCheckBox checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
+      <Box>
+        <Container>
+          <BorderCheckBox checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
+          <ColorInput color="#000000" />
+        </Container>
+
         <InputBox>
           <NumberInput
             label="px"
@@ -60,7 +70,7 @@ const Borders = () => {
             disabled={!enabled}
           />
         </InputBox>
-      </Container>
+      </Box>
     </>
   );
 };
