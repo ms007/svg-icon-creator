@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import { H5, NumberInput, CheckBox } from 'components/common';
-import { withBorderWidth, withBorderEnabled } from 'recoil/inspector';
-import { useRecoilState } from 'recoil';
+import { withBorderWidth, withBorderIncrease, withBorderEnabled } from 'recoil/inspector';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 const Container = styled.div`
   display: grid;
@@ -25,6 +25,7 @@ const InputBox = styled.div`
 const Borders = () => {
   const [enabled, setEnabled] = useRecoilState(withBorderEnabled);
   const [strokeWidth, setStrokeWidth] = useRecoilState(withBorderWidth);
+  const increaseBorderWidth = useSetRecoilState(withBorderIncrease);
 
   const onChange = (value) => {
     if (value === 'multi') {
@@ -32,6 +33,14 @@ const Borders = () => {
     }
 
     setStrokeWidth(value);
+  };
+
+  const onIncrement = (amount) => {
+    increaseBorderWidth(amount);
+  };
+
+  const onDecrement = (amount) => {
+    increaseBorderWidth(-amount);
   };
 
   return (
@@ -44,8 +53,8 @@ const Borders = () => {
             label="px"
             value={strokeWidth}
             onChange={onChange}
-            // onIncrement={onIncrement}
-            // onDecrement={onDecrement}
+            onIncrement={onIncrement}
+            onDecrement={onDecrement}
             min={0}
             multi={strokeWidth === 'multi'}
             disabled={!enabled}

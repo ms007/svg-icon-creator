@@ -30,7 +30,7 @@ const withBorderWidth = selector({
       // persists the inspector state
       set(inspectorBorderAtomFamily(id), { ...inspectorValues, width });
 
-      // persists the canvas item sate
+      // persists the canvas item state
       const canvasItem = get(canvasItemsAtomFamily(id));
       if (width > 0) {
         const stroke = canvasItem.stroke || {};

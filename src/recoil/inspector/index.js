@@ -3,6 +3,7 @@ import { inspectorAtom } from './atom';
 import withAppearanceEnabled from './withAppearanceEnabled';
 import withBorderWidth from './withBorderWidth';
 import withBorderEnabled from './withBorderEnabled';
+import withBorderIncrease from './withBorderIncrease';
 import withDimensions from './withDimensions';
 import withDimensionsIncrease from './withDimensionsIncrease';
 import withUniformRadius from './withUniformRadius';
@@ -17,6 +18,7 @@ export {
   withAppearanceEnabled,
   withBorderWidth,
   withBorderEnabled,
+  withBorderIncrease,
   withDimensions,
   withDimensionsIncrease,
   withUniformRadius,
