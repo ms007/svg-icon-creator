@@ -1,67 +1,92 @@
+import React from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import styled, { keyframes } from 'styled-components';
-import { Menu as MenuInner } from '@szhsin/react-menu';
-import {
-  menuSelector,
-  menuItemSelector,
-  menuDividerSelector,
-} from '@szhsin/react-menu/style-utils';
-import '@szhsin/react-menu/dist/core.css';
 
-const menuShow = keyframes`
-  from {
-    opacity: 0;
-  }
-`;
-const menuHide = keyframes`
-  to {
-    opacity: 0;
-  }
+const slideUpAndFade = keyframes`
+    0% {
+      opacity: 0;
+      transform: translateY(2px)
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0)
+    }
 `;
 
-const Menu = styled(MenuInner)`
-  ${menuSelector.name} {
-    position: absolute;
-    margin: 0;
-    padding: 10px;
-    width: ${({ width }) => `${width}px`};
-    box-sizing: border-box;
-    box-shadow: 0 10px 20px rgba(64, 64, 64, 0.15);
-    background-color: var(--neutral);
-    border-radius: 8px;
-    border: none;
-    list-style: none;
-    user-select: none;
-    z-index: 100;
+const slideRightAndFade = keyframes`
+    0% {
+      opacity: 0;
+      transform: translateX(-2px)
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0)
+    }
+`;
+
+const slideDownAndFade = keyframes`
+    0% {
+      opacity: 0;
+      transform: translateY(-2px)
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0)
+    }
+`;
+
+const slideLeftAndFade = keyframes`
+    0% {
+      opacity: 0;
+      transform: translateX(2px)
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0)
+    }
+`;
+
+const DropdownMenuContent = styled(DropdownMenu.Content)`
+  width: ${({ width }) => `${width}px`};
+  min-width: 220px;
+  background-color: var(--neutral);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(64, 64, 64, 0.15);
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  user-select: none;
+
+  &[data-state='open']&[data-side='top'] {
+    animation: ${slideDownAndFade};
   }
 
-  ${menuSelector.stateOpening} {
-    animation: ${menuShow} 0.15s ease-out;
+  &[data-state='open']&[data-side='right'] {
+    animation: ${slideLeftAndFade};
   }
 
-  // NOTE: animation-fill-mode: forwards is required to
-  // prevent flickering with React 18 createRoot()
-  ${menuSelector.stateClosing} {
-    animation: ${menuHide} 0.2s ease-out forwards;
+  &[data-state='open']&[data-side='bottom'] {
+    animation: ${slideUpAndFade};
   }
 
-  ${menuItemSelector.name} {
-    border-radius: 4px;
-    padding: 10px 10px;
-  }
-
-  ${menuItemSelector.hover} {
-    background-color: var(--neutral20);
-  }
-
-  ${menuDividerSelector.name} {
-    margin: 10px -10px;
-    background-color: var(--neutral10);
-    height: 2px;
+  &[data-state='open']&[data-side='left'] {
+    animation: ${slideRightAndFade};
   }
 `;
+
+const Menu = ({ renderMenuButton, width = 'auto', align = 'center', children }) => {
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>{renderMenuButton()}</DropdownMenu.Trigger>
+
+      <DropdownMenu.Portal>
+        <DropdownMenuContent sideOffset={5} width={width} align={align}>
+          {children}
+        </DropdownMenuContent>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+};
 
 export default Menu;
-
-Menu.defaultProps = {
-  width: 208,
-};

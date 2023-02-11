@@ -9,20 +9,24 @@ const Box = styled.div`
   align-items: center;
 `;
 
-const ThemeSwitchMenuItem = (props) => {
+const Switch = ({ highlighted, text }) => {
+  return (
+    <Box>
+      <MenuIcon hovered={highlighted}>
+        <Drop />
+      </MenuIcon>
+      {text}
+    </Box>
+  );
+};
+
+const ThemeSwitchMenuItem = () => {
   const { theme, toggleTheme } = useTheme();
   const text = `Activate ${theme === 'light' ? 'dark' : 'light'} mode`;
 
   return (
-    <MenuItem onClick={toggleTheme} {...props}>
-      {({ hover }) => (
-        <Box>
-          <MenuIcon hovered={hover}>
-            <Drop />
-          </MenuIcon>
-          {text}
-        </Box>
-      )}
+    <MenuItem onSelect={toggleTheme}>
+      <Switch text={text} />
     </MenuItem>
   );
 };

@@ -11,8 +11,8 @@ const Box = styled.div`
   color: ${({ hovered }) => (hovered ? 'var(--neutral50)' : 'var(--neutral40)')};
 `;
 
-const ThemeSwitchButton = ({ children, ...props }) => {
+const MenuIcon = ({ children, ...props }) => {
   return <Box {...props}>{children}</Box>;
 };
 
-export default ThemeSwitchButton;
+export default MenuIcon;
