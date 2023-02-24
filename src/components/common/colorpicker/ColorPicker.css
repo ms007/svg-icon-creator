@@ -1,0 +1,34 @@
+.picker .react-colorful {
+  width: 100%;
+}
+
+.picker .react-colorful__saturation {
+  border-bottom: none;
+  margin-bottom: 16px;
+}
+
+.picker .react-colorful__hue {
+  margin-bottom: 8px;
+}
+
+.picker .react-colorful__saturation,
+.picker .react-colorful__hue,
+.picker .react-colorful__alpha {
+  border-radius: 4px;
+}
+
+.picker .react-colorful__hue,
+.picker .react-colorful__alpha {
+  height: 10px;
+}
+
+.picker .react-colorful__saturation-pointer,
+.picker .react-colorful__hue-pointer,
+.picker .react-colorful__alpha-pointer {
+  width: 14px;
+  height: 14px;
+}
+
+.picker .react-colorful__alpha {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 14'%3E%3Cpath fill='%23eae8e8' d='M15 7V0H7.5v7H15Zm-7.5 7V7H0v7h7.5Z'/%3E%3C/svg%3E");
+}

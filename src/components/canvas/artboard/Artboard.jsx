@@ -17,7 +17,7 @@ import {
 import Grid from './grid';
 
 const boxShadow = theme('mode', {
-  light: `0 0 2px 0 ${'#b9bcc0'}`,
+  light: '0 0 2px 0 #b9bcc0',
   dark: 'none',
 });
 

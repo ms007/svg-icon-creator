@@ -1,5 +1,5 @@
-import React from 'react';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as RadixPopover from '@radix-ui/react-popover';
+
 import styled, { keyframes } from 'styled-components';
 
 const slideUpAndFade = keyframes`
@@ -46,7 +46,7 @@ const slideLeftAndFade = keyframes`
     }
 `;
 
-const DropdownMenuContent = styled(DropdownMenu.Content)`
+const PopoverContent = styled(RadixPopover.Content)`
   width: ${({ width }) => `${width}px`};
   min-width: 220px;
   background-color: var(--neutral);
@@ -75,18 +75,25 @@ const DropdownMenuContent = styled(DropdownMenu.Content)`
   }
 `;
 
-const Menu = ({ renderMenuButton, width = 'auto', align = 'center', children }) => {
+const Popover = ({
+  renderPopoverButton,
+  renderAnchor,
+  width = 'auto',
+  align = 'center',
+  children,
+}) => {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>{renderMenuButton()}</DropdownMenu.Trigger>
+    <RadixPopover.Root>
+      {renderAnchor && <RadixPopover.Anchor asChild>{renderAnchor()}</RadixPopover.Anchor>}
+      <RadixPopover.Trigger asChild>{renderPopoverButton()}</RadixPopover.Trigger>
 
-      <DropdownMenu.Portal>
-        <DropdownMenuContent sideOffset={5} width={width} align={align}>
+      <RadixPopover.Portal>
+        <PopoverContent width={width} align={align}>
           {children}
-        </DropdownMenuContent>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+        </PopoverContent>
+      </RadixPopover.Portal>
+    </RadixPopover.Root>
   );
 };
 
-export default Menu;
+export default Popover;

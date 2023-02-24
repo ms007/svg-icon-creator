@@ -1,8 +1,14 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-import { H5, NumberInput, CheckBox, ColorInput } from 'components/common';
-import { withBorderWidth, withBorderIncrease, withBorderEnabled } from 'recoil/inspector';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { H5, NumberInput, CheckBox, ColorInput, ColorPicker } from 'components/common';
+import {
+  inspectorAtom,
+  withBorderWidth,
+  withBorderIncrease,
+  withBorderEnabled,
+} from 'recoil/inspector';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 
 const Container = styled.div`
   display: grid;
@@ -26,9 +32,19 @@ const BorderCheckBox = styled(CheckBox)`
 const InputBox = styled.div`
   height: 28px;
   width: 75px;
+  align-self: center;
+  justify-self: center;
+`;
+
+const Anchor = styled.div`
+  position: absolute;
+  right: 20px;
+  height: 38px;
 `;
 
 const Borders = () => {
+  const [color, setColor] = useState('#000000');
+  const { width } = useRecoilValue(inspectorAtom);
   const [enabled, setEnabled] = useRecoilState(withBorderEnabled);
   const [strokeWidth, setStrokeWidth] = useRecoilState(withBorderWidth);
   const increaseBorderWidth = useSetRecoilState(withBorderIncrease);
@@ -55,7 +71,13 @@ const Borders = () => {
       <Box>
         <Container>
           <BorderCheckBox checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
-          <ColorInput color="#000000" />
+          <ColorPicker
+            color={color}
+            width={width - 40 - 5}
+            renderTrigger={() => <ColorInput color={color} />}
+            renderAnchor={() => <Anchor />}
+            onChange={setColor}
+          />
         </Container>
 
         <InputBox>

@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 
+  :root {
+    --radix-radius: 8px
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
