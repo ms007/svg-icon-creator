@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'styled-theming';
+import { colord } from 'colord';
 
 const boxShadow = theme('mode', {
   light: 'inset 0 0 0 1px rgb(117 117 117 / 20%)',
@@ -22,7 +23,7 @@ const Button = styled.button`
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: ${({ color }) => color};
+  background-color: ${({ color }) => colord(color).toRgbString()};
   border: none;
   border-radius: 4px;
   padding: 0;

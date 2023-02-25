@@ -24,8 +24,8 @@
 .picker .react-colorful__hue,
 .picker .react-colorful__alpha {
   height: 10px;
-  width: calc(100% - 42px);
-  margin-left: 42px;
+  width: calc(100% - 44px);
+  margin-left: 44px;
 }
 
 .picker .react-colorful__saturation-pointer,

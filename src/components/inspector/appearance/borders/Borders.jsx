@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 import { H5, NumberInput, CheckBox, ColorInput, ColorPicker } from 'components/common';
@@ -6,6 +5,7 @@ import {
   inspectorAtom,
   withBorderWidth,
   withBorderIncrease,
+  withBorderColor,
   withBorderEnabled,
 } from 'recoil/inspector';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
@@ -43,9 +43,9 @@ const Anchor = styled.div`
 `;
 
 const Borders = () => {
-  const [color, setColor] = useState('#000000');
   const { width } = useRecoilValue(inspectorAtom);
   const [enabled, setEnabled] = useRecoilState(withBorderEnabled);
+  const [color, setColor] = useRecoilState(withBorderColor);
   const [strokeWidth, setStrokeWidth] = useRecoilState(withBorderWidth);
   const increaseBorderWidth = useSetRecoilState(withBorderIncrease);
 

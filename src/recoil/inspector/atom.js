@@ -17,5 +17,6 @@ export const inspectorBorderAtomFamily = atomFamily({
   default: {
     enabled: false,
     width: 1,
+    color: { r: 34, g: 34, b: 34, a: 1 },
   },
 });

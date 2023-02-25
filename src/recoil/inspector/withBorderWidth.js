@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { canvasSelectedItemsAtom, canvasItemsAtomFamily } from 'recoil/canvas';
+import { canvasSelectedItemsAtom, withCanvasItemBorder } from 'recoil/canvas';
 import { inspectorBorderAtomFamily } from './atom';
 
 const withBorderWidth = selector({
@@ -23,22 +23,9 @@ const withBorderWidth = selector({
 
     selectedCanvasItems.forEach((id) => {
       const inspectorValues = get(inspectorBorderAtomFamily(id));
-      if (!inspectorValues.enabled) {
-        return;
-      }
-
-      // persists the inspector state
-      set(inspectorBorderAtomFamily(id), { ...inspectorValues, width });
-
-      // persists the canvas item state
-      const canvasItem = get(canvasItemsAtomFamily(id));
-      if (width > 0) {
-        const stroke = canvasItem.stroke || {};
-        set(canvasItemsAtomFamily(id), { ...canvasItem, stroke: { ...stroke, width } });
-      } else {
-        const { stroke, ...rest } = canvasItem;
-        set(canvasItemsAtomFamily(id), rest);
-      }
+      const newInpectorValues = { ...inspectorValues, width };
+      set(inspectorBorderAtomFamily(id), newInpectorValues);
+      set(withCanvasItemBorder, { ...newInpectorValues, id });
     });
   },
 });

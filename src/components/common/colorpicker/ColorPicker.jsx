@@ -1,6 +1,7 @@
 import Popover from '../popover';
 import styled from 'styled-components';
-import { HexAlphaColorPicker } from 'react-colorful';
+import { RgbaColorPicker } from 'react-colorful';
+import { colord } from 'colord';
 
 import './ColorPicker.css';
 
@@ -21,7 +22,7 @@ const CircleForeground = styled.div`
   top: 170px;
   height: 32px;
   width: 32px;
-  background-color: ${({ color }) => color};
+  background-color: ${({ color }) => colord(color).toRgbString()};
   border-radius: 50%;
   box-shadow: inset 0 0 0 1px rgb(117 117 117 / 20%);
 `;
@@ -35,7 +36,7 @@ const ColorPicker = ({ color, width, renderTrigger, renderAnchor, onChange }) =>
       renderPopoverButton={renderTrigger}
     >
       <div className="picker">
-        <HexAlphaColorPicker color={color} onChange={onChange} />
+        <RgbaColorPicker color={color} onChange={onChange} />
         <CircleBackground />
         <CircleForeground color={color} />
       </div>
