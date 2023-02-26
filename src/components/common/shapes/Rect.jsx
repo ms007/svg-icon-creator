@@ -2,8 +2,20 @@ import React from 'react';
 import { omit } from 'utils';
 import generatePath from './pathGenerator';
 
-const Rect = ({ x, y, width, height, fill, radius, ...props }) => {
+const Rect = ({ x, y, width, height, fill, radius, stroke, ...props }) => {
   props = omit(props, ['type', 'name', 'selectable', 'isMoving']);
+
+  const hasStroke = stroke != null;
+  if (hasStroke) {
+    props.stroke = stroke.color;
+    props.strokeOpacity = stroke.opacity;
+    props.strokeWidth = stroke.width;
+  }
+
+  x = hasStroke ? x + stroke.width / 2 : x;
+  y = hasStroke ? y + stroke.width / 2 : y;
+  width = hasStroke ? width - stroke.width : width;
+  height = hasStroke ? height - stroke.width : height;
 
   const hasRadius = radius != null;
   if (!hasRadius) {
