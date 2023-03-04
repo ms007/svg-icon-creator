@@ -12,7 +12,10 @@ import {
   canvasHoveredItemAtom,
 } from 'recoil/canvas';
 
+import { isSamePoint } from 'utils';
+
 export default function CanvasItem({ id }) {
+  const [originalPointerPosition, setOriginalPointerPosition] = useState(null);
   const [isMoving, setIsMoving] = useState(false);
   const itemState = useRecoilValue(canvasItemsAtomFamily(id));
   const isCreatingNewCanvasItem = useRecoilValue(canvasIsCreatingNewItemAtom);
@@ -25,6 +28,7 @@ export default function CanvasItem({ id }) {
   const { onMouseDown } = useCanvasItemMove(({ status, position, event }) => {
     if (status === 'start') {
       selectCanvasItem(id, { shiftKey: event.shiftKey });
+      setOriginalPointerPosition(position);
       resetEditing();
       setIsMoving(true);
     }
@@ -34,8 +38,11 @@ export default function CanvasItem({ id }) {
     }
 
     if (status === 'end') {
-      // ToDo: make snap to grid configurable
-      moveSelectedItems(position, { snapToGrid: true });
+      if (!isSamePoint(originalPointerPosition, position)) {
+        console.log({ originalPointerPosition, position });
+        // ToDo: make snap to grid configurable
+        moveSelectedItems(position, { snapToGrid: true });
+      }
       setIsMoving(false);
     }
   });

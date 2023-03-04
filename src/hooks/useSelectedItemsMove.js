@@ -32,7 +32,6 @@ export default function useSelectedItemsMove(id) {
             const y = position.y - offset.y - (stroke?.width || 0) / 2;
 
             const shape = { ...state, x, y };
-            console.log('shape', shape);
             return options.snapToGrid ? snapToGrid(shape) : shape;
           })
         );

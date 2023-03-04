@@ -1,6 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import useSvgMousePosition from './useSvgMousePosition';
 
+const getTopLeftPosition = (position, offset) => {
+  return {
+    x: position.x - offset.x,
+    y: position.y - offset.y,
+  };
+};
+
 export default function useCanvasItemMove(func) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isMoving, setIsMoving] = useState(false);
@@ -16,15 +23,18 @@ export default function useCanvasItemMove(func) {
 
   const handleMouseDown = useCallback(
     (event, props) => {
-      const position = getMousePosition(event);
+      const mousePosition = getMousePosition(event);
       const selectedElement = event.target;
 
       const { x, y } = selectedElement.getBBox();
-      position.x -= parseFloat(x);
-      position.y -= parseFloat(y);
+      const offset = {
+        x: (mousePosition.x -= parseFloat(x)),
+        y: (mousePosition.y -= parseFloat(y)),
+      };
 
       setIsMoving(true);
-      setOffset(position);
+      setOffset(offset);
+      const position = { x, y };
       callback('start', position, event, props);
     },
     [callback, getMousePosition]
@@ -36,9 +46,8 @@ export default function useCanvasItemMove(func) {
         return;
       }
 
-      const position = getMousePosition(event);
-      position.x = position.x - offset.x;
-      position.y = position.y - offset.y;
+      const mousePosition = getMousePosition(event);
+      const position = getTopLeftPosition(mousePosition, offset);
       callback('moving', position, event);
     },
     [callback, getMousePosition, isMoving, offset]
@@ -52,9 +61,8 @@ export default function useCanvasItemMove(func) {
 
       setIsMoving(false);
 
-      const position = getMousePosition(event);
-      position.x = position.x - offset.x;
-      position.y = position.y - offset.y;
+      const mousePosition = getMousePosition(event);
+      const position = getTopLeftPosition(mousePosition, offset);
       callback('end', position, event);
     },
     [callback, getMousePosition, isMoving, offset]
