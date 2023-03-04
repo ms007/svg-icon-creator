@@ -9,6 +9,7 @@ import {
   withBorderEnabled,
 } from 'recoil/inspector';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
+import { withCanvasItemsColors } from 'recoil/canvas';
 
 const Container = styled.div`
   display: grid;
@@ -48,6 +49,12 @@ const Borders = () => {
   const [color, setColor] = useRecoilState(withBorderColor);
   const [strokeWidth, setStrokeWidth] = useRecoilState(withBorderWidth);
   const increaseBorderWidth = useSetRecoilState(withBorderIncrease);
+  const presetColors = useRecoilValue(withCanvasItemsColors);
+
+  const onColorChange = (value) => {
+    console.log(value);
+    setColor(value);
+  };
 
   const onChange = (value) => {
     if (value === 'multi') {
@@ -76,7 +83,7 @@ const Borders = () => {
             width={width - 40 - 5}
             renderTrigger={() => <ColorInput color={color} />}
             renderAnchor={() => <Anchor />}
-            onChange={setColor}
+            onChange={onColorChange}
           />
         </Container>
 

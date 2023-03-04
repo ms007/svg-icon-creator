@@ -15,6 +15,7 @@ import withCanvasItemBorder from './withCanvasItemBorder';
 import withCanvasItemCoordinates from './withCanvasItemCoordinates';
 import withSelectionCoordinates from './withSelectionCoordinates';
 import withSelectionGripCoords from './withSelectionGripCoords';
+import withCanvasItemsColors from './withCanvasItemsColors';
 import withCanvasItemsDelete from './withCanvasItemsDelete';
 import withCanvasItemMaxRadius from './withCanvasItemMaxRadius';
 
@@ -33,6 +34,7 @@ export {
   withCanvasItemCoordinates,
   withSelectionCoordinates,
   withSelectionGripCoords,
+  withCanvasItemsColors,
   withCanvasItemsDelete,
   withCanvasItemMaxRadius,
 };

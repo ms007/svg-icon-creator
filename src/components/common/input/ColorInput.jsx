@@ -17,13 +17,16 @@ const Background = styled.div`
   border-radius: 4px;
 `;
 
-const Button = styled.button`
+const Button = styled.button.attrs(({ color }) => ({
+  style: {
+    backgroundColor: colord(color).toRgbString(),
+  },
+}))`
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: ${({ color }) => colord(color).toRgbString()};
   border: none;
   border-radius: 4px;
   padding: 0;

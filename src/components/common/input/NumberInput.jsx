@@ -6,8 +6,8 @@ import InputField from './InputField';
 import Label from './Label';
 
 const isNumeric = (value) => !isNaN(parseFloat(value)) && isFinite(value);
-
 const isAltKeyPressed = (event) => event.altKey === true;
+const round = (value) => Math.round((value + Number.EPSILON) * 100) / 100;
 
 const NumberInput = ({
   label,
@@ -90,8 +90,7 @@ const NumberInput = ({
     }
 
     const isValidNumber = isNumber && isValid(newValue);
-    setCurrentValue(isValidNumber ? newValue : lastValidValue.current);
-    update(newValue);
+    update(isValidNumber ? newValue : lastValidValue.current);
   };
 
   const update = (value) => {
@@ -103,6 +102,7 @@ const NumberInput = ({
     if (isNumeric(value)) {
       value = parseFloat(value);
       if (isValid(value)) {
+        value = round(value);
         lastValidValue.current = value;
         onChange(value);
       }
@@ -121,9 +121,11 @@ const NumberInput = ({
         onBlur={onBlur}
         ref={inputRef}
       />
-      <Label active={active} disabled={disabled}>
-        {label}
-      </Label>
+      {label && (
+        <Label active={active} disabled={disabled}>
+          {label}
+        </Label>
+      )}
     </InputWrapper>
   );
 };

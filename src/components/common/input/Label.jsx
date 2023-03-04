@@ -12,7 +12,9 @@ const colorDisabled = theme('mode', {
 });
 
 const Label = styled.div`
-  padding: 0 5px;
+  padding: 0;
+  padding-left: 5px;
+  padding-right: ${({ left }) => (left ? 0 : '5px')};
   font-size: 10px;
   font-weight: 700;
   color: ${({ active, disabled }) =>
