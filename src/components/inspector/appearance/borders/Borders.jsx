@@ -52,7 +52,6 @@ const Borders = () => {
   const presetColors = useRecoilValue(withCanvasItemsColors);
 
   const onColorChange = (value) => {
-    console.log(value);
     setColor(value);
   };
 

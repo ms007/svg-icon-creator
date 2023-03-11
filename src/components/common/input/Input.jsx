@@ -4,7 +4,7 @@ import Label from './Label';
 import InputField from './InputField';
 import InputWrapper from './InputWrapper';
 
-const Input = ({ label, labelPosition = 'right', value, multi, disabled, onChange }) => {
+const Input = ({ label, labelPosition = 'right', value, multi, disabled, onChange, onBlur }) => {
   const inputRef = useRef(null);
   const lastValidValue = useRef(value);
   const [active, setActive] = useState(false);
@@ -20,7 +20,7 @@ const Input = ({ label, labelPosition = 'right', value, multi, disabled, onChang
     inputRef.current.select();
   };
 
-  const onBlur = () => {
+  const handleBlur = () => {
     setActive(false);
 
     const value = inputRef.current.value;
@@ -31,6 +31,7 @@ const Input = ({ label, labelPosition = 'right', value, multi, disabled, onChang
     let newValue = value;
     // ToDo: Validatation
     update(newValue);
+    onBlur && onBlur(newValue);
   };
 
   const update = (value) => {
@@ -57,7 +58,7 @@ const Input = ({ label, labelPosition = 'right', value, multi, disabled, onChang
         value={currentValue}
         onChange={(event) => update(event.target.value)}
         onFocus={onFocus}
-        onBlur={onBlur}
+        onBlur={handleBlur}
         ref={inputRef}
       />
       {label && labelPosition !== 'left' && (
